@@ -15,6 +15,9 @@ const Navbar = () => {
             <NavbarLink to="/products">Boards</NavbarLink>
             <NavbarLink to="/contact">Contact</NavbarLink>
             <NavbarLink to="/about">About</NavbarLink>
+            <NavbarLink to="/cart"><i className='fas fa-shopping-cart'>Cart</i></NavbarLink>
+            <NavbarLink to="/login"><i className='fas fa-user'>Login</i></NavbarLink>
+
             <OpenLinksButton 
               onClick={() => {
                 setExtendNavbar((curr) => !curr)
@@ -33,6 +36,8 @@ const Navbar = () => {
         <NavbarLinkExtended to="/products">Boards</NavbarLinkExtended>
         <NavbarLinkExtended to="/contact">Contact</NavbarLinkExtended>
         <NavbarLinkExtended to="/about">About</NavbarLinkExtended>
+        <NavbarLinkExtended to="/cart"><i className='fas fa-shopping-cart'>Cart</i></NavbarLinkExtended>
+        <NavbarLinkExtended to="/login"><i className='fas fa-user'>Login</i></NavbarLinkExtended>
       </NavbarExtendedContainer>)}
     </NavbarContainer>
   )

@@ -1,8 +1,9 @@
 import React from 'react'
+import { Container } from '../styles/Homescreen.styles'
 
 const Homescreen = () => {
   return (
-    <div>Homescreen</div>
+    <Container>Home screen</Container>
   )
 }
 
