@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import products from '../products'
 import { Container, ProductDetailsContainer, ProductDetails, DetailContainer, Image, BackBtn, CheckoutBtn } from '../styles/ProductScreen.styles'
 
@@ -19,7 +19,7 @@ const ProductScreen = () => {
             <h3>{product.description}</h3>
           </DetailContainer>
           <DetailContainer>
-            <h2>{`$ ${product.price}`}</h2>
+            <h2>{`Price: $${product.price}`}</h2>
           </DetailContainer>
           <CheckoutBtn>Add to Cart</CheckoutBtn>
         </ProductDetails>
