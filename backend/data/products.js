@@ -79,6 +79,6 @@ const products = [
     },
   ]
   
-  // export default products needs to be changed to CommonJS Syntax
-  
-  module.exports = products
+  // export default products needs to be changed from CommonJS Syntax to ES Modules syntax
+  // module.exports = products //<- CommonJS export 
+  export default products //<- ES Modules export 
