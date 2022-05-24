@@ -1,11 +1,22 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
 import { useParams } from 'react-router-dom'
-import products from '../products'
 import { Container, ProductDetailsContainer, ProductDetails, DetailContainer, Image, BackBtn, CheckoutBtn } from '../styles/ProductScreen.styles'
 
 const ProductScreen = () => {
   let { id } = useParams()
-  const product = products.find(p => p._id === id)
+
+  const [product, setProduct] = useState({})
+
+  useEffect(() => {
+    const fetchProduct = async () => {
+      let {data} = await axios.get(`/api/products/${id}`)
+      setProduct(data)
+    }
+
+    fetchProduct()
+  }, [])
+
   return (
     <Container>
       <BackBtn to="/products">Go Back</BackBtn>
