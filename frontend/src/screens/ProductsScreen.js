@@ -1,9 +1,24 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import products from '../products'
 import Product from '../components/Product'
 import { Container, H1, ProductsContainer } from '../styles/ProductsScreen.styles'
 
 const ProductsScreen = () => {
+  
+  const [products, setProducts] = useState([])
+  
+  useEffect(() => {
+    const fetchProducts = async () => {
+      let { data } = await axios.get('/api/products')
+
+      setProducts(data)
+    }
+
+    fetchProducts()
+  }, [])
+
+  // The dependencies parameter is reserved for any value that you wish to fire off the useEffect
+
   return (
     <Container>
       <H1>Products</H1>
