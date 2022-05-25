@@ -21,7 +21,7 @@ const ProductScreen = () => {
     <Container>
       <BackBtn to="/products">Go Back</BackBtn>
       <ProductDetailsContainer>
-        <Image src={product.image}/>
+        <Image src={product.imageOne}/>
         <ProductDetails>
           <DetailContainer>
             <h1>{product.name}</h1>
