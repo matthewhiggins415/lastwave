@@ -9,14 +9,14 @@ import { notFound, errorHandler } from './middleware/errorMiddleware.js'
 
 dotenv.config()
 
-let app = express()
+const app = express()
 
 app.use(express.json())
 
 connectDB()
 
 app.get('/', (req, res) => {
-    res.send('API is up and running.')
+  res.send('API is up and running.')
 })
 
 app.use('/api/products', productRoutes)
