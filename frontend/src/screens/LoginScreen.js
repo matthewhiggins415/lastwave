@@ -19,15 +19,16 @@ const LoginScreen = () => {
 
   const onSubmit = (e) => {
     e.preventDefault()
+    console.log(formData)
   }
 
   return (
     <Container>
         <h1>Login</h1>
-        <Form>
+        <Form onSubmit={onSubmit}>
           <Input type="text" name="email" value={email} placeholder="enter email" onChange={onChange}/>
           <Input type="password" name="password" value={password} placeholder="enter pw" onChange={onChange}/>
-          <Button type="submit" onSubmit={onSubmit}>Submit</Button>
+          <Button type="submit">Submit</Button>
         </Form>
     </Container>
   )

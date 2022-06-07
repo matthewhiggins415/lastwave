@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import Spinner from '../components/Spinner'
 import { Container, Form, Input, Button } from '../styles/RegisterScreen.styles'
+import axios from 'axios'
 
 const RegisterScreen = () => {
   const [formData, setFormData] = useState({
@@ -24,10 +25,10 @@ const RegisterScreen = () => {
   }
 
   const onSubmit = (e) => {
-    e.preventDefault(e)
+    e.preventDefault()
 
     if (password !== password2) {
-      toast.error('Passwords do not match')
+      console.log('passwords do not match')
     } else {
       const userData = {
         name,
@@ -35,6 +36,13 @@ const RegisterScreen = () => {
         password, 
         password2
       }
+
+      const registerUser = async (data) => {
+        let response = await axios.post('/api/users', userData)
+        console.log(response)
+      }
+
+      registerUser(userData)
     }
   }
 
