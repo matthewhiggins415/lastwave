@@ -5,7 +5,7 @@ import Spinner from '../components/Spinner'
 import { Container, Form, Input, Button } from '../styles/RegisterScreen.styles'
 import axios from 'axios'
 
-const RegisterScreen = () => {
+const RegisterScreen = ({ notify }) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '', 
@@ -28,7 +28,7 @@ const RegisterScreen = () => {
     e.preventDefault()
 
     if (password !== password2) {
-      console.log('passwords do not match')
+      notify('passwords do not match', 'warning')
     } else {
       const userData = {
         name,
@@ -50,10 +50,10 @@ const RegisterScreen = () => {
     <Container>
         <h1>Register</h1>
         <Form>
-          <Input type="text" name="name" value={name} placeholder="enter name" onChange={onChange}/>
-          <Input type="text" name="email" value={email} placeholder="enter email" onChange={onChange}/>
-          <Input type="password" name="password" value={password} placeholder="enter pw" onChange={onChange}/>
-          <Input type="password" name="password2" value={password2} placeholder="confirm pw" onChange={onChange}/>
+          <Input type="text" name="name" value={name} placeholder="Name" onChange={onChange}/>
+          <Input type="text" name="email" value={email} placeholder="Email" onChange={onChange}/>
+          <Input type="password" name="password" value={password} placeholder="Password" onChange={onChange}/>
+          <Input type="password" name="password2" value={password2} placeholder="Confirm Password" onChange={onChange}/>
           <Button type="submit" onSubmit={onSubmit}>Submit</Button>
         </Form>
     </Container>

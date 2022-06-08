@@ -1,12 +1,16 @@
+import { Navigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import { Container, Form, Input, Button } from '../styles/RegisterScreen.styles'
+import { signIn } from '../api/auth'
 
 
-const LoginScreen = () => {
+const LoginScreen = ({ notify, setUser }) => {
   const [formData, setFormData] = useState({
     email: '', 
     password: ''
   })
+
+  const [navigate, setNavigate] = useState(false) 
 
   const { email, password } = formData
 
@@ -17,15 +21,34 @@ const LoginScreen = () => {
     }))
   }
 
-  const onSubmit = (e) => {
+  const onSignIn = async (e) => {
     e.preventDefault()
-    console.log(formData)
+
+    try {
+      let res = await signIn(formData)
+
+      // set the user 
+      setUser(res.data.user)
+
+      // navigate to products screen
+      setNavigate(true)
+
+      // notify user of successful login
+      notify('login successful')
+    } catch(e) {
+      setFormData({ email: '', password: '' })
+      notify('login denied', 'danger')
+    }
+  }
+
+  if (navigate) {
+    return <Navigate to='/products' /> 
   }
 
   return (
     <Container>
         <h1>Login</h1>
-        <Form onSubmit={onSubmit}>
+        <Form onSubmit={onSignIn}>
           <Input type="text" name="email" value={email} placeholder="enter email" onChange={onChange}/>
           <Input type="password" name="password" value={password} placeholder="enter pw" onChange={onChange}/>
           <Button type="submit">Submit</Button>
