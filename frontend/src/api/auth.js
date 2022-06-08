@@ -5,7 +5,8 @@ import apiUrl from '../apiConfig'
 //All of this needs to be changed! 
 
 //Register
-export const signUp = (name, email, password, passwordConfirmation) => {
+export const signUp = (data) => {
+  let { name, email, password, passwordConfirmation } = data
   console.log(apiUrl)
   return axios.post(apiUrl + '/sign-up', {
     credentials: {

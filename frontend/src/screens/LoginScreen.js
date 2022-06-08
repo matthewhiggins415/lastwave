@@ -1,5 +1,5 @@
 import { Navigate } from 'react-router-dom'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { Container, Form, Input, Button } from '../styles/RegisterScreen.styles'
 import { signIn } from '../api/auth'
 

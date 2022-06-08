@@ -1,21 +1,20 @@
-import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { toast } from 'react-toastify'
-import Spinner from '../components/Spinner'
+import { Navigate } from 'react-router-dom'
+import { useState } from 'react'
+// import Spinner from '../components/Spinner'
 import { Container, Form, Input, Button } from '../styles/RegisterScreen.styles'
-import axios from 'axios'
+import { signUp } from '../api/auth'
 
-const RegisterScreen = ({ notify }) => {
+const RegisterScreen = ({ notify, setUser }) => {
+  const [shouldNavigate, setShouldNavigate] = useState(false)
+
   const [formData, setFormData] = useState({
     name: '',
     email: '', 
     password: '', 
-    password2: ''
+    passwordConfirmation: ''
   })
 
-  const { name, email, password, password2 } = formData
-
-  const navigate = useNavigate()
+  const { name, email, password, passwordConfirmation } = formData
 
   const onChange = (e) => {
     setFormData((prevState) => ({
@@ -24,37 +23,56 @@ const RegisterScreen = ({ notify }) => {
     }))
   }
 
-  const onSubmit = (e) => {
+  const onRegister = async (e) => {
     e.preventDefault()
+    try {
+      // api call 
+      if (formData.password !== formData.passwordConfirmation) {
+        notify('passwords do NOT match', 'danger')
+      } else if (!formData.password || !formData.passwordConfirmation || !formData.email) {
+        notify('missing input', 'danger')
+        return
+      } else {
+        let res = await signUp(formData)
+        console.log(res)
+        // success message
+        notify('registration successful')
+  
+        // set user 
+        setUser(res.data.user)
 
-    if (password !== password2) {
-      notify('passwords do not match', 'warning')
-    } else {
-      const userData = {
-        name,
-        email, 
-        password, 
-        password2
+        // redirect to products 
+        setShouldNavigate(true)
       }
 
-      const registerUser = async (data) => {
-        let response = await axios.post('/api/users', userData)
-        console.log(response)
-      }
+    } catch(e) {
+      console.log(e)
+      // empty form inputs
+      setFormData({
+        name: "", 
+        email: '', 
+        password: '', 
+        passwordConfirmation: ''
+      })
 
-      registerUser(userData)
+      // danger message 
+      notify('registration failed', 'danger')
     }
+  }
+
+  if (shouldNavigate) {
+    return <Navigate to="/products" />
   }
 
   return (
     <Container>
         <h1>Register</h1>
-        <Form>
+        <Form onSubmit={onRegister}>
           <Input type="text" name="name" value={name} placeholder="Name" onChange={onChange}/>
           <Input type="text" name="email" value={email} placeholder="Email" onChange={onChange}/>
           <Input type="password" name="password" value={password} placeholder="Password" onChange={onChange}/>
-          <Input type="password" name="password2" value={password2} placeholder="Confirm Password" onChange={onChange}/>
-          <Button type="submit" onSubmit={onSubmit}>Submit</Button>
+          <Input type="password" name="passwordConfirmation" value={passwordConfirmation} placeholder="Confirm Password" onChange={onChange}/>
+          <Button type="submit">Submit</Button>
         </Form>
     </Container>
   )
