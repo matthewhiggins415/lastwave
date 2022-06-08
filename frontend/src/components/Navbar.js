@@ -3,7 +3,7 @@ import { NavbarContainer, LeftContainer, RightContainer, NavbarInnerContainer, N
 // import Logo component from styles
 // import LogoImage from '../assets/logo.png - pass this to Logo as src
 
-const Navbar = () => {
+const Navbar = ({ user }) => {
   const [extendNavbar, setExtendNavbar] = useState(false)
 
   return (
@@ -13,8 +13,6 @@ const Navbar = () => {
           <NavbarLinkContainer>
             <NavbarLink to="/">Home</NavbarLink>
             <NavbarLink to="/products">Boards</NavbarLink>
-            <NavbarLink to="/contact">Contact</NavbarLink>
-            <NavbarLink to="/about">About</NavbarLink>
             <NavbarLink to="/cart">Cart</NavbarLink>
             <NavbarLink to="/login">Login</NavbarLink>
             <NavbarLink to="/register">Register</NavbarLink>
@@ -34,8 +32,6 @@ const Navbar = () => {
       {extendNavbar && (<NavbarExtendedContainer>
         <NavbarLinkExtended to="/">Home</NavbarLinkExtended>
         <NavbarLinkExtended to="/products">Boards</NavbarLinkExtended>
-        <NavbarLinkExtended to="/contact">Contact</NavbarLinkExtended>
-        <NavbarLinkExtended to="/about">About</NavbarLinkExtended>
         <NavbarLinkExtended to="/cart">Cart</NavbarLinkExtended>
         <NavbarLinkExtended to="/login">Login</NavbarLinkExtended>
         <NavbarLinkExtended to="/register">Register</NavbarLinkExtended>

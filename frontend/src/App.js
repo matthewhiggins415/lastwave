@@ -12,6 +12,7 @@ import ContactScreen from './screens/ContactScreen';
 import CartScreen from './screens/CartScreen';
 import AboutScreen from './screens/AboutScreen';
 import RegisterScreen from './screens/RegisterScreen'
+import Footer from './components/Footer'
 
 function App() {
   const [user, setUser] = useState(null)
@@ -30,7 +31,7 @@ function App() {
   return (
     <>
     <Router>
-      <Navbar />
+      <Navbar user={user} />
       <ToastContainer theme="light" position="top-right" autoClose={1500}/>
       <Routes>
         <Route path="/" element={<Homescreen />}/>
@@ -41,7 +42,8 @@ function App() {
         <Route path="/about" element={<AboutScreen />} />
         <Route path="/cart" element={<CartScreen />} />
         <Route path="/contact" element={<ContactScreen />} />
-      </Routes>      
+      </Routes>   
+      <Footer />   
     </Router>
     </>
   );

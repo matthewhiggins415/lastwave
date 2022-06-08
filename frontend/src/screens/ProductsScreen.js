@@ -21,7 +21,7 @@ const ProductsScreen = () => {
       <H1>Products</H1>
       <ProductsContainer>
         {products.map((product) => (
-          <Product product={product} />
+          <Product product={product} key={product._id}/>
         ))}
       </ProductsContainer>
     </Container>
