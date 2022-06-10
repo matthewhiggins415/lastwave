@@ -17,7 +17,6 @@ import SignOut from './components/SignOut';
 
 function App() {
   const [user, setUser] = useState(null)
-  const [admin, setAdmin] = useState(null)
 
   const clearUser = () => setUser(null)
 
@@ -33,16 +32,16 @@ function App() {
   return (
     <>
     <Router>
-      <Navbar user={user} admin={admin}/>
+      <Navbar user={user} />
       <ToastContainer theme="light" position="top-right" autoClose={1500}/>
       <Routes>
         <Route path="/" element={<Homescreen />} exact/>
-        <Route path="/products" element={<ProductsScreen user={user}/>} exact/>
+        <Route path="/products" element={<ProductsScreen user={user} notify={notify}/>} exact/>
         <Route path="/product/:id" element={<ProductScreen user={user} notify={notify} />} exact/>
         <Route path="/login" element={<LoginScreen notify={notify} setUser={setUser}/>} exact/>
         <Route path="/register" element={<RegisterScreen notify={notify} setUser={setUser}/>} exact/>
         <Route path="/about" element={<AboutScreen />} exact/>
-        <Route path="/cart" element={<CartScreen user={user}/>} exact/>
+        <Route path="/cart" element={<CartScreen user={user} notify={notify}/>} exact/>
         <Route path="/contact" element={<ContactScreen />} exact/>        
         <Route path="/sign-out" element={<SignOut clearUser={clearUser} user={user} notify={notify}/>} exact/>
       </Routes>   

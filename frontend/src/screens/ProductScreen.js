@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
 import { Container, ProductDetailsContainer, ProductDetails, DetailContainer, Image, BackBtn, CheckoutBtn } from '../styles/ProductScreen.styles'
 
-const ProductScreen = () => {
+const ProductScreen = ({ user, notify }) => {
   let { id } = useParams()
+  
+  let navigate = useNavigate()
 
   const [product, setProduct] = useState({})
 
@@ -16,6 +19,18 @@ const ProductScreen = () => {
 
     fetchProduct()
   }, [])
+
+  const addToCart = (product) => {    
+    if (user) {
+      notify('item added to cart')
+    } else {
+      navigate('/login')
+      notify('not logged in', 'danger')
+    }
+    // add product to user.cart Array 
+    // if user is not true redirect to login? 
+
+  }
 
   return (
     <Container>
@@ -32,7 +47,7 @@ const ProductScreen = () => {
           <DetailContainer>
             <h2>{`Price: $${product.price}`}</h2>
           </DetailContainer>
-          <CheckoutBtn>Add to Cart</CheckoutBtn>
+          <CheckoutBtn onClick={() => addToCart(product)}>Add to Cart</CheckoutBtn>
         </ProductDetails>
       </ProductDetailsContainer>
     </Container>

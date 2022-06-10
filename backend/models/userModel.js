@@ -11,6 +11,7 @@ const userSchema = new Schema({
     required: true, 
     unique: true
   }, 
+  cart:[],
   isAdmin: {
     type: Boolean, 
     default: false

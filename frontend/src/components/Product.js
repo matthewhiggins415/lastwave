@@ -1,11 +1,21 @@
 import React from 'react'
-import { Navigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { Container, ProductLink, Image, ProductAddContainer, AddToCart } from '../styles/Product.styles'
 
 const Product = ({ product, user, notify }) => {
+  let navigate = useNavigate()
 
   const addToCart = () => {
-    console.log('hello')
+    fireNotification()
+  }
+
+  const fireNotification = () => {
+    if (user) {
+      notify('added to cart')
+    } else {
+      notify('not logged in', 'danger')
+      navigate("/login")
+    }
   }
   
   return (
@@ -18,7 +28,10 @@ const Product = ({ product, user, notify }) => {
         <ProductLink to={`/product/${product._id}`}>
           <h2>{`$${product.price}`}</h2>
         </ProductLink>
-        <AddToCart onClick={addToCart}>Add to cart</AddToCart>
+        <AddToCart onClick={() => {
+          addToCart()
+        }
+        }>Add to cart</AddToCart>
       </ProductAddContainer>
     </Container>
   )
