@@ -6,7 +6,6 @@ import { NavbarContainer, LeftContainer, RightContainer, NavbarInnerContainer, N
 const Navbar = ({ user }) => {
   console.log(user)
   const [extendNavbar, setExtendNavbar] = useState(false)
-  const [isAdmin, setIsAdmin] = useState(false)
 
   const unauthenticatedOptions = (
     <div>
@@ -44,17 +43,6 @@ const Navbar = ({ user }) => {
         <LeftContainer>
           <NavbarLinkContainer>
             { user ? authenticatedOptions : unauthenticatedOptions }
-
-            {/* {() => {
-              if (user.isAdmin === 'true') {
-                return adminOptions
-              } else if (user) {
-                return authenticatedOptions
-              } else {
-                return unauthenticatedOptions
-              }
-              }
-            } */}
 
             <OpenLinksButton onClick={closeExtendedNav}>
               {extendNavbar ? <>&#10005;</> : <>&#8801;</>}

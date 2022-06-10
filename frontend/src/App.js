@@ -42,7 +42,7 @@ function App() {
         <Route path="/login" element={<LoginScreen notify={notify} setUser={setUser}/>} exact/>
         <Route path="/register" element={<RegisterScreen notify={notify} setUser={setUser}/>} exact/>
         <Route path="/about" element={<AboutScreen />} exact/>
-        <Route path="/cart" element={<CartScreen />} exact/>
+        <Route path="/cart" element={<CartScreen user={user}/>} exact/>
         <Route path="/contact" element={<ContactScreen />} exact/>        
         <Route path="/sign-out" element={<SignOut clearUser={clearUser} user={user} notify={notify}/>} exact/>
       </Routes>   
