@@ -1,8 +1,9 @@
 import React from 'react'
+import { Container } from '../styles/ContactScreen.styles'
 
 const ContactScreen = () => {
   return (
-    <div>ContactScreen</div>
+    <Container>ContactScreen</Container>
   )
 }
 

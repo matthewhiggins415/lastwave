@@ -28,6 +28,10 @@ const LoginScreen = ({ notify, setUser }) => {
       let res = await signIn(formData)
 
       // set the user 
+      console.log(res.data.user)
+      if (res.data.user.isAdmin === 'true') {
+        console.log('admin user verified')
+      }
       setUser(res.data.user)
 
       // navigate to products screen

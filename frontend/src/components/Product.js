@@ -1,7 +1,13 @@
 import React from 'react'
+import { Navigate } from 'react-router-dom'
 import { Container, ProductLink, Image, ProductAddContainer, AddToCart } from '../styles/Product.styles'
 
-const Product = ({ product }) => {
+const Product = ({ product, user, notify }) => {
+
+  const addToCart = () => {
+    console.log('hello')
+  }
+  
   return (
     <Container>
       <Image src={product.imageOne} alt={product.name} />
@@ -12,7 +18,7 @@ const Product = ({ product }) => {
         <ProductLink to={`/product/${product._id}`}>
           <h2>{`$${product.price}`}</h2>
         </ProductLink>
-        <AddToCart>Add to cart</AddToCart>
+        <AddToCart onClick={addToCart}>Add to cart</AddToCart>
       </ProductAddContainer>
     </Container>
   )

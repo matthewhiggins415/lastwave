@@ -3,7 +3,7 @@ import Product from '../components/Product'
 import axios from 'axios'
 import { Container, H1, ProductsContainer } from '../styles/ProductsScreen.styles'
 
-const ProductsScreen = () => {
+const ProductsScreen = ({ user, notify }) => {
   const [products, setProducts] = useState([])
   
   useEffect(() => {
@@ -21,7 +21,7 @@ const ProductsScreen = () => {
       <H1>Products</H1>
       <ProductsContainer>
         {products.map((product) => (
-          <Product product={product} key={product._id}/>
+          <Product user={user} product={product} key={product._id}/>
         ))}
       </ProductsContainer>
     </Container>

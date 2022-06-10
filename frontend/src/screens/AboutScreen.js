@@ -1,8 +1,9 @@
 import React from 'react'
+import { Container } from '../styles/AboutScreen.styles'
 
 const AboutScreen = () => {
   return (
-    <div>AboutScreen</div>
+    <Container>AboutScreen</Container>
   )
 }
 

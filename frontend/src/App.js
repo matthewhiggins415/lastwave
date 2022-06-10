@@ -13,9 +13,11 @@ import CartScreen from './screens/CartScreen';
 import AboutScreen from './screens/AboutScreen';
 import RegisterScreen from './screens/RegisterScreen'
 import Footer from './components/Footer'
+import SignOut from './components/SignOut';
 
 function App() {
   const [user, setUser] = useState(null)
+  const [admin, setAdmin] = useState(null)
 
   const clearUser = () => setUser(null)
 
@@ -31,17 +33,18 @@ function App() {
   return (
     <>
     <Router>
-      <Navbar user={user} />
+      <Navbar user={user} admin={admin}/>
       <ToastContainer theme="light" position="top-right" autoClose={1500}/>
       <Routes>
-        <Route path="/" element={<Homescreen />}/>
-        <Route path="/products" element={<ProductsScreen />} />
-        <Route path="/product/:id" element={<ProductScreen />} />
-        <Route path="/login" element={<LoginScreen notify={notify} setUser={setUser}/>} />
-        <Route path="/register" element={<RegisterScreen notify={notify} setUser={setUser}/>} />
-        <Route path="/about" element={<AboutScreen />} />
-        <Route path="/cart" element={<CartScreen />} />
-        <Route path="/contact" element={<ContactScreen />} />
+        <Route path="/" element={<Homescreen />} exact/>
+        <Route path="/products" element={<ProductsScreen user={user}/>} exact/>
+        <Route path="/product/:id" element={<ProductScreen user={user} notify={notify} />} exact/>
+        <Route path="/login" element={<LoginScreen notify={notify} setUser={setUser}/>} exact/>
+        <Route path="/register" element={<RegisterScreen notify={notify} setUser={setUser}/>} exact/>
+        <Route path="/about" element={<AboutScreen />} exact/>
+        <Route path="/cart" element={<CartScreen />} exact/>
+        <Route path="/contact" element={<ContactScreen />} exact/>        
+        <Route path="/sign-out" element={<SignOut clearUser={clearUser} user={user} notify={notify}/>} exact/>
       </Routes>   
       <Footer />   
     </Router>
