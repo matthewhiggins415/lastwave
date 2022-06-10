@@ -37,13 +37,41 @@ const Navbar = ({ user }) => {
     setExtendNavbar(!extendNavbar)
   }
 
+  const renderNav = () => {
+    if (user && user.isAdmin) {
+      return (
+      <div>
+        <NavbarLink to="/">Customers</NavbarLink>
+        <NavbarLink to="/">Products</NavbarLink>
+        <NavbarLink to="/">Orders</NavbarLink>
+        <NavbarLink to="/sign-out">Logout</NavbarLink>
+      </div>)
+    } else if (user) {
+      return (
+      <div>
+        <NavbarLink to="/products">Boards</NavbarLink>
+        <NavbarLink to="/cart">Cart</NavbarLink>
+        <NavbarLink to="/cart">Profile</NavbarLink>
+        <NavbarLink to="/sign-out">Logout</NavbarLink>
+      </div>)
+    } else {
+      return (
+      <div>
+        <NavbarLink to="/products">Boards</NavbarLink>
+        <NavbarLink to="/cart">Cart</NavbarLink>
+        <NavbarLink to="/register">Register</NavbarLink>
+        <NavbarLink to="/login">Login</NavbarLink>
+      </div>)
+    }
+  }
+
   return (
     <NavbarContainer extendNavbar={extendNavbar}>
       <NavbarInnerContainer>
         <LeftContainer>
           <NavbarLinkContainer>
-            { user ? authenticatedOptions : unauthenticatedOptions }
-
+            {/* { user ? authenticatedOptions : unauthenticatedOptions } */}
+            {renderNav()}
             <OpenLinksButton onClick={closeExtendedNav}>
               {extendNavbar ? <>&#10005;</> : <>&#8801;</>}
             </OpenLinksButton>
