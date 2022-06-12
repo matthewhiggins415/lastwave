@@ -20,8 +20,10 @@ const ProductScreen = ({ user, notify }) => {
     fetchProduct()
   }, [])
 
-  const addToCart = (product) => {    
-    if (user) {
+  const addToCart = (product) => {   
+    if (user && user.isAdmin) {
+      notify('signed in as admin', 'warning')
+    } else if (user) {
       notify('item added to cart')
     } else {
       navigate('/login')

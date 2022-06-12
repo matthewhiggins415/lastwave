@@ -2,16 +2,15 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Container, ProductLink, Image, ProductAddContainer, AddToCart } from '../styles/Product.styles'
 
-const Product = ({ product, user, notify }) => {
+const Product = ({ product, user, notify, id }) => {
   let navigate = useNavigate()
 
   const addToCart = () => {
-    fireNotification()
-  }
-
-  const fireNotification = () => {
-    if (user) {
+    if (user && user.isAdmin) {
+      notify('signed in as admin', 'warning')
+    } else if (user) {
       notify('added to cart')
+      console.log(id)
     } else {
       notify('not logged in', 'danger')
       navigate("/login")

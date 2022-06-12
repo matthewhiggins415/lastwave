@@ -4,12 +4,12 @@ const express = require('express')
 const passport = require('passport')
 
 // pull in Mongoose model for examples
-const Product = require('../models/product')
-const User = require('../models/user')
+const Product = require('../models/productModel')
+const User = require('../models/userModel')
 
 // this is a collection of methods that help us detect situations when we need
 // to throw a custom error
-const customErrors = require('../../lib/custom_errors')
+const customErrors = require('../lib/custom_errors')
 
 // we'll use this function to send 404 when non-existent document is requested
 const handle404 = customErrors.handle404
@@ -19,7 +19,7 @@ const requireOwnership = customErrors.requireOwnership
 
 // this is middleware that will remove blank fields from `req.body`, e.g.
 // { product: { title: '', text: 'foo' } } -> { product: { text: 'foo' } }
-const removeBlanks = require('../../lib/remove_blank_fields')
+const removeBlanks = require('../lib/remove_blank_fields')
 // passing this as a second argument to `router.<verb>` will make it
 // so that a token MUST be passed for that route to be available
 // it will also set `req.user`
