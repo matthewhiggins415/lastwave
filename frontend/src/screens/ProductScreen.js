@@ -3,6 +3,7 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
 import { Container, ProductDetailsContainer, ProductDetails, DetailContainer, Image, BackBtn, CheckoutBtn } from '../styles/ProductScreen.styles'
+import { addItemToCart } from '../api/cart'
 
 const ProductScreen = ({ user, notify }) => {
   let { id } = useParams()
@@ -20,18 +21,27 @@ const ProductScreen = ({ user, notify }) => {
     fetchProduct()
   }, [])
 
-  const addToCart = (product) => {   
+  const handleClick = () => {   
     if (user && user.isAdmin) {
       notify('signed in as admin', 'warning')
     } else if (user) {
-      notify('item added to cart')
+      addToCart()
     } else {
       navigate('/login')
       notify('not logged in', 'danger')
     }
-    // add product to user.cart Array 
-    // if user is not true redirect to login? 
+  }
 
+  const addToCart = async () => {
+    try {
+      let res = await addItemToCart(user, id)
+      console.log(res)
+      notify('item added to cart')
+      navigate("/cart")
+    } catch(error) {
+      console.log(error)
+      notify('something went wrong', 'danger')
+    }
   }
 
   return (
@@ -49,7 +59,7 @@ const ProductScreen = ({ user, notify }) => {
           <DetailContainer>
             <h2>{`Price: $${product.price}`}</h2>
           </DetailContainer>
-          <CheckoutBtn onClick={() => addToCart(product)}>Add to Cart</CheckoutBtn>
+          <CheckoutBtn onClick={() => {handleClick(user, id)}}>Add to Cart</CheckoutBtn>
         </ProductDetails>
       </ProductDetailsContainer>
     </Container>

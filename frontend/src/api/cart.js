@@ -3,20 +3,20 @@ import apiUrl from '../apiConfig'
 
 // add an item to the users cart 
 export const addItemToCart = (user, id) => {
-  return axios.post(apiUrl + `/cart/add/${id}`, {
-    headers: {
-      Authorization: `Bearer ${user.token}`
-    }
-  })
+  console.log(user)
+  let data = ''
+  console.log(id)
+  return axios.post(apiUrl + `/cart/${id}`, data,
+  { headers: { Authorization: `Bearer ${user.token}`} }
+ )
 }
  
 // retrieve a users cart items 
 export const getItemsInCart = (user) => {
-  return axios.get(apiUrl + '/cart', {
-    headers: {
-      Authorization: `Bearer ${user.token}`
-    }
-  })
+  return axios.get(
+    apiUrl + '/cart', 
+    { headers: { Authorization: `Bearer ${user.token}`} }
+  )
 }
 
 // remove an item from a users cart 

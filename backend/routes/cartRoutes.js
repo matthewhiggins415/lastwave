@@ -19,7 +19,7 @@ const requireOwnership = customErrors.requireOwnership
 
 // this is middleware that will remove blank fields from `req.body`, e.g.
 // { product: { title: '', text: 'foo' } } -> { product: { text: 'foo' } }
-const removeBlanks = require('../lib/remove_blank_fields')
+// const removeBlanks = require('../lib/remove_blank_fields')
 // passing this as a second argument to `router.<verb>` will make it
 // so that a token MUST be passed for that route to be available
 // it will also set `req.user`
@@ -28,12 +28,13 @@ const requireToken = passport.authenticate('bearer', { session: false })
 const router = express.Router()
 
 // Add item to cart
-router.post('/cart/add/:id', requireToken, async (req, res, next) => {
+router.post('/cart/:id', requireToken, async (req, res, next) => {
   // Grab the user ID from req object
   let userId = req.user.id
-
+  console.log(userId)
   // Grab the item ID from url
   let itemId = req.params.id
+  console.log(itemId)
 
   // find user
   let user = await User.findById(userId)
