@@ -39,6 +39,37 @@ const Navbar = ({ user }) => {
     }
   }
 
+  const renderExtended = () => {
+    if (extendNavbar && user && user.isAdmin) {
+      return (
+        <NavbarExtendedContainer>
+        <NavbarLinkExtended onClick={closeExtendedNav} to="/admin/customers">Customers</NavbarLinkExtended>
+        <NavbarLinkExtended onClick={closeExtendedNav} to="/admin/products">Products</NavbarLinkExtended>
+        <NavbarLinkExtended onClick={closeExtendedNav} to="/admin/orders">Orders</NavbarLinkExtended>
+        <NavbarLinkExtended onClick={closeExtendedNav} to="/sign-out">Logout</NavbarLinkExtended>
+        </NavbarExtendedContainer>
+      )
+    } else if (extendNavbar && user) {
+      return (
+        <NavbarExtendedContainer>
+        <NavbarLinkExtended onClick={closeExtendedNav} to="/products">Boards</NavbarLinkExtended>
+        <NavbarLinkExtended onClick={closeExtendedNav} to="/cart">Cart</NavbarLinkExtended>
+        <NavbarLinkExtended onClick={closeExtendedNav} to="/profile">Profile</NavbarLinkExtended>
+        <NavbarLinkExtended onClick={closeExtendedNav} to="/sign-out">Logout</NavbarLinkExtended>
+        </NavbarExtendedContainer>
+      )
+    } else {
+      return (
+        <NavbarExtendedContainer>
+        <NavbarLinkExtended onClick={closeExtendedNav} to="/products">Boards</NavbarLinkExtended>
+        <NavbarLinkExtended onClick={closeExtendedNav} to="/cart">Cart</NavbarLinkExtended>
+        <NavbarLinkExtended onClick={closeExtendedNav} to="/register">Register</NavbarLinkExtended>
+        <NavbarLinkExtended onClick={closeExtendedNav} to="/login">Login</NavbarLinkExtended>
+        </NavbarExtendedContainer>
+      )
+    }
+  }
+
   return (
     <NavbarContainer extendNavbar={extendNavbar}>
       <NavbarInnerContainer>
@@ -57,13 +88,11 @@ const Navbar = ({ user }) => {
           </NavbarLinkContainer>
         </RightContainer>
       </NavbarInnerContainer>
-      {extendNavbar && (<NavbarExtendedContainer>
-        <NavbarLinkExtended onClick={closeExtendedNav} to="/">Home</NavbarLinkExtended>
-        <NavbarLinkExtended onClick={closeExtendedNav} to="/products">Boards</NavbarLinkExtended>
-        <NavbarLinkExtended onClick={closeExtendedNav} to="/cart">Cart</NavbarLinkExtended>
-        <NavbarLinkExtended onClick={closeExtendedNav} to="/login">Login</NavbarLinkExtended>
-        <NavbarLinkExtended onClick={closeExtendedNav} to="/register">Register</NavbarLinkExtended>
-      </NavbarExtendedContainer>)}
+      {extendNavbar && (
+      <NavbarExtendedContainer>
+       {renderExtended()}
+      </NavbarExtendedContainer>
+      )}
     </NavbarContainer>
   )
 }
