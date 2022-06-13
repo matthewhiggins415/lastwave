@@ -22,7 +22,8 @@ export const CheckoutButton = styled.button`
   background-color: gold;
   border: 1px solid black;
   border-radius: 5px;
-  width: 100%;
-  margin: 10px 0;
+  max-width: 400px;
+  margin: 10px auto;
+  text-align:center;
   cursor: pointer;
 `

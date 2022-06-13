@@ -7,32 +7,6 @@ const Navbar = ({ user }) => {
   console.log(user)
   const [extendNavbar, setExtendNavbar] = useState(false)
 
-  const unauthenticatedOptions = (
-    <div>
-      <NavbarLink to="/products">Boards</NavbarLink>
-      <NavbarLink to="/cart">Cart</NavbarLink>
-      <NavbarLink to="/register">Register</NavbarLink>
-      <NavbarLink to="/login">Login</NavbarLink>
-    </div>
-  )
-  
-  const authenticatedOptions = (
-    <div>
-      <NavbarLink to="/products">Boards</NavbarLink>
-      <NavbarLink to="/cart">Cart</NavbarLink>
-      <NavbarLink to="/cart">Profile</NavbarLink>
-      <NavbarLink to="/sign-out">Logout</NavbarLink>
-    </div>
-  )
-
-  const adminOptions = (
-    <div>
-      <NavbarLink to="/">Customers</NavbarLink>
-      <NavbarLink to="/">Products</NavbarLink>
-      <NavbarLink to="/">Orders</NavbarLink>
-    </div>
-  )
-
   const closeExtendedNav = () => {
     setExtendNavbar(!extendNavbar)
   }
@@ -40,10 +14,10 @@ const Navbar = ({ user }) => {
   const renderNav = () => {
     if (user && user.isAdmin) {
       return (
-      <div>
-        <NavbarLink to="/">Customers</NavbarLink>
-        <NavbarLink to="/">Products</NavbarLink>
-        <NavbarLink to="/">Orders</NavbarLink>
+        <div>
+        <NavbarLink to="/admin/customers">Customers</NavbarLink>
+        <NavbarLink to="/admin/products">Products</NavbarLink>
+        <NavbarLink to="/admin/orders">Orders</NavbarLink>
         <NavbarLink to="/sign-out">Logout</NavbarLink>
       </div>)
     } else if (user) {
@@ -51,7 +25,7 @@ const Navbar = ({ user }) => {
       <div>
         <NavbarLink to="/products">Boards</NavbarLink>
         <NavbarLink to="/cart">Cart</NavbarLink>
-        <NavbarLink to="/cart">Profile</NavbarLink>
+        <NavbarLink to="/profile">Profile</NavbarLink>
         <NavbarLink to="/sign-out">Logout</NavbarLink>
       </div>)
     } else {
@@ -70,7 +44,6 @@ const Navbar = ({ user }) => {
       <NavbarInnerContainer>
         <LeftContainer>
           <NavbarLinkContainer>
-            {/* { user ? authenticatedOptions : unauthenticatedOptions } */}
             {renderNav()}
             <OpenLinksButton onClick={closeExtendedNav}>
               {extendNavbar ? <>&#10005;</> : <>&#8801;</>}

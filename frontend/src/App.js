@@ -14,6 +14,12 @@ import AboutScreen from './screens/AboutScreen';
 import RegisterScreen from './screens/RegisterScreen'
 import Footer from './components/Footer'
 import SignOut from './components/SignOut';
+import ProfileScreen from './screens/ProfileScreen'
+
+//Admin Screens
+import AdminCustomersScreen from './screens/AdminCustomersScreen'
+import AdminOrdersScreen from './screens/AdminOrdersScreen'
+import AdminProductsScreen from './screens/AdminProductsScreen'
 
 function App() {
   const [user, setUser] = useState(null)
@@ -44,6 +50,11 @@ function App() {
         <Route path="/cart" element={<CartScreen user={user} notify={notify}/>} exact/>
         <Route path="/contact" element={<ContactScreen />} exact/>        
         <Route path="/sign-out" element={<SignOut clearUser={clearUser} user={user} notify={notify}/>} exact/>
+        <Route path="/profile" element={<ProfileScreen user={user} notify={notify}/>} exact/>
+
+        <Route path="/admin/customers" element={<AdminCustomersScreen user={user} notify={notify}/>} exact/>
+        <Route path="/admin/products" element={<AdminProductsScreen user={user} notify={notify}/>} exact/>
+        <Route path="/admin/orders" element={<AdminOrdersScreen user={user} notify={notify}/>} exact/>
       </Routes>   
       <Footer />   
     </Router>

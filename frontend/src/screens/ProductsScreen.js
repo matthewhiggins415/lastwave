@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Product from '../components/Product'
 import axios from 'axios'
 import { Container, H1, ProductsContainer } from '../styles/ProductsScreen.styles'
+// import { v4 as uuidv4 } from 'uuid';
 
 const ProductsScreen = ({ user, notify }) => {
   const [products, setProducts] = useState([])
@@ -16,12 +17,14 @@ const ProductsScreen = ({ user, notify }) => {
 
   // The dependencies parameter is reserved for any value that you wish to fire off the useEffect
 
+
+  // eaxch item needs a unique key value in order to be removed properly. 
   return (
     <Container>
       <H1>Products</H1>
       <ProductsContainer>
         {products.map((product) => (
-          <Product user={user} product={product} notify={notify} id={product._id}/>
+          <Product user={user} product={product} notify={notify} key={product._id} id={product._id}/>
         ))}
       </ProductsContainer>
     </Container>

@@ -8,8 +8,8 @@ export const Container = styled.div`
 `
 
 export const CartImage = styled.img`
-  width: 100px;
-  height: 100px;
+  max-width: 100px;
+  min-height: 100px;
   margin: 10px;
 `
 

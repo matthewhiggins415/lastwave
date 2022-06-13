@@ -32,11 +32,11 @@ const Product = ({ product, user, notify, id }) => {
   return (
     <Container>
       <Image src={product.imageOne} alt={product.name} />
-      <ProductLink to={`/product/${product._id}`}>
+      <ProductLink to={`/product/${id}`}>
         <h2>{product.name}</h2>
       </ProductLink>
       <ProductAddContainer>
-        <ProductLink to={`/product/${product._id}`}>
+        <ProductLink to={`/product/${id}`}>
           <h2>{`$${product.price}`}</h2>
         </ProductLink>
         <AddToCart onClick={handleClick}>Add to cart</AddToCart>

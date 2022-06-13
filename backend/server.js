@@ -8,6 +8,7 @@ require("dotenv").config()
 const productRoutes = require('./routes/productRoutes.js')
 const userRoutes = require('./routes/userRoutes')
 const cartRoutes = require('./routes/cartRoutes')
+const adminRoutes = require('./routes/adminRoutes')
 
 // require middleware 
 const errorHandler = require('./lib/error_handler.js')
@@ -56,6 +57,7 @@ app.use(auth)
 app.use(productRoutes)
 app.use(userRoutes)
 app.use(cartRoutes)
+app.use(adminRoutes)
 
 let port = process.env.PORT || 5000
 
