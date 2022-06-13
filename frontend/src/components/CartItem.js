@@ -2,7 +2,7 @@ import React from 'react'
 import { removeItemFromCart } from '../api/cart'
 import { Container, CartImage, CartItemInfo, RemoveButton } from '../styles/CartItem.styles' 
 
-const CartItem = ({ cartItem, user, setCartItems, notify }) => {
+const CartItem = ({ cartItem, user, setCartItems, setCartTotal, notify }) => {
   const handleClick = () => {
     removeItem()
   }
@@ -11,14 +11,13 @@ const CartItem = ({ cartItem, user, setCartItems, notify }) => {
     try {
       let res = await removeItemFromCart(user, cartItem._id)
       setCartItems(res.data.user.cart)
-      console.log(res.data)
+      setCartTotal(res.data.totalCartCost)
       notify('item removed from cart')
     } catch(error) {
       console.log(error)
       notify('something went wrong', 'danger')
     }
   }
-
 
   return (
     <Container>

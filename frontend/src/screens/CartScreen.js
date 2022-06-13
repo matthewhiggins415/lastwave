@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Navigate } from 'react-router-dom'
-import { Container, SubtotalContainer, CheckoutButton, H1 } from '../styles/CartScreen.styles'
+import { Container, SubtotalContainer, CheckoutButton, H1, CartItemsContainer } from '../styles/CartScreen.styles'
 import CartItem from '../components/CartItem'
 import { getItemsInCart } from '../api/cart'
 
@@ -35,11 +35,11 @@ const CartScreen = ({ user, notify }) => {
         <p>{cartTotal ? "$" + cartTotal : "$" + 0}</p>
       </SubtotalContainer>
       <CheckoutButton>Proceed to Checkout</CheckoutButton>
-      <div>
+      <CartItemsContainer>
         {cartItems.map((cartItem) => (
-          <CartItem key={cartItem._id} cartItem={cartItem} setCartItems={setCartItems} user={user} notify={notify}/>
+          <CartItem key={cartItem._id} cartItem={cartItem} setCartTotal={setCartTotal} setCartItems={setCartItems} user={user} notify={notify}/>
         ))}
-      </div>
+      </CartItemsContainer>
     </Container>
   )
 }
