@@ -12,6 +12,14 @@ const userSchema = new Schema({
     unique: true
   }, 
   cart:[],
+  shippingAddress: {
+    address: {type: String, default: 'none'}, 
+    unit: {type: String, default: 'none'}, 
+    city: {type: String, default: 'none'},
+    state: {type: String, default: 'none'},
+    country: {type: String, default: 'none'}, 
+    zip: {type: String, default: 'none'}
+  }, 
   isAdmin: {
     type: Boolean, 
     default: false

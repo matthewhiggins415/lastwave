@@ -26,7 +26,7 @@ const LoginScreen = ({ notify, setUser }) => {
 
     try {
       let res = await signIn(formData)
-
+      // console.log(res)
       // set the user   
       setUser(res.data.user)
 

@@ -4,7 +4,7 @@ import { NavbarContainer, LeftContainer, RightContainer, NavbarInnerContainer, N
 // import LogoImage from '../assets/logo.png - pass this to Logo as src
 
 const Navbar = ({ user }) => {
-  console.log(user)
+  // console.log(user)
   const [extendNavbar, setExtendNavbar] = useState(false)
 
   const closeExtendedNav = () => {
