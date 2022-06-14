@@ -1,29 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Navigate } from 'react-router-dom'
 import { Container, ProfileDivContainer, ProfileHeader, H1, P, H4, Button, Form, Input} from '../styles/ProfileScreen.styles'
-import { getUser } from '../api/auth'
 import ShippingAddressForm from '../components/ShippingAddressForm'
 
-const ProfileScreen = ({ user, notify}) => {
-  const [userProfile, setUserProfile] = useState({})
+const ProfileScreen = ({ user, notify, setUser }) => {
   const [editInfo, setEditInfo] = useState(false)
   const [shippingAddress, setShippingAddress] = useState(false)
-
-  useEffect(() => {
-    //get the user
-    const getTheUser = async (user) => {
-      try {
-        let res = await getUser(user)
-        setUserProfile(res.data.user)
-        console.log("userProfile is: ", res.data.user)
-      } catch(error) {
-        console.log(error)
-        notify('something went wrong', 'danger')
-      }
-    }
-
-    getTheUser(user)
-  }, [])
 
   if (!user) {
     notify('not logged in', 'danger')
@@ -33,9 +15,9 @@ const ProfileScreen = ({ user, notify}) => {
   const info = () => {
     return (
       <>
-      <P>ID: {userProfile ? userProfile._id : 'none'}</P>
-      <P>Name: {userProfile ? userProfile.name : 'none'}</P>
-      <P>Email: {userProfile ? userProfile.email : 'none'}</P>
+      <P>ID: {user._id}</P>
+      <P>Name: {user.name}</P>
+      <P>Email: {user.email}</P>
       </>
     )
   }
@@ -43,9 +25,9 @@ const ProfileScreen = ({ user, notify}) => {
   const userInfoForm = () => {
     return (
       <Form>
-        <P>ID: {userProfile ? userProfile._id : 'none'}</P>
-        <Input placeholder={userProfile.name} type="text"/>
-        <Input placeholder={userProfile.email} type="text"/>
+        <P>ID: {user._id}</P>
+        <Input placeholder={user.name} type="text"/>
+        <Input placeholder={user.email} type="text"/>
       </Form>
     )
   }
@@ -53,12 +35,12 @@ const ProfileScreen = ({ user, notify}) => {
   const userShippingAddress = () => {
     return (
       <>
-      <P>Address: {userProfile ? userProfile.shippingAddress.address : 'absent'}</P>
-      <P>Unit: {userProfile ? userProfile.shippingAddress.unit : 'absent'}</P>
-      <P>City: {userProfile ? userProfile.shippingAddress.city : 'absent'}</P>
-      <P>Zip Code: {userProfile ? userProfile.shippingAddress.zip : 'absent'}</P>
-      <P>State: {userProfile ? userProfile.shippingAddress.state : 'absent'}</P>
-      <P>Country: {userProfile ? userProfile.shippingAddress.country : 'absent'}</P> 
+      <P>Address: {user.shippingAddress.address}</P>
+      <P>Unit: {user.shippingAddress.unit}</P>
+      <P>City: {user.shippingAddress.city}</P>
+      <P>Zip Code: {user.shippingAddress.zip}</P>
+      <P>State: {user.shippingAddress.state}</P>
+      <P>Country: {user.shippingAddress.country}</P> 
       </>
     )
   }
@@ -79,7 +61,7 @@ const ProfileScreen = ({ user, notify}) => {
           {/* <Button onClick={() => setShippingAddress(!shippingAddress)}>{shippingAddress ? 'save' : 'edit'}</Button> */}
           {shippingAddress ? null : <Button onClick={() => setShippingAddress(!shippingAddress)}>edit</Button>}
         </ProfileHeader>
-        { shippingAddress ? <ShippingAddressForm userProfile={userProfile} setShippingAddress={setShippingAddress} notify={notify}/> : userShippingAddress() }
+        { shippingAddress ? <ShippingAddressForm user={user} setShippingAddress={setShippingAddress} setUser={setUser} notify={notify}/> : userShippingAddress() }
       </ProfileDivContainer> 
       <ProfileDivContainer>
         <ProfileHeader>

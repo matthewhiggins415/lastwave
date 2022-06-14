@@ -51,7 +51,7 @@ function App() {
         <Route path="/cart" element={<CartScreen user={user} notify={notify}/>} exact/>
         <Route path="/contact" element={<ContactScreen />} exact/>        
         <Route path="/sign-out" element={<SignOut clearUser={clearUser} user={user} notify={notify}/>} exact/>
-        <Route path="/profile" element={<ProfileScreen user={user} notify={notify}/>} exact/>
+        <Route path="/profile" element={<ProfileScreen user={user} notify={notify} setUser={setUser}/>}  exact/>
         <Route path="/checkout" element={<CheckoutScreen user={user} notify={notify}/>} exact/>
 
         <Route path="/admin/customers" element={<AdminCustomersScreen user={user} notify={notify}/>} exact/>
