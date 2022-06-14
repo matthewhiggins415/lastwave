@@ -66,15 +66,31 @@ export const getUser = (user) => {
   )
 }
 
-// Edit a landlord 
-export const editALandlord = (user, data, id) => {
-  return axios.patch(apiUrl + `/user/${id}`, 
-  {
-    landlord: data
-  }, 
-  {
-    headers: {
-      Authorization: `Bearer ${user.token}`
+// // Edit a landlord 
+// export const editALandlord = (user, data, id) => {
+//   return axios.patch(apiUrl + `/user/${id}`, 
+//   {
+//     landlord: data
+//   }, 
+//   {
+//     headers: {
+//       Authorization: `Bearer ${user.token}`
+//     }
+//   })
+// }
+
+//edit user shipping address
+export const editUserShippingAddress = (user, data) => {
+  // can we grab id in the user object rather than passing as an argument?
+  return axios.patch(apiUrl + `/user/address/${user._id}`, 
+    {
+      //not sure what this should be.. putting address
+      updatedAddress: data
+    }, 
+    {
+      headers: {
+        Authorization: `Bearer ${user.token}`
+      }
     }
-  })
+  )
 }

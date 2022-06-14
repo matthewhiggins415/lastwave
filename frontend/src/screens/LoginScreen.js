@@ -3,7 +3,6 @@ import { useState } from 'react'
 import { Container, Form, Input, Button } from '../styles/RegisterScreen.styles'
 import { signIn } from '../api/auth'
 
-
 const LoginScreen = ({ notify, setUser }) => {
   const [formData, setFormData] = useState({
     email: '', 

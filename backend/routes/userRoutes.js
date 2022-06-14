@@ -148,6 +148,21 @@ router.patch('/user/:id', requireToken, (req, res, next) => {
       .catch(next)
 })
 
+//update a users shipping address 
+router.patch('/user/address/:id', requireToken, (req, res, next) => {
+  let id = req.params.id
+  let data = req.body.updatedAddress
+
+  User.findOneAndUpdate({_id: id}, {shippingAddress: data}, {new: true}, (err, updatedRecord) => {
+    if (err) {
+      console.log(err)
+    } else {
+      console.log(updatedRecord)
+      res.json({updatedRecord})
+    }
+  })
+})
+
 router.delete('/sign-out', requireToken, (req, res, next) => {
   // create a new random token for the user, invalidating the current one
   req.user.token = null

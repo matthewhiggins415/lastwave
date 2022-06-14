@@ -43,3 +43,14 @@ export const P = styled.p`
 export const H4 = styled.h4`
   margin-bottom: 5px;
 `
+
+export const Form = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+`
+
+export const Input = styled.input`
+  padding: 5px;
+  width: 100%;
+`

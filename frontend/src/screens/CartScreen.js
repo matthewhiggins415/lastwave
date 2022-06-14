@@ -7,6 +7,7 @@ import { getItemsInCart } from '../api/cart'
 const CartScreen = ({ user, notify }) => {
   const [cartItems, setCartItems] = useState([])
   const [cartTotal, setCartTotal] = useState(0.0)
+  const [toCheckout, setToCheckout] = useState(false)
 
   useEffect(() => {
     const fetchCart = async () => {
@@ -27,6 +28,10 @@ const CartScreen = ({ user, notify }) => {
     return <Navigate to="/login"/>
   }
 
+  if (toCheckout) {
+    return <Navigate to="/checkout"/>
+  }
+
   return (
     <Container>
       <H1>Shopping Cart</H1>
@@ -34,7 +39,7 @@ const CartScreen = ({ user, notify }) => {
         <p>Subtotal: </p>
         <p>{cartTotal ? "$" + cartTotal : "$" + 0}</p>
       </SubtotalContainer>
-      <CheckoutButton>Proceed to Checkout</CheckoutButton>
+      <CheckoutButton onClick={() => setToCheckout(!toCheckout)}>Proceed to Checkout</CheckoutButton>
       <CartItemsContainer>
         {cartItems.map((cartItem) => (
           <CartItem key={cartItem._id} cartItem={cartItem} setCartTotal={setCartTotal} setCartItems={setCartItems} user={user} notify={notify}/>

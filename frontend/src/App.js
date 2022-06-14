@@ -15,6 +15,7 @@ import RegisterScreen from './screens/RegisterScreen'
 import Footer from './components/Footer'
 import SignOut from './components/SignOut';
 import ProfileScreen from './screens/ProfileScreen'
+import CheckoutScreen from './screens/CheckoutScreen';
 
 //Admin Screens
 import AdminCustomersScreen from './screens/AdminCustomersScreen'
@@ -51,6 +52,7 @@ function App() {
         <Route path="/contact" element={<ContactScreen />} exact/>        
         <Route path="/sign-out" element={<SignOut clearUser={clearUser} user={user} notify={notify}/>} exact/>
         <Route path="/profile" element={<ProfileScreen user={user} notify={notify}/>} exact/>
+        <Route path="/checkout" element={<CheckoutScreen user={user} notify={notify}/>} exact/>
 
         <Route path="/admin/customers" element={<AdminCustomersScreen user={user} notify={notify}/>} exact/>
         <Route path="/admin/products" element={<AdminProductsScreen user={user} notify={notify}/>} exact/>
