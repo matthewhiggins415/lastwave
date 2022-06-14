@@ -1,6 +1,7 @@
 import React from 'react'
 
-const CheckoutScreen = () => {
+const CheckoutScreen = ({ user, notify }) => {
+  console.log(user)
   return (
     <div>CheckoutScreen</div>
   )
