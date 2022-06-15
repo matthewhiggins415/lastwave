@@ -4,7 +4,7 @@ import axios from 'axios'
 import { Container, H1, ProductsContainer } from '../styles/ProductsScreen.styles'
 // import { v4 as uuidv4 } from 'uuid';
 
-const ProductsScreen = ({ user, notify }) => {
+const ProductsScreen = ({ user, notify, setUser }) => {
   const [products, setProducts] = useState([])
   
   useEffect(() => {
@@ -24,7 +24,7 @@ const ProductsScreen = ({ user, notify }) => {
       <H1>Products</H1>
       <ProductsContainer>
         {products.map((product) => (
-          <Product user={user} product={product} notify={notify} key={product._id} id={product._id}/>
+          <Product setUser={setUser} user={user} product={product} notify={notify} key={product._id} id={product._id}/>
         ))}
       </ProductsContainer>
     </Container>

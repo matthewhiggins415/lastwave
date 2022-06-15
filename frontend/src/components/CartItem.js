@@ -2,7 +2,7 @@ import React from 'react'
 import { removeItemFromCart } from '../api/cart'
 import { Container, CartImage, CartItemInfo, RemoveButton } from '../styles/CartItem.styles' 
 
-const CartItem = ({ cartItem, user, setCartItems, setCartTotal, notify }) => {
+const CartItem = ({ cartItem, user, setUser, setCartItems, setCartTotal, notify }) => {
   const handleClick = () => {
     removeItem()
   }
@@ -10,6 +10,7 @@ const CartItem = ({ cartItem, user, setCartItems, setCartTotal, notify }) => {
   const removeItem = async () => {
     try {
       let res = await removeItemFromCart(user, cartItem._id)
+      setUser(res.data.user)
       setCartItems(res.data.user.cart)
       setCartTotal(res.data.totalCartCost)
       notify('item removed from cart')

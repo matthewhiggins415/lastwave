@@ -3,8 +3,9 @@ import { Navigate } from 'react-router-dom'
 import { Container, SubtotalContainer, CheckoutButton, H1, CartItemsContainer } from '../styles/CartScreen.styles'
 import CartItem from '../components/CartItem'
 import { getItemsInCart } from '../api/cart'
-
-const CartScreen = ({ user, notify }) => {
+import { getUser } from '../api/auth'
+ 
+const CartScreen = ({ user, notify, setUser }) => {
   const [cartItems, setCartItems] = useState([])
   const [cartTotal, setCartTotal] = useState(0.0)
   const [toCheckout, setToCheckout] = useState(false)
@@ -13,6 +14,8 @@ const CartScreen = ({ user, notify }) => {
     const fetchCart = async () => {
       try {
         let res = await getItemsInCart(user)
+        let response = await getUser(user)
+        setUser(response.data.user)
         setCartItems(res.data.cart)
         setCartTotal(res.data.totalCartCost)
       } catch (e) {
@@ -21,7 +24,7 @@ const CartScreen = ({ user, notify }) => {
     }
 
     fetchCart()
-  }, [])
+  }, [setUser])
 
   if (!user) {
     notify('not logged in', 'danger')
@@ -42,7 +45,7 @@ const CartScreen = ({ user, notify }) => {
       <CheckoutButton onClick={() => setToCheckout(!toCheckout)}>Proceed to Checkout</CheckoutButton>
       <CartItemsContainer>
         {cartItems.map((cartItem) => (
-          <CartItem key={cartItem._id} cartItem={cartItem} setCartTotal={setCartTotal} setCartItems={setCartItems} user={user} notify={notify}/>
+          <CartItem key={cartItem._id} cartItem={cartItem} setCartTotal={setCartTotal} setCartItems={setCartItems} user={user} setUser={setUser} notify={notify}/>
         ))}
       </CartItemsContainer>
     </Container>

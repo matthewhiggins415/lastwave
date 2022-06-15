@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom'
 import { Container, ProductDetailsContainer, ProductDetails, DetailContainer, Image, BackBtn, CheckoutBtn } from '../styles/ProductScreen.styles'
 import { addItemToCart } from '../api/cart'
 
-const ProductScreen = ({ user, notify }) => {
+const ProductScreen = ({ user, notify, setUser }) => {
   let { id } = useParams()
   
   let navigate = useNavigate()
@@ -35,7 +35,7 @@ const ProductScreen = ({ user, notify }) => {
   const addToCart = async () => {
     try {
       let res = await addItemToCart(user, id)
-      console.log(res)
+      setUser(res.data.user)
       notify('item added to cart')
       navigate("/cart")
     } catch(error) {

@@ -43,12 +43,12 @@ function App() {
       <ToastContainer theme="light" position="top-right" autoClose={1500}/>
       <Routes>
         <Route path="/" element={<Homescreen />} exact/>
-        <Route path="/products" element={<ProductsScreen user={user} notify={notify}/>} exact/>
-        <Route path="/product/:id" element={<ProductScreen user={user} notify={notify} />} exact/>
+        <Route path="/products" element={<ProductsScreen user={user} notify={notify}  setUser={setUser}/>} exact/>
+        <Route path="/product/:id" element={<ProductScreen user={user} notify={notify} setUser={setUser} />} exact/>
         <Route path="/login" element={<LoginScreen notify={notify} setUser={setUser}/>} exact/>
         <Route path="/register" element={<RegisterScreen notify={notify} setUser={setUser}/>} exact/>
         <Route path="/about" element={<AboutScreen />} exact/>
-        <Route path="/cart" element={<CartScreen user={user} notify={notify}/>} exact/>
+        <Route path="/cart" element={<CartScreen user={user} notify={notify} setUser={setUser}/>} exact/>
         <Route path="/contact" element={<ContactScreen />} exact/>        
         <Route path="/sign-out" element={<SignOut clearUser={clearUser} user={user} notify={notify}/>} exact/>
         <Route path="/profile" element={<ProfileScreen user={user} notify={notify} setUser={setUser}/>}  exact/>

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { Container, ProductLink, Image, ProductAddContainer, AddToCart } from '../styles/Product.styles'
 import { addItemToCart } from '../api/cart'
 
-const Product = ({ product, user, notify, id }) => {
+const Product = ({ product, user, notify, id, setUser }) => {
   let navigate = useNavigate()
 
   const handleClick = () => {
@@ -20,7 +20,7 @@ const Product = ({ product, user, notify, id }) => {
   const addToCart = async () => {
     try {
       let res = await addItemToCart(user, id)
-      console.log(res)
+      setUser(res.data.user)
       notify('item added to cart')
       navigate("/cart")
     } catch(error) {
