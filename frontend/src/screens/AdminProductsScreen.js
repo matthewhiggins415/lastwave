@@ -1,12 +1,36 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import { Navigate } from 'react-router-dom'
+import { retrieveProducts } from '../api/admin/products'
+import AdminProduct from '../components/AdminProduct'
+import { Container, H1 } from '../styles/AdminProductsScreen.styles'
 
-const AdminProductsScreen = () => {
+const AdminProductsScreen = ({ user, notify }) => {
+  const [products, setProducts] = useState([])
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      let res = await retrieveProducts()
+      setProducts(res.data.products)
+    }
+
+    fetchProducts()
+  }, [])
+
+  if (!user.isAdmin) {
+    notify('not logged in', 'danger')
+    return <Navigate to="/login"/>
+  }
+
   return (
-    <div>
-      <h1>Products</h1>
-
+    <Container>
+      <H1>Admin Products</H1>
+      {products.map((item, index) => {
+        return (
+          <AdminProduct item={item} index={index}/>
+        )
+      })}
       
-    </div>
+    </Container>
   )
 }
 

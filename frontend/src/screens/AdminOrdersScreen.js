@@ -1,6 +1,13 @@
 import React from 'react'
+import { Navigate } from 'react-router-dom'
 
-const AdminOrdersScreen = () => {
+const AdminOrdersScreen = ({user, notify}) => {
+
+  if (!user.isAdmin) {
+    notify('not logged in', 'danger')
+    return <Navigate to="/login"/>
+  }
+
   return (
     <div>AdminOrdersScreen</div>
   )

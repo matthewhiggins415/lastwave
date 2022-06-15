@@ -44,8 +44,8 @@ const CartScreen = ({ user, notify, setUser }) => {
       </SubtotalContainer>
       <CheckoutButton onClick={() => setToCheckout(!toCheckout)}>Proceed to Checkout</CheckoutButton>
       <CartItemsContainer>
-        {cartItems.map((cartItem) => (
-          <CartItem key={cartItem._id} cartItem={cartItem} setCartTotal={setCartTotal} setCartItems={setCartItems} user={user} setUser={setUser} notify={notify}/>
+        {cartItems.map((cartItem, index) => (
+          <CartItem key={index + 1} cartItem={cartItem} setCartTotal={setCartTotal} setCartItems={setCartItems} user={user} setUser={setUser} notify={notify}/>
         ))}
       </CartItemsContainer>
     </Container>
