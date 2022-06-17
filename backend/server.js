@@ -9,6 +9,8 @@ const productRoutes = require('./routes/productRoutes.js')
 const userRoutes = require('./routes/userRoutes')
 const cartRoutes = require('./routes/cartRoutes')
 const adminRoutes = require('./routes/adminRoutes')
+const orderRoutes = require('./routes/orderRoutes')
+const stripeRoutes = require('./routes/stripeRoutes')
 
 // require middleware 
 const errorHandler = require('./lib/error_handler.js')
@@ -58,6 +60,8 @@ app.use(productRoutes)
 app.use(userRoutes)
 app.use(cartRoutes)
 app.use(adminRoutes)
+app.use(orderRoutes)
+app.use(stripeRoutes)
 
 let port = process.env.PORT || 5000
 

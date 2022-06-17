@@ -25,16 +25,15 @@ const AdminCustomersScreen = ({ user, notify }) => {
     return <Navigate to="/login"/>
   }
 
-  
 
   return (
     <Container>
       <H1>Admin Users</H1>
-      <div>
+      
         {users.map((user, index) => (
           <AdminCustomer user={user} key={index + 1} index={index} />
         ))}
-      </div>
+      
     </Container>
   )
 }

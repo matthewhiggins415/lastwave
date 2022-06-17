@@ -4,9 +4,16 @@ import { useNavigate } from 'react-router-dom'
 import { AddressH4, Container, H1, H4, CheckoutContainer, OrderSummaryDiv, CheckoutBtn, CheckoutAddressContainer, CheckoutAddressDiv, CheckoutEditBtn } from '../styles/CheckoutScreen.styles'
 import CheckoutItem from '../components/CheckoutItem'
 import { getItemsInCart } from '../api/cart'
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+import CheckoutForm from '../components/CheckoutForm'
+import apiUrl from '../apiConfig'
 
-const CheckoutScreen = ({ user }) => {
+const stripePromise = loadStripe("pk_test_51LBLr0CIa15tYhSsq3q1th21L37h4GDbzjc798H6ZE1OGQiXg0VGaU1xUqy8254RFDZnZLXwUaFQuZV6usZZn7Yb00qaj9Woax");
+
+const CheckoutScreen = ({ user,  notify }) => {
   const [cartTotal, setCartTotal] = useState(0.0)
+  const [clientSecret, setClientSecret] = useState("");
 
   let total = cartTotal + 7 + 15
   let navigate = useNavigate()
@@ -23,6 +30,26 @@ const CheckoutScreen = ({ user }) => {
 
     fetchCart()
   }, [])
+
+  useEffect(() => {
+    // Create PaymentIntent as soon as the page loads
+    fetch(apiUrl + "/create-payment-intent", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ items: [{ id: "xl-tshirt" }] }),
+    })
+      .then((res) => res.json())
+      .then((data) => setClientSecret(data.clientSecret));
+  }, []);
+
+  const appearance = {
+    theme: 'stripe',
+  };
+  const options = {
+    clientSecret,
+    appearance,
+  };
+
 
   if (!user) {
     return <Navigate to="/login" />
@@ -58,7 +85,6 @@ const CheckoutScreen = ({ user }) => {
           <h4>{"$" + total}</h4>
         </OrderSummaryDiv>
       </CheckoutContainer>
-      <CheckoutBtn onClick={"#"}>Submit Order</CheckoutBtn>
       <CheckoutContainer>
         <H4>Order Items</H4>
         <div>
@@ -84,10 +110,14 @@ const CheckoutScreen = ({ user }) => {
         </CheckoutAddressContainer>
       <CheckoutEditBtn onClick={() => navigateToProfile()}>Edit Shipping Address</CheckoutEditBtn>
       </CheckoutContainer>
-      <CheckoutContainer>
-        <H4>Payment Method</H4>
-      <CheckoutEditBtn onClick={() => navigateToProfile()}>Edit Payment Method</CheckoutEditBtn>
-      </CheckoutContainer>
+     
+        {clientSecret && (
+          <Elements options={options} stripe={stripePromise}>
+            <CheckoutForm notify={notify}/>
+          </Elements>
+        )}
+      
+   
 
     </Container>
   )

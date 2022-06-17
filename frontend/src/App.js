@@ -16,6 +16,8 @@ import Footer from './components/Footer'
 import SignOut from './components/SignOut';
 import ProfileScreen from './screens/ProfileScreen'
 import CheckoutScreen from './screens/CheckoutScreen';
+import PaymentCompleteScreen from './screens/PaymentCompleteScreen'
+
 
 //Admin Screens
 import AdminCustomersScreen from './screens/AdminCustomersScreen'
@@ -53,6 +55,7 @@ function App() {
         <Route path="/sign-out" element={<SignOut clearUser={clearUser} user={user} notify={notify}/>} exact/>
         <Route path="/profile" element={<ProfileScreen user={user} notify={notify} setUser={setUser}/>}  exact/>
         <Route path="/checkout" element={<CheckoutScreen user={user} notify={notify}/>} exact/>
+        <Route path="/payment-complete" element={<PaymentCompleteScreen user={user} notify={notify}/>} exact/>
 
         <Route path="/admin/customers" element={<AdminCustomersScreen user={user} notify={notify}/>} exact/>
         <Route path="/admin/products" element={<AdminProductsScreen user={user} notify={notify}/>} exact/>

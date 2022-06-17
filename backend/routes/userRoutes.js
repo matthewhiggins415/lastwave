@@ -55,6 +55,11 @@ router.post('/sign-up', (req, res, next) => {
     .then(user => User.create(user))
     // send the new user object back with status 201, but `hashedPassword`
     // won't be send because of the `transform` in the User model
+    .then((user) => {
+      const token = crypto.randomBytes(16).toString('hex')
+      user.token = token 
+      return user.save()
+    })
     .then(user => res.status(201).json({ user: user }))
     // pass any errors along to the error handler
     .catch(next)
