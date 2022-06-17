@@ -23,6 +23,7 @@ import PaymentCompleteScreen from './screens/PaymentCompleteScreen'
 import AdminCustomersScreen from './screens/AdminCustomersScreen'
 import AdminOrdersScreen from './screens/AdminOrdersScreen'
 import AdminProductsScreen from './screens/AdminProductsScreen'
+import AdminProductCreate from './screens/AdminProductCreate'
 
 function App() {
   const [user, setUser] = useState(null)
@@ -60,6 +61,7 @@ function App() {
         <Route path="/admin/customers" element={<AdminCustomersScreen user={user} notify={notify}/>} exact/>
         <Route path="/admin/products" element={<AdminProductsScreen user={user} notify={notify}/>} exact/>
         <Route path="/admin/orders" element={<AdminOrdersScreen user={user} notify={notify}/>} exact/>
+        <Route path="/admin/add-product" element={<AdminProductCreate user={user} notify={notify}/>} exact/>
       </Routes>   
       <Footer />   
     </Router>
