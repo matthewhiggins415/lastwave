@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Container, Form, Input, Button, BackButton, AdminProductCreateScreenHeader } from '../styles/AdminProductCreate.styles'
 import { useNavigate } from 'react-router-dom'
+import { createAProduct } from '../api/admin/products'
 
 const AdminProductCreate = ({ notify, user }) => {
   const [formData, setFormData] = useState({
@@ -31,6 +32,8 @@ const AdminProductCreate = ({ notify, user }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
+
+    console.log(formData)
     notify("Submitted")
   }
 
@@ -42,11 +45,11 @@ const AdminProductCreate = ({ notify, user }) => {
       </AdminProductCreateScreenHeader>
       <Form onSubmit={handleSubmit}>
         <Input value={name} name="name" type="text" placeholder="name" onChange={onChange} required/>
-        <Input value={imageOne} name="imageOne" type="" placeholder="imageOne" onChange={onChange} required/>
-        <Input value={imageTwo} name="imageTwo" type="" placeholder="imageTwo" onChange={onChange} required/>
+        <Input value={imageOne} name="imageOne" type="file" placeholder="imageOne" onChange={onChange} accept="image/*, .pdf, .png, .jpg" required/>
+        <Input value={imageTwo} name="imageTwo" type="file" placeholder="imageTwo" onChange={onChange} accept="image/*, .pdf, .png, .jpg" required/>
         <Input value={description} name="description" type="text-area" placeholder="description" onChange={onChange} required/>   
-        <Input value={category} name="category" type="" placeholder="category" onChange={onChange} required/>
-        <Input value={price} name="price" type=""  placeholder="price" onChange={onChange} required/>
+        <Input value={category} name="category" type="" placeholder="category" onChange={onChange}/>
+        <Input value={price} name="price" type="number"  placeholder="price" onChange={onChange} required/>
         <Input value={countInStock} name="countInStock" type=""  placeholder="count in stock" onChange={onChange} required/>
         <Button type="submit">Submit</Button>
       </Form>
