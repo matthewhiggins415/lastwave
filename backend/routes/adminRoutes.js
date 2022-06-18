@@ -27,12 +27,13 @@ router.post("/admin/product", requireToken, async (req, res, next) => {
   console.log(user)
 
   const product = new Product({
+    user: req.user.id, 
     name: "sample", 
-    price: 0,
-    user: user.req.id, 
     imageOne: "/images/sample1.jpg", 
     imageTwo: "/images/sample2.jpg",
     description: "sample description", 
+    category: 'none', 
+    price: 10,
     countInStock: 0, 
     brand: "sample brand"
   })
@@ -50,7 +51,7 @@ router.patch("/admin/product/:id", requireToken, async (req, res, next) => {
   console.log('editing a product: user is: ', user)
 
   const reqProduct = req.body.product
-  console.log("updated product info:", updatedProduct)
+  console.log("updated product info:", reqProduct)
 
   let product = await Product.findById(ID)
   console.log("original product: ", product)
