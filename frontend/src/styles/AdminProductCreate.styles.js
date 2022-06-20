@@ -48,3 +48,30 @@ export const BackButton = styled.button`
   border: 1px solid black;
   cursor: pointer;
 `
+
+export const ImageUploadContainer = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: space-evenly;
+  align-items: center;
+`
+
+export const ImageInput = styled.input`
+ width: auto;
+ padding: 10px;
+ border: 1px solid black;
+`
+export const ImageButton = styled.button`
+  padding: 10px;
+  background-color: #F5F5F5;
+  border: 1px solid black;
+  cursor: pointer;
+  border-radius: 3px;
+  border: 1px solid black;
+`
+
+export const Image = styled.img`
+  height: 50px;
+  width: 50px;
+  background-color: black;
+`

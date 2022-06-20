@@ -67,7 +67,7 @@ router.patch("/admin/product/:id", requireToken, async (req, res, next) => {
     product.countInStock = reqProduct.countInStock
 
     const updatedProduct = await product.save()
-    res.json(updatedProduct)
+    res.json({ updatedProduct })
   } else if (user.isAdmin === false) {
     throw new Error("User is not admin")
   } else {

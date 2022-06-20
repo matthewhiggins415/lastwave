@@ -11,6 +11,9 @@ const cartRoutes = require('./routes/cartRoutes')
 const adminRoutes = require('./routes/adminRoutes')
 const orderRoutes = require('./routes/orderRoutes')
 const stripeRoutes = require('./routes/stripeRoutes')
+const uploadRoutes = require('./routes/uploadRoutes')
+
+const path = require("path")
 
 // require middleware 
 const errorHandler = require('./lib/error_handler.js')
@@ -53,6 +56,9 @@ app.get('/', (req, res) => {
   res.send('API is up and running.')
 })
 
+app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
+console.log(__dirname)
+
 // register passport authentication middleware
 app.use(auth)
 
@@ -62,6 +68,9 @@ app.use(cartRoutes)
 app.use(adminRoutes)
 app.use(orderRoutes)
 app.use(stripeRoutes)
+app.use(uploadRoutes)
+
+
 
 let port = process.env.PORT || 5000
 

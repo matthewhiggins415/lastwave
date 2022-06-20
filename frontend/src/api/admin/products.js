@@ -20,11 +20,7 @@ export const retrieveProduct = (user, id) => {
 //create a product 
 export const createAProduct = (user) => {
   let data
-  // if (user.isAdmin === true) {
-  //   return axios.post(apiUrl + '/admin/product', { headers: { Authorization: `Bearer ${user.token}`} })
-  // } else {
-  //   console.log('user is not an admin')
-  // }
+
   return axios.post(apiUrl + `/admin/product`, data, { headers: { Authorization: `Bearer ${user.token}`} })
 }
 

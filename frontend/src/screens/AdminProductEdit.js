@@ -1,41 +1,38 @@
 import React, { useState, useEffect } from 'react'
-import { Container, Form, Input, Button, BackButton, AdminProductCreateScreenHeader } from '../styles/AdminProductCreate.styles'
+import { Container, Form, ImageButton, Image, Input, Button, BackButton, ImageInput, AdminProductCreateScreenHeader, ImageUploadContainer } from '../styles/AdminProductCreate.styles'
 import { useNavigate } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
 import { retrieveProduct, editAProduct } from '../api/admin/products'
 import axios from 'axios'
+import apiUrl from '../apiConfig'
 
 const AdminProductEdit = ({ notify, user }) => {
   let { id } = useParams()
 
-  const [formData, setFormData] = useState({
-    name: '',
-    imageOne: '',
-    imageTwo: '',
-    description: '',
-    category: '',
-    price: '',
-    countInStock: ''
-  })
+  const [product, setProduct] = useState({})
+
+  const [name, setName] = useState('')
+  const [imageOne, setImageOne] = useState('')
+  const [imageTwo, setImageTwo] = useState('')
+  const [description, setDescription] = useState('')
+  const [category, setCategory] = useState('0')
+  const [price, setPrice] = useState(0)
+  const [countInStock, setCountInStock] = useState(0)
 
   useEffect(() => {
     const fetchProduct = async () => {
       let res = await axios.get(`/products/${id}`)
-      console.log(res.data.product)
-
+      console.log("product useEffect", res.data.product)
+      setProduct(res.data.product)
+      setName(res.data.product.name)
+      setDescription(res.data.product.description)
+      setCategory(res.data.product.category)
+      setPrice(res.data.product.price)
+      setCountInStock(res.data.product.countInStock)
     }
 
     fetchProduct()
   }, [])
-
-  const { name, imageOne, imageTwo, description, category, price, countInStock } = formData
-
-  const onChange = (e) => {
-    setFormData((prevState) => ({
-      ...prevState,
-      [e.target.name]: e.target.value
-    }))
-  }
 
   const navigate = useNavigate()
   console.log(user)
@@ -44,29 +41,108 @@ const AdminProductEdit = ({ notify, user }) => {
     navigate("/admin/products")
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    // send info to editProduct api call 
-    console.log(formData)
-    notify("Submitted")
+
+    let newProduct = {
+      name: name,
+      price: price, 
+      countInStock: countInStock, 
+      description: description,
+      imageOne: imageOne, 
+      imageTwo: imageTwo, 
+      category: category
+    }
+
+    try {
+      let res = await editAProduct(user, id, newProduct)
+
+      if (res.data.updatedProduct) {
+        navigate("/admin/products")
+        notify("product updated")
+      } else {
+        notify("something went wrong", "danger")
+      }
+    } catch(err) {
+      console.log(err)
+    }
   }
 
+  const uploadSelectedHandlerImageOne = (e) => {
+   console.log(e.target.files[0])
+   setImageOne(e.target.files[0])
+  }
   
+  const fileUploadHandlerImageOne = async () => {
+    const fd = new FormData()
+    fd.append('image', imageOne, imageOne.name)
+
+    try {
+      const config = {
+        headers: {'Content-Type': 'multipart/form-data'}
+      }
+      let res = await axios.post(apiUrl + '/api/upload', fd, {
+        onUploadProgress: progressEvent => {
+          console.log("Upload progress: " + Math.round(progressEvent.loaded / progressEvent.total * 100) + "%")
+        }
+      }, config)
+      console.log(res)
+      setImageOne(res.data)
+    } catch(err) {
+      console.error(err)
+    }
+  }
+
+  const uploadSelectedHandlerImageTwo = (e) => {
+    console.log(e.target.files[0])
+    setImageTwo(e.target.files[0])
+   }
+
+  const fileUploadHandlerImageTwo = async () => {
+    const fd = new FormData()
+    fd.append('image', imageTwo, imageTwo.name)
+
+    try {
+      const config = {
+        headers: {'Content-Type': 'multipart/form-data'}
+      }
+      let res = await axios.post(apiUrl + '/api/upload', fd, {
+        onUploadProgress: progressEvent => {
+          console.log("Upload progress: " + Math.round(progressEvent.loaded / progressEvent.total * 100) + "%")
+        }
+      }, config)
+      console.log(res)
+      setImageTwo(res.data)
+    } catch(err) {
+      console.error(err)
+    }
+  }
+
   return (
     <Container>
       <AdminProductCreateScreenHeader>
         <BackButton onClick={handleClick}>Back</BackButton>
         <h1>Create a Product</h1>
       </AdminProductCreateScreenHeader>
-      <Form onSubmit={handleSubmit}>
-        <Input value={name} name="name" type="text" placeholder="name" onChange={onChange} required/>
-        <Input value={imageOne} name="imageOne" type="file" placeholder="imageOne" onChange={onChange} accept="image/*, .pdf, .png, .jpg" required/>
-        <Input value={imageTwo} name="imageTwo" type="file" placeholder="imageTwo" onChange={onChange} accept="image/*, .pdf, .png, .jpg" required/>
-        <Input value={description} name="description" type="text-area" placeholder="description" onChange={onChange} required/>   
-        <Input value={category} name="category" type="" placeholder="category" onChange={onChange}/>
-        <Input value={price} name="price" type="number"  placeholder="price" onChange={onChange} required/>
-        <Input value={countInStock} name="countInStock" type=""  placeholder="count in stock" onChange={onChange} required/>
-        <Button type="submit">Submit</Button>
+          <label>Required you add an image</label>
+        <ImageUploadContainer>
+          <Image style={{height: "60px", }} src={"http://localhost:5000/" + imageOne}/>
+          <ImageInput name="imageOne" type="file" onChange={uploadSelectedHandlerImageOne} accept="image/*, .pdf, .png, .jpg" required/>
+          <ImageButton onClick={fileUploadHandlerImageOne}>Upload</ImageButton>
+        </ImageUploadContainer>
+        <label>Required you add another image</label>
+        <ImageUploadContainer>
+          <Image style={{height: "60px", }} src={"http://localhost:5000/" + imageTwo}/>
+          <ImageInput name="imageTwo" type="file" onChange={uploadSelectedHandlerImageTwo} accept="image/*, .pdf, .png, .jpg" required/>
+          <ImageButton onClick={fileUploadHandlerImageTwo}>Upload</ImageButton>
+        </ImageUploadContainer>
+      <Form>
+        <Input value={name} name="name" type="text" placeholder="name" onChange={(e) => {setName(e.target.value)}} required/>
+        <Input value={description} name="description" type="text-area" placeholder="description" onChange={(e) => {setDescription(e.target.value)}} required/>   
+        <Input value={category} name="category" type="text" placeholder="category" onChange={(e) => {setCategory(e.target.value)}}/>
+        <Input value={price} name="price" type="number"  placeholder="price" onChange={(e) => {setPrice(e.target.value)}} required/>
+        <Input value={countInStock} name="countInStock" type="number"  placeholder="count in stock" onChange={(e) => {setCountInStock(e.target.value)}} required/>
+        <Button onClick={handleSubmit}>Submit</Button>
       </Form>
 
     </Container>
