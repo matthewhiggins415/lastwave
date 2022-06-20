@@ -1,9 +1,13 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Container, Form, Input, Button, BackButton, AdminProductCreateScreenHeader } from '../styles/AdminProductCreate.styles'
 import { useNavigate } from 'react-router-dom'
-import { createAProduct } from '../api/admin/products'
+import { useParams } from 'react-router-dom'
+import { retrieveProduct, editAProduct } from '../api/admin/products'
+import axios from 'axios'
 
-const AdminProductCreate = ({ notify, user }) => {
+const AdminProductEdit = ({ notify, user }) => {
+  let { id } = useParams()
+
   const [formData, setFormData] = useState({
     name: '',
     imageOne: '',
@@ -13,6 +17,16 @@ const AdminProductCreate = ({ notify, user }) => {
     price: '',
     countInStock: ''
   })
+
+  useEffect(() => {
+    const fetchProduct = async () => {
+      let res = await axios.get(`/products/${id}`)
+      console.log(res.data.product)
+
+    }
+
+    fetchProduct()
+  }, [])
 
   const { name, imageOne, imageTwo, description, category, price, countInStock } = formData
 
@@ -32,11 +46,12 @@ const AdminProductCreate = ({ notify, user }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-
+    // send info to editProduct api call 
     console.log(formData)
     notify("Submitted")
   }
 
+  
   return (
     <Container>
       <AdminProductCreateScreenHeader>
@@ -58,4 +73,4 @@ const AdminProductCreate = ({ notify, user }) => {
   )
 }
 
-export default AdminProductCreate
+export default AdminProductEdit

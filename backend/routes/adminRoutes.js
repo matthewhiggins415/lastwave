@@ -1,11 +1,11 @@
 const express = require('express')
 const router = express.Router()
-const passport = require('passport')
 
 const Product = require('../models/productModel')
 const User = require('../models/userModel')
 
-const requireToken = passport.authenticate('bearer', { session: false }) 
+const passport = require('passport')
+const requireToken = passport.authenticate('bearer', { session: false })
 
 // get all users 
 router.get('/admin/users', requireToken, (req, res, next) => {
@@ -27,7 +27,7 @@ router.post("/admin/product", requireToken, async (req, res, next) => {
   console.log(user)
 
   const product = new Product({
-    user: req.user.id, 
+    user: req.user.id,
     name: "sample", 
     imageOne: "/images/sample1.jpg", 
     imageTwo: "/images/sample2.jpg",
@@ -88,7 +88,8 @@ router.delete("/admin/product/:id", requireToken, async (req, res, next) => {
 
   if (user.isAdmin && product) {
     await product.remove()
-    res.json({ message: "product removed" })
+    let products = await Product.find()
+    res.json({ products })
   } else if (user.isAdmin && !product) {
     throw new Error("Product is not found")
   } else {
