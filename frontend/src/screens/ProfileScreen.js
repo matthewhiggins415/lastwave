@@ -63,12 +63,7 @@ const ProfileScreen = ({ user, notify, setUser }) => {
         </ProfileHeader>
         { shippingAddress ? <ShippingAddressForm user={user} setShippingAddress={setShippingAddress} setUser={setUser} notify={notify}/> : userShippingAddress() }
       </ProfileDivContainer> 
-      <ProfileDivContainer>
-        <ProfileHeader>
-          <H4>Payment Method</H4>
-          <Button>edit</Button>
-        </ProfileHeader>
-      </ProfileDivContainer>
+     
       <ProfileDivContainer>
         <H4>Orders</H4>
       </ProfileDivContainer>

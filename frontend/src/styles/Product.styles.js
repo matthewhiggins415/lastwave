@@ -18,9 +18,11 @@ export const Container = styled.div`
 export const ProductLink = styled(Link)`
   color: black;
   text-decoration: none;
+  margin: 5px auto;
 `
 export const Image = styled.img`
   width: 300px;
+  height: 400px;
   margin: 0 auto;
   border-radius: 10px;
 `

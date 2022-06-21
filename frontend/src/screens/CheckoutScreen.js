@@ -23,6 +23,7 @@ const CheckoutScreen = ({ user,  notify }) => {
       try {
         let res = await getItemsInCart(user)
         setCartTotal(res.data.totalCartCost)
+        console.log(res)
       } catch(err) {
         console.log(err)
       }
@@ -39,7 +40,7 @@ const CheckoutScreen = ({ user,  notify }) => {
       body: JSON.stringify({ items: [{ id: "xl-tshirt" }] }),
     })
       .then((res) => res.json())
-      .then((data) => setClientSecret(data.clientSecret));
+      .then((data) =>  setClientSecret(data.clientSecret));
   }, []);
 
   const appearance = {

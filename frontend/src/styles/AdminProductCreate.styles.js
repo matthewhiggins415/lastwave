@@ -20,7 +20,7 @@ export const AdminProductCreateScreenHeader = styled.div`
 export const Form = styled.form`
   display: flex;
   flex-direction: column;
-  margin: 0 auto;
+  margin: 20px auto;
   width: 100%;
 `
 
@@ -54,6 +54,7 @@ export const ImageUploadContainer = styled.div`
   width: 100%;
   justify-content: space-evenly;
   align-items: center;
+  margin: 10px auto;
 `
 
 export const ImageInput = styled.input`

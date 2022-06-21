@@ -13,7 +13,7 @@ const Product = ({ product, user, notify, id, setUser }) => {
       addToCart()
     } else {
       notify('not logged in', 'danger')
-      navigate("/login")
+      navigate("/register")
     }
   }
 
@@ -35,12 +35,10 @@ const Product = ({ product, user, notify, id, setUser }) => {
       <ProductLink to={`/product/${id}`}>
         <h2>{product.name}</h2>
       </ProductLink>
-      <ProductAddContainer>
-        <ProductLink to={`/product/${id}`}>
-          <h2>{`$${product.price}`}</h2>
-        </ProductLink>
-        <AddToCart onClick={handleClick}>Add to cart</AddToCart>
-      </ProductAddContainer>
+      <ProductLink to={`/product/${id}`}>
+        <h2>{`$${product.price}`}</h2>
+      </ProductLink>
+      <AddToCart onClick={handleClick}>Add to cart</AddToCart>
     </Container>
   )
 }

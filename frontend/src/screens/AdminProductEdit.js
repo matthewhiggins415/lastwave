@@ -21,6 +21,7 @@ const AdminProductEdit = ({ notify, user }) => {
 
   useEffect(() => {
     const fetchProduct = async () => {
+      console.log(apiUrl)
       let res = await axios.get(`/products/${id}`)
       console.log("product useEffect", res.data.product)
       setProduct(res.data.product)
@@ -35,7 +36,6 @@ const AdminProductEdit = ({ notify, user }) => {
   }, [])
 
   const navigate = useNavigate()
-  console.log(user)
 
   const handleClick = () => {
     navigate("/admin/products")
@@ -124,23 +124,28 @@ const AdminProductEdit = ({ notify, user }) => {
         <BackButton onClick={handleClick}>Back</BackButton>
         <h1>Create a Product</h1>
       </AdminProductCreateScreenHeader>
-          <label>Required you add an image</label>
+        <label>Required you add an image</label>
         <ImageUploadContainer>
-          <Image style={{height: "60px", }} src={"http://localhost:5000/" + imageOne}/>
+          <Image style={{height: "60px", }} src={apiUrl + "/" + imageOne}/>
           <ImageInput name="imageOne" type="file" onChange={uploadSelectedHandlerImageOne} accept="image/*, .pdf, .png, .jpg" required/>
           <ImageButton onClick={fileUploadHandlerImageOne}>Upload</ImageButton>
         </ImageUploadContainer>
         <label>Required you add another image</label>
         <ImageUploadContainer>
-          <Image style={{height: "60px", }} src={"http://localhost:5000/" + imageTwo}/>
+          <Image style={{height: "60px", }} src={apiUrl + "/" + imageTwo}/>
           <ImageInput name="imageTwo" type="file" onChange={uploadSelectedHandlerImageTwo} accept="image/*, .pdf, .png, .jpg" required/>
           <ImageButton onClick={fileUploadHandlerImageTwo}>Upload</ImageButton>
         </ImageUploadContainer>
       <Form>
-        <Input value={name} name="name" type="text" placeholder="name" onChange={(e) => {setName(e.target.value)}} required/>
-        <Input value={description} name="description" type="text-area" placeholder="description" onChange={(e) => {setDescription(e.target.value)}} required/>   
+        <label>Name of product</label>
+        <Input value={name} name="name" type="text" onChange={(e) => {setName(e.target.value)}} required/>
+        <label>Description of product</label>
+        <Input value={description} name="description" type="text-area" placeholder="description" onChange={(e) => {setDescription(e.target.value)}} required/> 
+        <label>Category of product</label>  
         <Input value={category} name="category" type="text" placeholder="category" onChange={(e) => {setCategory(e.target.value)}}/>
+        <label>Price of product, number no decimals ($)</label>  
         <Input value={price} name="price" type="number"  placeholder="price" onChange={(e) => {setPrice(e.target.value)}} required/>
+        <label>Count in stock of product, number</label>  
         <Input value={countInStock} name="countInStock" type="number"  placeholder="count in stock" onChange={(e) => {setCountInStock(e.target.value)}} required/>
         <Button onClick={handleSubmit}>Submit</Button>
       </Form>

@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
 import { Container, ProductDetailsContainer, ProductDetails, DetailContainer, Image, BackBtn, CheckoutBtn } from '../styles/ProductScreen.styles'
 import { addItemToCart } from '../api/cart'
+import apiUrl from '../apiConfig'
 
 const ProductScreen = ({ user, notify, setUser }) => {
   let { id } = useParams()
@@ -14,8 +15,9 @@ const ProductScreen = ({ user, notify, setUser }) => {
 
   useEffect(() => {
     const fetchProduct = async () => {
-      let res = await axios.get(`/products/${id}`)
+      let res = await axios.get(`${apiUrl}/products/${id}`)
       setProduct(res.data.product)
+      console.log(res.data.product)
     }
 
     fetchProduct()
@@ -48,7 +50,7 @@ const ProductScreen = ({ user, notify, setUser }) => {
     <Container>
       <BackBtn to="/products">Go Back</BackBtn>
       <ProductDetailsContainer>
-        <Image src={product.imageOne}/>
+        <Image src={apiUrl + "/" + product.imageOne}/>
         <ProductDetails>
           <DetailContainer>
             <h1>{product.name}</h1>
