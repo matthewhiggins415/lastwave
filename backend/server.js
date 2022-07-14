@@ -50,7 +50,9 @@ connectDB()
 
 const app = express()
 
-app.use(express.json())
+app.use(express.json({
+  verify: (req, res, buffer) => req['rawBody'] = buffer, 
+}))
 
 app.get('/', (req, res) => {
   res.send('API is up and running.')

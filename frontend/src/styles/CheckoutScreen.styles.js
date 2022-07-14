@@ -78,3 +78,12 @@ export const CheckoutEditBtn = styled.button`
   margin: 0 auto;
   cursor: pointer;
 `
+
+export const EditAddressWarning = styled.div`
+  margin: 10px auto; 
+  padding: 10px;
+  border-radius: 10px;
+  text-align: center;
+  background-color: #8b0000;
+  color: white;
+`

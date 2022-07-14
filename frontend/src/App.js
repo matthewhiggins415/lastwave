@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import './App.css';
 import { ToastContainer, toast } from 'react-toastify'
@@ -18,15 +18,18 @@ import ProfileScreen from './screens/ProfileScreen'
 import CheckoutScreen from './screens/CheckoutScreen';
 import PaymentCompleteScreen from './screens/PaymentCompleteScreen'
 
-
 //Admin Screens
 import AdminCustomersScreen from './screens/AdminCustomersScreen'
 import AdminOrdersScreen from './screens/AdminOrdersScreen'
 import AdminProductsScreen from './screens/AdminProductsScreen'
 import AdminProductEdit from './screens/AdminProductEdit'
 
-function App() {
+const App = () => {
   const [user, setUser] = useState(null)
+  
+  useEffect(() => {
+    // console.log("stripe:", stripe)
+  }, [])
 
   const clearUser = () => setUser(null)
 

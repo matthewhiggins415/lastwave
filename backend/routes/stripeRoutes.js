@@ -11,6 +11,7 @@ const handle404 = errors.handle404
 const Order = require('../models/orderModel')
 const User = require('../models/userModel')
 const { paymentIntent } = require('../utils/stripeApi')
+const webhook = require('../utils/webhook')
 
 // const stripe = require("stripe")('sk_test_51LBLr0CIa15tYhSsSm7MYX92C3Bn2xGYETbChWUeVDdxZoe1TWpTdAgjsBXx46pfORrXqkYpzXZ9KYcXxg7and8K00MAxZTHzh');
 
@@ -41,5 +42,7 @@ const { paymentIntent } = require('../utils/stripeApi')
   // });
 
   router.post('/create-payment-intent', paymentIntent)
+
+  router.post('/webhook', webhook)
 
   module.exports = router
