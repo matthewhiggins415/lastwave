@@ -35,10 +35,16 @@ export const ProductAddContainer = styled.div`
 `
 
 export const AddToCart = styled.button`
-  background-color: black;
-  color: white;
+  background-color: gold;
+  color: black;
   cursor: pointer;
   border: none;
   padding: 12px;
   border-radius: 10px;
+`
+
+export const AddToCartContainer = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
 `

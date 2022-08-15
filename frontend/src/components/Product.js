@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Container, ProductLink, Image, ProductAddContainer, AddToCart } from '../styles/Product.styles'
 import { addItemToCart } from '../api/cart'
@@ -16,13 +16,14 @@ const Product = ({ product, user, notify, id, setUser }) => {
       navigate("/register")
     }
   }
-
+ 
   const addToCart = async () => {
     try {
       let res = await addItemToCart(user, id)
-      setUser(res.data.user)
+      console.log("added to cart:", res)
+      // setUser(res.data.user)
       notify('item added to cart')
-      navigate("/cart")
+      // navigate("/cart")
     } catch(error) {
       console.log(error)
       notify('something went wrong', 'danger')

@@ -11,7 +11,6 @@ const userSchema = new Schema({
     required: true, 
     unique: true
   }, 
-  cart:[],
   shippingAddress: {
     address: {type: String, default: 'address'}, 
     unit: {type: String, default: 'unit'}, 

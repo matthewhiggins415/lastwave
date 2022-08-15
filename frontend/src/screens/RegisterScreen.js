@@ -3,6 +3,7 @@ import { useState } from 'react'
 // import Spinner from '../components/Spinner'
 import { Container, Form, Input, Button } from '../styles/RegisterScreen.styles'
 import { signUp } from '../api/auth'
+import { createCart } from '../api/cart'
 
 const RegisterScreen = ({ notify, setUser }) => {
   const [shouldNavigate, setShouldNavigate] = useState(false)
@@ -34,10 +35,10 @@ const RegisterScreen = ({ notify, setUser }) => {
         return
       } else {
         let res = await signUp(formData)
-        console.log(res)
+        console.log("res", res)
         // success message
         notify('registration successful')
-  
+        // create the cart
         // set user 
         setUser(res.data.user)
 

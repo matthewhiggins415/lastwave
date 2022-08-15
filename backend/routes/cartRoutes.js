@@ -6,6 +6,7 @@ const passport = require('passport')
 // pull in Mongoose model for examples
 const Product = require('../models/productModel')
 const User = require('../models/userModel')
+const Cart = require('../models/cartModal')
 
 // this is a collection of methods that help us detect situations when we need
 // to throw a custom error
@@ -27,98 +28,104 @@ const requireToken = passport.authenticate('bearer', { session: false })
 
 const router = express.Router()
 
-// Add item to cart
-router.post('/cart/:id', requireToken, async (req, res, next) => {
-  // Grab the user ID from req object
-  let userId = req.user.id
-  console.log(userId)
-  // Grab the item ID from url
-  let itemId = req.params.id
-  console.log(itemId)
-
-  // find user
-  let user = await User.findById(userId)
-
-  // find product by itemID param
-  let item = await Product.findById(itemId)
-
-  // put the product into the users cart array
-  user.cart.push(item)
-
-  // update database cart
-  await user.save()
-  res.json({ user })
-})
-
-router.delete('/cart/:id', requireToken, async (req, res, next) => {
-  let totalCartCost 
-  const calculateCartTotal = (cart) => {
-    let prices = []
-    cart.forEach(cartItem => {
-       prices.push(cartItem.price)
-    });
-    const reducer = (previousValue, currentValue) => previousValue + currentValue;
-
-    if (prices.length) {
-      let sum = prices.reduce(reducer)
-      totalCartCost = sum
-    }
-  }
-
-  let productId = req.params.id
-  let userId = req.user.id
-
-  let user = await User.findById(userId)
-  let cart = user.cart
-
-  let updatedCart = cart.filter(cartItem => cartItem._id != productId)
-
-  user.cart = updatedCart
-
-  calculateCartTotal(updatedCart)
-        
-  await user.save()
-  res.json({ user, totalCartCost })
-
-})
-
-// Get all cart items 
-router.get('/cart', requireToken, async (req, res, next) => {
-    let totalCartCost 
-    const calculateCartTotal = (cart) => {
-    
-      let prices = []
-      cart.forEach(cartItem => {
-         prices.push(cartItem.price)
-      });
-    
-      const reducer = (previousValue, currentValue) => previousValue + currentValue;
-      if (prices.length) {
-        let sum = prices.reduce(reducer)
-        totalCartCost = sum
-      }
-    }
-    // find the userID
-    let userId = req.user.id
-    // find the user
-    let user = await User.findById(userId)
-    // isolate the user.cart
-    let cart = user.cart
-
-    calculateCartTotal(cart)
-    
-    res.json({ cart, totalCartCost })
+// Calculate the cart subtotal 
+const calculateCart = (cart) => {
+  let priceArr = []
+  cart.forEach((item) => {
+    priceArr.push(item.price)
   })
 
-// Remove all items - useful if customer clears cart or buys everything and we wish to clear the cart. 
-router.delete('/clearall', requireToken, async (req, res, next) => {
+  let total = priceArr.reduce((preVal, curVal) => preVal + curVal, 0)
+  return total
+}
+
+// NEW GET A CART FOR A USER 
+router.get('/cart', requireToken, async (req, res, next) => {
+  let userId = req.user.id    
+  
+  let cart = await Cart.findOne({ user: userId })
+  console.log(cart)
+
+  res.json({ cart })
+})
+
+// ADD AN ITEM 
+router.post('/cart/:id', requireToken, async (req, res, next) => {
+  let userId = req.user.id 
+  let itemId = req.params.id
+
+  let product = await Product.findById(itemId)
+  console.log("product: ", product.id)
+
+  let cart = await Cart.findOne({user: userId})
+
+  const cartItem = {
+    product: product.id, 
+    name: product.name,
+    image: product.imageOne,
+    quantity: 1,
+    price: product.price
+  }
+
+  let items = cart.items 
+
+  if (items.some(e => e.product === product.id)) {
+    res.json({ message: "item already in cart" })
+  } else {
+    items.push(cartItem)
+
+    const newSubTotal = calculateCart(items)
+    cart.subTotal = newSubTotal
+    
+    const updatedCart = await cart.save()
+    res.json({ updatedCart })
+  }
+})
+
+// ADD QTY OF AN ITEM 
+
+// REMOVE QTY OF AN ITEM 
+
+// REMOVE AN ITEM 
+router.patch('/cart/:id', requireToken, async (req, res, next) => {
+  let userId = req.user.id 
+  let itemId = req.params.id 
+
+  let product = await Product.findById(itemId)
+  let productId = product._id.toString()
+  let cart = await Cart.findOne({user: userId})
+
+  let items = cart.items 
+
+  if (items.some(e => e.product === productId)) {
+    let result = items.filter((n) => {
+      return n.product !== itemId
+    })
+
+    cart.items = result 
+
+    const newSubTotal = calculateCart(cart.items)
+    cart.subTotal = newSubTotal
+
+    cart.markModified("items");
+    const updatedCart = await cart.save()
+    res.json({ updatedCart })
+  } else {
+    res.json({ message: "item not in cart" })
+  }
+})
+
+// CLEAR CART 
+router.delete('/cart', requireToken, async (req, res, next) => {
   let userId = req.user.id
-  let user = await User.findById(userId)
-  user.cart = []
+  let cart = await Cart.findOne({ user: userId })
+  console.log(cart)
 
-  await user.save()
-
-  res.json({ user })
+  cart.items.length = 0 
+  cart.subTotal = 0
+  cart.markModified("items");
+  const updatedCart = await cart.save()
+  res.json({ updatedCart })
 })
 
 module.exports = router

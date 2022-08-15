@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Product from '../components/Product'
 import axios from 'axios'
 import { Container, H1, ProductsContainer } from '../styles/ProductsScreen.styles'
+import { createCart } from '../api/cart'
 // import { v4 as uuidv4 } from 'uuid';
 
 const ProductsScreen = ({ user, notify, setUser }) => {
@@ -11,9 +12,12 @@ const ProductsScreen = ({ user, notify, setUser }) => {
     const fetchProducts = async() => {
       let { data } = await axios.get('/products')
       setProducts(data.products)
+
+
     }
     fetchProducts()
   }, [])
+
 
   // The dependencies parameter is reserved for any value that you wish to fire off the useEffect
 

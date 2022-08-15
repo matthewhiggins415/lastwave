@@ -3,9 +3,7 @@ import apiUrl from '../apiConfig'
 
 // add an item to the users cart 
 export const addItemToCart = (user, id) => {
-  console.log(user)
   let data = ''
-  console.log(id)
   return axios.post(apiUrl + `/cart/${id}`, data,
   { headers: { Authorization: `Bearer ${user.token}`} }
  )
@@ -21,7 +19,33 @@ export const getItemsInCart = (user) => {
 
 // remove an item from a users cart 
 export const removeItemFromCart = (user, id) => {
-  return axios.delete(apiUrl + `/cart/${id}`, {
+  let data = ''
+  return axios.patch(apiUrl + `/cart/${id}`, data, {
+    headers: {
+      Authorization: `Bearer ${user.token}`
+    }
+  })
+}
+
+// update the qty of an item from users cart 
+// export const updateQtyItemFromCart = (user, id, qty) => {
+//   return axios.get(apiUrl + `/cart/${id}?qty=${qty}`, {
+//     headers: {
+//       Authorization: `Bearer ${user.token}`
+//     }
+//   })
+// }
+
+export const clearCart = (user) => {
+  return axios.delete(apiUrl + '/cart', {
+    headers: {
+      Authorization: `Bearer ${user.token}`
+    }
+  })
+}
+
+export const createCart = (user) => {
+  return axios.post(apiUrl + '/cart', {
     headers: {
       Authorization: `Bearer ${user.token}`
     }

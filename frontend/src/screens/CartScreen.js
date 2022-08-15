@@ -16,8 +16,10 @@ const CartScreen = ({ user, notify, setUser }) => {
         let res = await getItemsInCart(user)
         let response = await getUser(user)
         setUser(response.data.user)
-        setCartItems(res.data.cart)
-        setCartTotal(res.data.totalCartCost)
+        setCartItems(res.data.cart.items)
+        setCartTotal(res.data.cart.subTotal)
+        console.log(response)
+        console.log(res)
       } catch (e) {
         console.log(e)
       }
@@ -45,8 +47,9 @@ const CartScreen = ({ user, notify, setUser }) => {
       <CheckoutButton onClick={() => setToCheckout(!toCheckout)}>Proceed to Checkout</CheckoutButton>
       <CartItemsContainer>
         {cartItems.map((cartItem, index) => (
-          <CartItem key={index + 1} cartItem={cartItem} setCartTotal={setCartTotal} setCartItems={setCartItems} user={user} setUser={setUser} notify={notify}/>
+          <CartItem key={index + 1} cartItem={cartItem} id={cartItem.product} setCartTotal={setCartTotal} setCartItems={setCartItems} user={user} setUser={setUser} notify={notify}/>
         ))}
+        {!cartItems && <p>Nothing in cart</p>}
       </CartItemsContainer>
     </Container>
   )

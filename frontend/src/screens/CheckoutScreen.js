@@ -10,7 +10,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from '../components/CustomCheckout'
 import apiUrl from '../apiConfig'
 
-// const stripePromise = loadStripe("pk_test_51LBLr0CIa15tYhSsq3q1th21L37h4GDbzjc798H6ZE1OGQiXg0VGaU1xUqy8254RFDZnZLXwUaFQuZV6usZZn7Yb00qaj9Woax");
+const stripePromise = loadStripe("pk_test_51LBLr0CIa15tYhSsq3q1th21L37h4GDbzjc798H6ZE1OGQiXg0VGaU1xUqy8254RFDZnZLXwUaFQuZV6usZZn7Yb00qaj9Woax");
 
 const CheckoutScreen = ({ user,  notify }) => {
   const [cartTotal, setCartTotal] = useState(0.0)
@@ -21,8 +21,7 @@ const CheckoutScreen = ({ user,  notify }) => {
   let navigate = useNavigate()
 
   useEffect(() => {
-
-    
+    console.log("user is:", user)
     const isAddressComplete = () => {
       let currentAddress = user.shippingAddress
       console.log(currentAddress)
@@ -34,30 +33,54 @@ const CheckoutScreen = ({ user,  notify }) => {
       }
     }
 
-    // const fetchCart = async () => {
-    //   try {
-    //     let res = await getItemsInCart(user)
-    //     setCartTotal(res.data.totalCartCost)
-    //     console.log(res)
-    //   } catch(err) {
-    //     console.log(err)
-    //   }
-    // }
+    const fetchCart = async () => {
+      try {
+        let res = await getItemsInCart(user)
+        setCartTotal(res.data.totalCartCost)
+      } catch(err) {
+        console.log(err)
+      }
+    }
 
     isAddressComplete()
-    // fetchCart()
+    fetchCart()
   }, [])
 
-  // useEffect(() => {
+  useEffect(() => {
   //   // Create PaymentIntent as soon as the page loads
-  //   fetch(apiUrl + "/create-payment-intent", {
-  //     method: "POST",
-  //     headers: { "Content-Type": "application/json" },
-  //     body: JSON.stringify({ items: [{ id: "xl-tshirt" }] }),
-  //   })
-  //     .then((res) => res.json())
-  //     .then((data) =>  setClientSecret(data.clientSecret));
-  // }, []);
+
+   const getTheCart = async () => {
+     try {
+      let res = await getItemsInCart(user)
+      console.log("cart items:", res.data.cart)
+      createStripeIntent(res.data.cart)
+     } catch(error) {
+      console.log(error)
+     }
+   }
+
+
+   const createStripeIntent = async (itemsInCart) => {
+     let data = {
+       itemsInCart: itemsInCart, 
+       user: user
+     }
+
+     try {
+      fetch(apiUrl + "/create-payment-intent", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      })   
+      // .then((res) => res.json())
+      // .then((data) =>  setClientSecret(data.clientSecret));
+     } catch(err) {
+       console.log(err)
+     }
+   }
+
+   getTheCart()
+  }, []);
 
   // const appearance = {
   //   theme: 'stripe',

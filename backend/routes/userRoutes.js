@@ -16,6 +16,8 @@ const BadParamsError = errors.BadParamsError
 const BadCredentialsError = errors.BadCredentialsError
 
 const User = require('../models/userModel')
+const Cart = require('../models/cartModal')
+
 
 // passing this as a second argument to `router.<verb>` will make it
 // so that a token MUST be passed for that route to be available
@@ -59,6 +61,17 @@ router.post('/sign-up', (req, res, next) => {
       const token = crypto.randomBytes(16).toString('hex')
       user.token = token 
       return user.save()
+    })
+    .then(user => {
+      const userId = user._id
+      const cart = new Cart({
+        user: userId, 
+        items: [],
+        subTotal: 0
+      })
+
+      cart.save()
+      return user
     })
     .then(user => res.status(201).json({ user: user }))
     // pass any errors along to the error handler
