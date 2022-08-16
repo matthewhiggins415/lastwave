@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Navigate } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
-import { AddressH4, Container, H1, H4, CheckoutContainer, OrderSummaryDiv, CheckoutBtn, CheckoutAddressContainer, CheckoutAddressDiv, CheckoutEditBtn, EditAddressWarning } from '../styles/CheckoutScreen.styles'
+import { AddressH4, Container, H1, H4, CheckoutContainer, OrderSummaryDiv, CheckoutBtn, CheckoutAddressContainer, CheckoutAddressDiv, CheckoutEditBtn, EditAddressWarning, WarningH4 } from '../styles/CheckoutScreen.styles'
 import CheckoutItem from '../components/CheckoutItem'
 import CustomCheckout from '../components/CustomCheckout'
 import { getItemsInCart } from '../api/cart'
@@ -10,10 +10,11 @@ import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from '../components/CustomCheckout'
 import apiUrl from '../apiConfig'
 
-const stripePromise = loadStripe("pk_test_51LBLr0CIa15tYhSsq3q1th21L37h4GDbzjc798H6ZE1OGQiXg0VGaU1xUqy8254RFDZnZLXwUaFQuZV6usZZn7Yb00qaj9Woax");
+// const stripePromise = loadStripe("pk_test_51LBLr0CIa15tYhSsq3q1th21L37h4GDbzjc798H6ZE1OGQiXg0VGaU1xUqy8254RFDZnZLXwUaFQuZV6usZZn7Yb00qaj9Woax");
 
 const CheckoutScreen = ({ user,  notify }) => {
   const [cartTotal, setCartTotal] = useState(0.0)
+  const [cart, setCart] = useState([])
   const [clientSecret, setClientSecret] = useState("");
   const [addressValid, setAddressValid] = useState(false)
 
@@ -36,7 +37,9 @@ const CheckoutScreen = ({ user,  notify }) => {
     const fetchCart = async () => {
       try {
         let res = await getItemsInCart(user)
-        setCartTotal(res.data.totalCartCost)
+        // setCartTotal(res.data.cart.subTotal)
+        setCart(res.data.cart.items)
+        setCartTotal(res.data.cart.subTotal)
       } catch(err) {
         console.log(err)
       }
@@ -46,41 +49,28 @@ const CheckoutScreen = ({ user,  notify }) => {
     fetchCart()
   }, [])
 
-  useEffect(() => {
-  //   // Create PaymentIntent as soon as the page loads
+  // useEffect(() => {
+  // // Create PaymentIntent as soon as the page loads
+  //  const createStripeIntent = async (itemsInCart) => {
+  //    let data = {
+  //      itemsInCart: itemsInCart, 
+  //      user: user
+  //    }
 
-   const getTheCart = async () => {
-     try {
-      let res = await getItemsInCart(user)
-      console.log("cart items:", res.data.cart)
-      createStripeIntent(res.data.cart)
-     } catch(error) {
-      console.log(error)
-     }
-   }
+  //    try {
+  //     fetch(apiUrl + "/create-payment-intent", {
+  //       method: "POST",
+  //       headers: { "Content-Type": "application/json" },
+  //       body: JSON.stringify(data),
+  //     })   
+  //     // .then((res) => res.json())
+  //     // .then((data) =>  setClientSecret(data.clientSecret));
+  //    } catch(err) {
+  //      console.log(err)
+  //    }
+  //  }
 
-
-   const createStripeIntent = async (itemsInCart) => {
-     let data = {
-       itemsInCart: itemsInCart, 
-       user: user
-     }
-
-     try {
-      fetch(apiUrl + "/create-payment-intent", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      })   
-      // .then((res) => res.json())
-      // .then((data) =>  setClientSecret(data.clientSecret));
-     } catch(err) {
-       console.log(err)
-     }
-   }
-
-   getTheCart()
-  }, []);
+  // }, []);
 
   // const appearance = {
   //   theme: 'stripe',
@@ -109,8 +99,8 @@ const CheckoutScreen = ({ user,  notify }) => {
       <CheckoutContainer>
         <H4>Order Summary</H4>
         <OrderSummaryDiv>
-          <h4>{"Items(" + user.cart.length + ")"}</h4>
-          <h4>{"$" + cartTotal}</h4>
+          <h4>{"Items(" + cart.length + ")"}</h4>
+          <h4>{"$" + parseInt(cartTotal)}</h4>
         </OrderSummaryDiv>
         <OrderSummaryDiv>
           <h4>Shipping</h4>
@@ -128,16 +118,20 @@ const CheckoutScreen = ({ user,  notify }) => {
       <CheckoutContainer>
         <H4>Order Items</H4>
         <div>
-          {user.cart.map((item) => (
-            <CheckoutItem checkoutItem={item} key={item._id}/>
+          {cart.map((item) => (
+            <CheckoutItem checkoutItem={item} key={item.product}/>
           ))}
         </div>
       <CheckoutEditBtn onClick={() => navigateToCart()}>Edit Order Items</CheckoutEditBtn>
       </CheckoutContainer>
       <CheckoutContainer>
         <H4>Shipping Address</H4>
-        {!addressValid ? <EditAddressWarning>UPDATE SHIPPING ADDRESS TO PAY</EditAddressWarning> : null}
-       <CheckoutAddressContainer>
+        {addressValid ? null : 
+        <EditAddressWarning>
+          <WarningH4>UPDATE SHIPPING ADDRESS TO PAY</WarningH4>
+          <CheckoutEditBtn onClick={() => navigateToProfile()}>Edit Shipping Address</CheckoutEditBtn>
+        </EditAddressWarning>}
+       { addressValid ? <CheckoutAddressContainer>
           <CheckoutAddressDiv>
             <AddressH4>{user.shippingAddress.address}</AddressH4>
             <AddressH4>{"#" + user.shippingAddress.unit}</AddressH4>
@@ -148,8 +142,8 @@ const CheckoutScreen = ({ user,  notify }) => {
             <AddressH4>{user.shippingAddress.zip}</AddressH4>
           </CheckoutAddressDiv>
           <AddressH4>{user.shippingAddress.country}</AddressH4>
-          <CheckoutEditBtn onClick={() => navigateToProfile()}>Edit Shipping Address</CheckoutEditBtn>
-        </CheckoutAddressContainer>
+        </CheckoutAddressContainer> : null}
+        <CheckoutEditBtn onClick={() => navigateToProfile()}>Edit Shipping Address</CheckoutEditBtn>
       </CheckoutContainer>
      
         {/* {clientSecret && (

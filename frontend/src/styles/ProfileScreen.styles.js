@@ -34,8 +34,9 @@ export const ProfileHeader = styled.div`
 `
 
 export const Button = styled.button`
-  border: 1px solid black;
-  background-color: white; 
+  border: 1px solid gold;
+  background-color: gold;
+  color: black; 
   padding: 5px;
   border-radius: 4px;
   min-width: 50px;

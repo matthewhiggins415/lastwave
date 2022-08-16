@@ -14,19 +14,19 @@ const CartScreen = ({ user, notify, setUser }) => {
     const fetchCart = async () => {
       try {
         let res = await getItemsInCart(user)
-        let response = await getUser(user)
-        setUser(response.data.user)
+        // let response = await getUser(user)
+        // setUser(response.data.user)
         setCartItems(res.data.cart.items)
         setCartTotal(res.data.cart.subTotal)
-        console.log(response)
-        console.log(res)
+        console.log("items in cart res:", res)
+        // console.log("user response: ", response)
       } catch (e) {
         console.log(e)
       }
     }
 
     fetchCart()
-  }, [setUser])
+  }, [setCartItems])
 
   if (!user) {
     notify('not logged in', 'danger')
@@ -44,12 +44,12 @@ const CartScreen = ({ user, notify, setUser }) => {
         <p>Subtotal: </p>
         <p>{cartTotal ? "$" + cartTotal : "$" + 0}</p>
       </SubtotalContainer>
-      <CheckoutButton onClick={() => setToCheckout(!toCheckout)}>Proceed to Checkout</CheckoutButton>
+      {cartItems.length > 0 ? <CheckoutButton onClick={() => setToCheckout(!toCheckout)}>Proceed to Checkout</CheckoutButton> : ''}
       <CartItemsContainer>
         {cartItems.map((cartItem, index) => (
           <CartItem key={index + 1} cartItem={cartItem} id={cartItem.product} setCartTotal={setCartTotal} setCartItems={setCartItems} user={user} setUser={setUser} notify={notify}/>
         ))}
-        {!cartItems && <p>Nothing in cart</p>}
+        {cartItems.length > 0 ? '' : <p>Nothing in cart</p>}
       </CartItemsContainer>
     </Container>
   )

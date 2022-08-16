@@ -15,7 +15,6 @@ const ProfileScreen = ({ user, notify, setUser }) => {
   const info = () => {
     return (
       <>
-      <P>ID: {user._id}</P>
       <P>Name: {user.name}</P>
       <P>Email: {user.email}</P>
       </>
@@ -25,7 +24,6 @@ const ProfileScreen = ({ user, notify, setUser }) => {
   const userInfoForm = () => {
     return (
       <Form>
-        <P>ID: {user._id}</P>
         <Input placeholder={user.name} type="text"/>
         <Input placeholder={user.email} type="text"/>
       </Form>

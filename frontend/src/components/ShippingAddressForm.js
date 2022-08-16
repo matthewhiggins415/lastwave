@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Form, Input } from '../styles/ProfileScreen.styles'
+import { Form, Input, Button } from '../styles/ProfileScreen.styles'
 import { editUserShippingAddress } from '../api/auth'
 
 const ShippingAddressForm = ({ setShippingAddress, notify, setUser, user}) => {
@@ -52,7 +52,7 @@ const ShippingAddressForm = ({ setShippingAddress, notify, setUser, user}) => {
       <Input type="text" name="zip" value={zip} placeholder={user.shippingAddress.zip} onChange={onChange} />
       <Input type="text" name="state" value={state} placeholder={user.shippingAddress.state} onChange={onChange} />
       <Input type="text" name="country" value={country} placeholder={user.shippingAddress.country} onChange={onChange} />
-      <button onClick={handleSubmit}>Save</button>
+      <Button onClick={handleSubmit}>Save</Button>
     </Form>
   )
 }

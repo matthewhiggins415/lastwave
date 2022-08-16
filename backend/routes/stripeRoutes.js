@@ -10,6 +10,8 @@ const handle404 = errors.handle404
 
 const Order = require('../models/orderModel')
 const User = require('../models/userModel')
+const Cart = require('../models/cartModal')
+
 const { paymentIntent } = require('../utils/stripeApi')
 const webhook = require('../utils/webhook')
 

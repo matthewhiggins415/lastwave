@@ -32,7 +32,7 @@ const router = express.Router()
 const calculateCart = (cart) => {
   let priceArr = []
   cart.forEach((item) => {
-    priceArr.push(item.price)
+    priceArr.push(item.price * parseInt(item.quantity))
   })
 
   let total = priceArr.reduce((preVal, curVal) => preVal + curVal, 0)
@@ -44,8 +44,11 @@ router.get('/cart', requireToken, async (req, res, next) => {
   let userId = req.user.id    
   
   let cart = await Cart.findOne({ user: userId })
-  console.log(cart)
-
+  
+  const newSubTotal = calculateCart(cart.items)
+  cart.subTotal = newSubTotal
+    
+  await cart.save()
   res.json({ cart })
 })
 
@@ -83,8 +86,36 @@ router.post('/cart/:id', requireToken, async (req, res, next) => {
 })
 
 // ADD QTY OF AN ITEM 
+router.patch('/cart/:id/qty/:qty', requireToken, async (req, res, next) => {
+  let itemId = req.params.id 
+  let itemQty = req.params.qty 
+  let userId = req.user.id 
 
-// REMOVE QTY OF AN ITEM 
+  let cart = await Cart.findOne({user: userId})
+
+  let items = cart.items 
+
+  if (items.some(e => e.product === itemId)) {
+    console.log("item is here!!  ", itemId)
+    console.log("e is!!  ", cart)
+    console.log("new qty", itemQty)
+
+    for (let i=0; i < items.length; i++) {
+      if (items[i].product === itemId) {
+        items[i].quantity = itemQty
+        cart.markModified("items");
+        const newSubTotal = calculateCart(items)
+        cart.subTotal = newSubTotal
+        const updatedCart = await cart.save()
+        res.json({ updatedCart })
+      }
+    }
+  } else {
+    res.json({ message: "item not in cart"})
+  }
+}) 
+
+
 
 // REMOVE AN ITEM 
 router.patch('/cart/:id', requireToken, async (req, res, next) => {

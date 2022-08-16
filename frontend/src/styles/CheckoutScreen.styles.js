@@ -32,15 +32,19 @@ export const H4 = styled.h4`
   color: white;
   padding: 10px;
   text-align: center;
+  margin-bottom: 10px;
 `
 
 export const OrderSummaryDiv = styled.div`
-  width: 90%;
+  width: 100%;
   padding: 2px;
   border-bottom: 1px solid darkgray;
-  margin: 10px auto;
+  margin: 0px auto;
   display: flex;
   justify-content: space-between;
+  background-color: white;
+  padding: 10px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 `
 
 export const CheckoutBtn = styled.button`
@@ -50,15 +54,19 @@ export const CheckoutBtn = styled.button`
   width: 90%;
   margin: 10px auto;
   cursor: pointer;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 `
 
 export const CheckoutAddressContainer = styled.div`
-  width: 90%;
-  margin-top: 5px;
-  margin: 5px auto;
+  width: 100%;
+  margin: 0 auto;
+  margin-bottom: 10px;
+  padding: 10px;
   display: flex;
   flex-direction: column;
-  align-items: start;
+  align-items: center;
+  background-color: white;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 `
 
 export const CheckoutAddressDiv = styled.div`
@@ -80,10 +88,15 @@ export const CheckoutEditBtn = styled.button`
 `
 
 export const EditAddressWarning = styled.div`
+  width: 100%;
   margin: 10px auto; 
   padding: 10px;
   border-radius: 10px;
   text-align: center;
-  background-color: #8b0000;
-  color: white;
+  background-color: white;
+  color: red;
+`
+
+export const WarningH4 = styled.h4`
+  margin: 15px auto;
 `

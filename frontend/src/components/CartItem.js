@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { removeItemFromCart, updateQtyItemFromCart } from '../api/cart'
+import { removeItemFromCart, updateQtyItemFromCart} from '../api/cart'
 import { Container, CartImage, CartItemInfo, RemoveButton, QuantityContainer, QuantityBtn, QuantityH2 } from '../styles/CartItem.styles' 
 
 const CartItem = ({ cartItem, id, user, setUser, setCartItems, setCartTotal, notify }) => {
@@ -25,6 +25,30 @@ const CartItem = ({ cartItem, id, user, setUser, setCartItems, setCartTotal, not
     }
   }
 
+  const increaseQty = async (id) => {
+    console.log("plus one", id)
+    let qty = parseInt(quantity) + 1
+
+    let res = await updateQtyItemFromCart(user, id, qty)
+    setQuantity(qty)
+    setCartItems(res.data.updatedCart.items)
+    setCartTotal(res.data.updatedCart.subTotal)
+  }
+
+  const decreaseQty = async (id) => {
+    console.log("plus one", id)
+    let qty = parseInt(quantity) - 1
+
+    if (qty < 1) {
+      qty = 1
+    }
+    
+    let res = await updateQtyItemFromCart(user, id, qty)
+    setQuantity(qty)
+    setCartItems(res.data.updatedCart.items)
+    setCartTotal(res.data.updatedCart.subTotal)
+  }
+
   return (
     <Container>
       <CartImage src={cartItem.image}/>
@@ -34,9 +58,9 @@ const CartItem = ({ cartItem, id, user, setUser, setCartItems, setCartTotal, not
         <RemoveButton onClick={handleClick}>remove</RemoveButton>
      </CartItemInfo>
      <QuantityContainer>
-       <QuantityBtn>+</QuantityBtn>
+       <QuantityBtn onClick={() => increaseQty(cartItem.product)}>+</QuantityBtn>
        <QuantityH2>{quantity}</QuantityH2>
-       <QuantityBtn>-</QuantityBtn>
+       <QuantityBtn onClick={() => decreaseQty(cartItem.product)}>-</QuantityBtn>
      </QuantityContainer>
     </Container>
   )

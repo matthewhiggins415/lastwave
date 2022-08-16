@@ -28,13 +28,14 @@ export const removeItemFromCart = (user, id) => {
 }
 
 // update the qty of an item from users cart 
-// export const updateQtyItemFromCart = (user, id, qty) => {
-//   return axios.get(apiUrl + `/cart/${id}?qty=${qty}`, {
-//     headers: {
-//       Authorization: `Bearer ${user.token}`
-//     }
-//   })
-// }
+export const updateQtyItemFromCart = (user, id, qty) => {
+  let data = ''
+  return axios.patch(apiUrl + `/cart/${id}/qty/${qty}`, data, {
+    headers: {
+      Authorization: `Bearer ${user.token}`
+    }
+  })
+}
 
 export const clearCart = (user) => {
   return axios.delete(apiUrl + '/cart', {
