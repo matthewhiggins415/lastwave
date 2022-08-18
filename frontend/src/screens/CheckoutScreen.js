@@ -10,8 +10,6 @@ import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from '../components/CustomCheckout'
 import apiUrl from '../apiConfig'
 
-// const stripePromise = loadStripe("pk_test_51LBLr0CIa15tYhSsq3q1th21L37h4GDbzjc798H6ZE1OGQiXg0VGaU1xUqy8254RFDZnZLXwUaFQuZV6usZZn7Yb00qaj9Woax");
-
 const CheckoutScreen = ({ user,  notify }) => {
   const [cartTotal, setCartTotal] = useState(0.0)
   const [cart, setCart] = useState([])
@@ -48,38 +46,6 @@ const CheckoutScreen = ({ user,  notify }) => {
     isAddressComplete()
     fetchCart()
   }, [])
-
-  // useEffect(() => {
-  // // Create PaymentIntent as soon as the page loads
-  //  const createStripeIntent = async (itemsInCart) => {
-  //    let data = {
-  //      itemsInCart: itemsInCart, 
-  //      user: user
-  //    }
-
-  //    try {
-  //     fetch(apiUrl + "/create-payment-intent", {
-  //       method: "POST",
-  //       headers: { "Content-Type": "application/json" },
-  //       body: JSON.stringify(data),
-  //     })   
-  //     // .then((res) => res.json())
-  //     // .then((data) =>  setClientSecret(data.clientSecret));
-  //    } catch(err) {
-  //      console.log(err)
-  //    }
-  //  }
-
-  // }, []);
-
-  // const appearance = {
-  //   theme: 'stripe',
-  // };
-  // const options = {
-  //   clientSecret,
-  //   appearance,
-  // };
-
 
   if (!user) {
     return <Navigate to="/login" />
@@ -145,19 +111,7 @@ const CheckoutScreen = ({ user,  notify }) => {
         </CheckoutAddressContainer> : null}
         <CheckoutEditBtn onClick={() => navigateToProfile()}>Edit Shipping Address</CheckoutEditBtn>
       </CheckoutContainer>
-     
-        {/* {clientSecret && (
-          <Elements options={options} stripe={stripePromise}>
-            <CheckoutForm notify={notify}/>
-          </Elements>
-        )} */}
-
-        {
-          addressValid ? <CustomCheckout user={user} notify={notify}/> : null
-        }
-      
-   
-
+      { addressValid ? <CustomCheckout user={user} notify={notify}/> : null }
     </Container>
   )
 }

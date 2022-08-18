@@ -12,39 +12,36 @@ const Order = require('../models/orderModel')
 const User = require('../models/userModel')
 const Cart = require('../models/cartModal')
 
-const { paymentIntent } = require('../utils/stripeApi')
-const webhook = require('../utils/webhook')
+const stripeAPI = require('../utils/stripe')
 
-// const stripe = require("stripe")('sk_test_51LBLr0CIa15tYhSsSm7MYX92C3Bn2xGYETbChWUeVDdxZoe1TWpTdAgjsBXx46pfORrXqkYpzXZ9KYcXxg7and8K00MAxZTHzh');
+// const webhook = require('../utils/webhook')
 
+router.post('/create-payment-intent', requireToken, async (req, res) => {
+  let userId = req.user.id
 
-// const calculateOrderAmount = (items) => {
-//   // Replace this constant with a calculation of the order's amount
-//   // Calculate the order total on the server to prevent
-//   // people from directly manipulating the amount on the client
-//   return 1400;
-// };
+  let cart = await Cart.findOne({user: userId})
+  let total = cart.subTotal
+
+  let user = await User.findById(userId)
+  let receipt_email = user.email
+  let shipping = user.shipping
   
+  try { 
+    paymentIntent = await stripeAPI.paymentIntents.create({
+      amount: total, 
+      currency: 'usd', 
+      payment_method_types: ['card'],
+      receipt_email, 
+      shipping
+    });
 
-  // router.post("/create-payment-intent", async (req, res) => {
-  //   const { items } = req.body;
-  
-  //   // Create a PaymentIntent with the order amount and currency
-  //   const paymentIntent = await stripe.paymentIntents.create({
-  //     amount: calculateOrderAmount(items),
-  //     currency: "usd",
-  //     automatic_payment_methods: {
-  //       enabled: true,
-  //     },
-  //   });
-  
-  //   res.send({
-  //     clientSecret: paymentIntent.client_secret,
-  //   });
-  // });
+    res.status(200).json({ clientSecret: paymentIntent.client_secret })
+  } catch(error) {
+    console.log(error)
+    res.status(400).json({ message: "an error occured, unable to create payment intent."})
+  }
+})
 
-  router.post('/create-payment-intent', paymentIntent)
+// router.post('/webhook', webhook)
 
-  router.post('/webhook', webhook)
-
-  module.exports = router
+module.exports = router
