@@ -12,6 +12,21 @@ const cartSchema = new Schema({
       type: Number,
       required: true,
       default: 0
+    }, 
+    shippingCost: {
+      type: Number, 
+      required: true,
+      default: 0
+    }, 
+    tax: {
+      type: Number, 
+      required: true, 
+      default: 0
+    },
+    total: {
+      type: Number, 
+      required: true, 
+      default: 0
     }
   }, {
   timestamps: true

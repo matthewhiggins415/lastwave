@@ -39,6 +39,16 @@ const calculateCart = (cart) => {
   return total
 }
 
+// calculate cart total 
+const calculateCartTotal = (cart) => {
+  let shippingCost = cart.shippingCost
+  let taxCost = cart.tax
+  let subtotal = cart.subTotal
+
+  let total = shippingCost + taxCost + subtotal
+  return total 
+}
+
 // NEW GET A CART FOR A USER 
 router.get('/cart', requireToken, async (req, res, next) => {
   let userId = req.user.id    
@@ -79,6 +89,9 @@ router.post('/cart/:id', requireToken, async (req, res, next) => {
 
     const newSubTotal = calculateCart(items)
     cart.subTotal = newSubTotal
+
+    const newTotal = calculateCartTotal(cart)
+    cart.total = newTotal
     
     const updatedCart = await cart.save()
     res.json({ updatedCart })
@@ -104,8 +117,13 @@ router.patch('/cart/:id/qty/:qty', requireToken, async (req, res, next) => {
       if (items[i].product === itemId) {
         items[i].quantity = itemQty
         cart.markModified("items");
+        
         const newSubTotal = calculateCart(items)
         cart.subTotal = newSubTotal
+        
+        const newTotal = calculateCartTotal(cart)
+        cart.total = newTotal
+
         const updatedCart = await cart.save()
         res.json({ updatedCart })
       }
@@ -138,6 +156,9 @@ router.patch('/cart/:id', requireToken, async (req, res, next) => {
     const newSubTotal = calculateCart(cart.items)
     cart.subTotal = newSubTotal
 
+    const newTotal = calculateCartTotal(cart)
+    cart.total = newTotal
+
     cart.markModified("items");
     const updatedCart = await cart.save()
     res.json({ updatedCart })
@@ -154,6 +175,7 @@ router.delete('/cart', requireToken, async (req, res, next) => {
 
   cart.items.length = 0 
   cart.subTotal = 0
+  cart.total = 0
   cart.markModified("items");
   const updatedCart = await cart.save()
   res.json({ updatedCart })

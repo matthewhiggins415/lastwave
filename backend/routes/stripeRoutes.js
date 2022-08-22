@@ -20,7 +20,7 @@ router.post('/create-payment-intent', requireToken, async (req, res) => {
   let userId = req.user.id
 
   let cart = await Cart.findOne({user: userId})
-  let total = cart.subTotal
+  let total = cart.total * 100
 
   let user = await User.findById(userId)
   let receipt_email = user.email

@@ -67,7 +67,10 @@ router.post('/sign-up', (req, res, next) => {
       const cart = new Cart({
         user: userId, 
         items: [],
-        subTotal: 0
+        subTotal: 0,
+        shippingCost: 10,
+        tax: 5,
+        total: 0
       })
 
       cart.save()

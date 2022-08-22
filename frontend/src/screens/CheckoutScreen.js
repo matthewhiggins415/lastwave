@@ -12,11 +12,13 @@ import apiUrl from '../apiConfig'
 
 const CheckoutScreen = ({ user,  notify }) => {
   const [cartTotal, setCartTotal] = useState(0.0)
+  const [tax, setTax] = useState(0)
+  const [shipping, setShipping] = useState(0)
   const [cart, setCart] = useState([])
   const [clientSecret, setClientSecret] = useState("");
   const [addressValid, setAddressValid] = useState(false)
 
-  let total = cartTotal + 7 + 15
+  let total = cartTotal + 10 + 5
   let navigate = useNavigate()
 
   useEffect(() => {
@@ -38,6 +40,8 @@ const CheckoutScreen = ({ user,  notify }) => {
         // setCartTotal(res.data.cart.subTotal)
         setCart(res.data.cart.items)
         setCartTotal(res.data.cart.subTotal)
+        setTax(res.data.cart.tax)
+        setShipping(res.data.cart.shippingCost)
       } catch(err) {
         console.log(err)
       }
@@ -70,11 +74,11 @@ const CheckoutScreen = ({ user,  notify }) => {
         </OrderSummaryDiv>
         <OrderSummaryDiv>
           <h4>Shipping</h4>
-          <h4>$15.00</h4>
+          <h4>{"$" + shipping}</h4>
         </OrderSummaryDiv>
         <OrderSummaryDiv>
           <h4>Tax</h4>
-          <h4>$7.00</h4>
+          <h4>{"$" + tax}</h4>
         </OrderSummaryDiv>
         <OrderSummaryDiv>
           <h4>Total</h4>
@@ -109,7 +113,7 @@ const CheckoutScreen = ({ user,  notify }) => {
           </CheckoutAddressDiv>
           <AddressH4>{user.shippingAddress.country}</AddressH4>
         </CheckoutAddressContainer> : null}
-        <CheckoutEditBtn onClick={() => navigateToProfile()}>Edit Shipping Address</CheckoutEditBtn>
+        { addressValid ? <CheckoutEditBtn onClick={() => navigateToProfile()}>Edit Shipping Address</CheckoutEditBtn> : null}
       </CheckoutContainer>
       { addressValid ? <CustomCheckout user={user} notify={notify}/> : null }
     </Container>
