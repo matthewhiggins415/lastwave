@@ -55,7 +55,7 @@ export const signIn = (data) => {
     )
   }
 
-// get a single landlord 
+// get a single user 
 export const getUser = (user) => {
   return axios.get(apiUrl + `/user/${user._id}`,  
     {

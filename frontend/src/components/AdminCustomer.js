@@ -24,7 +24,7 @@ const AdminCustomer = ({ user, index }) => {
   }, [])
 
   const navigateToEdit = () => {
-    console.log('handle nav to edit')
+    navigate(`/admin/customers/${user._id}`)
   }
 
   const handleDelete = () => {

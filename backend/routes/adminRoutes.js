@@ -17,6 +17,14 @@ router.get('/admin/users', requireToken, (req, res, next) => {
       .catch(next)
 })
 
+// get a single user as an admin
+router.get('/admin/users/:id', requireToken, async (req, res, next) => {
+  let userId = req.params.id
+  let user = await User.findById(userId)
+
+  res.json({ user })
+})
+
 // get all orders 
 
 // create a product 
@@ -96,5 +104,7 @@ router.delete("/admin/product/:id", requireToken, async (req, res, next) => {
     throw new Error("User is not admin")
   }
 })
+
+// hey good work brotha 
 
 module.exports = router

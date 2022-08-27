@@ -23,6 +23,8 @@ import AdminCustomersScreen from './screens/AdminCustomersScreen'
 import AdminOrdersScreen from './screens/AdminOrdersScreen'
 import AdminProductsScreen from './screens/AdminProductsScreen'
 import AdminProductEdit from './screens/AdminProductEdit'
+import AdminCustomerEditScreen from './screens/AdminCustomerEditScreen'
+
 
 const App = () => {
   const [user, setUser] = useState(null)
@@ -48,7 +50,7 @@ const App = () => {
       <Navbar user={user} />
       <ToastContainer theme="light" position="top-right" autoClose={1500}/>
       <Routes>
-        <Route path="/" element={<Homescreen />} exact/>
+        <Route path="/" element={<ProductsScreen user={user} notify={notify}  setUser={setUser}/>} exact/>
         <Route path="/products" element={<ProductsScreen user={user} notify={notify}  setUser={setUser}/>} exact/>
         <Route path="/product/:id" element={<ProductScreen user={user} notify={notify} setUser={setUser} />} exact/>
         <Route path="/login" element={<LoginScreen notify={notify} setUser={setUser}/>} exact/>
@@ -62,6 +64,7 @@ const App = () => {
         <Route path="/payment-complete" element={<PaymentCompleteScreen user={user} notify={notify}/>} exact/>
 
         <Route path="/admin/customers" element={<AdminCustomersScreen user={user} notify={notify}/>} exact/>
+        <Route path="/admin/customers/:id" element={<AdminCustomerEditScreen user={user}/>} exact/>
         <Route path="/admin/products" element={<AdminProductsScreen user={user} notify={notify}/>} exact/>
         <Route path="/admin/orders" element={<AdminOrdersScreen user={user} notify={notify}/>} exact/>
         <Route path="/admin/edit-product/:id" element={<AdminProductEdit user={user} notify={notify}/>} exact/>

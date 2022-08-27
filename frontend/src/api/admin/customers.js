@@ -10,6 +10,15 @@ export const getCustomers = (user) => {
   }
 }
 
+// get a single user 
+export const getAUser = (user, id) => {
+  if (user.isAdmin === true) {
+    return axios.get(apiUrl + `/admin/users/${id}`, { headers: { Authorization: `Bearer ${user.token}`} })
+  } else {
+    console.log('User is not admin')
+  }
+}
+
 // make a user an admin 
 
 // get products 
