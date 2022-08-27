@@ -1,11 +1,23 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Navigate } from 'react-router-dom'
 import { Container, ProfileDivContainer, ProfileHeader, H1, P, H4, Button, Form, Input} from '../styles/ProfileScreen.styles'
 import ShippingAddressForm from '../components/ShippingAddressForm'
+import { getOrders } from '../api/order'
+import OrderItem from '../components/OrderItem'
 
 const ProfileScreen = ({ user, notify, setUser }) => {
   const [editInfo, setEditInfo] = useState(false)
   const [shippingAddress, setShippingAddress] = useState(false)
+  const [orders, setOrders] = useState([])
+
+  useEffect(() => {
+    const fetchOrders = async () => {
+      let res = await getOrders(user)
+      setOrders(res.data.orders)
+    }
+    
+    fetchOrders()
+  }, [])
 
   if (!user) {
     notify('not logged in', 'danger')
@@ -64,6 +76,9 @@ const ProfileScreen = ({ user, notify, setUser }) => {
      
       <ProfileDivContainer>
         <H4>Orders</H4>
+        {
+          orders ? orders.map((item, index) => <OrderItem item={item} key={index}/>) : <p>No orders</p>
+        }
       </ProfileDivContainer>
     </Container>
   )

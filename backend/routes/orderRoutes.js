@@ -83,7 +83,8 @@ router.get('/order/:id', requireToken, async (req, res, next) => {
   }
 })
 
-// update an order 
+// only admins can update orders :)
+
 
 
 
