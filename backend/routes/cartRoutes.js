@@ -55,9 +55,11 @@ router.get('/cart', requireToken, async (req, res, next) => {
   
   let cart = await Cart.findOne({ user: userId })
   
-  const newSubTotal = calculateCart(cart.items)
-  cart.subTotal = newSubTotal
-    
+  if (cart.items) {
+    const newSubTotal = calculateCart(cart.items)
+    cart.subTotal = newSubTotal
+  }
+  
   await cart.save()
   res.json({ cart })
 })
