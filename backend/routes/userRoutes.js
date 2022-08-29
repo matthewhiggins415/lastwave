@@ -174,7 +174,7 @@ router.patch('/user/address/:id', requireToken, (req, res, next) => {
   let id = req.params.id
   let data = req.body.updatedAddress
 
-  User.findOneAndUpdate({_id: id}, {shippingAddress: data}, {new: true}, (err, updatedRecord) => {
+  User.findOneAndUpdate({_id: id}, {shippingAddress: data, shippingValid: true}, {new: true}, (err, updatedRecord) => {
     if (err) {
       console.log(err)
     } else {

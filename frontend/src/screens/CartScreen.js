@@ -34,7 +34,11 @@ const CartScreen = ({ user, notify, setUser }) => {
   }
 
   if (toCheckout) {
-    return <Navigate to="/checkout"/>
+    if (user.shippingValid) {
+      return <Navigate to="/checkout"/>
+    } else {
+      return <Navigate to="/shipping"/>
+    }
   }
 
   return (

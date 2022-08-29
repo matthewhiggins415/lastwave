@@ -19,6 +19,10 @@ const userSchema = new Schema({
     country: {type: String, default: 'country'}, 
     zip: {type: String, default: 'zip'}
   }, 
+  shippingValid: {
+    type: Boolean, 
+    default: false
+  },
   isAdmin: {
     type: Boolean, 
     default: false

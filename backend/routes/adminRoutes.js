@@ -3,6 +3,7 @@ const router = express.Router()
 
 const Product = require('../models/productModel')
 const User = require('../models/userModel')
+const Order = require('../models/orderModel')
 
 const passport = require('passport')
 const requireToken = passport.authenticate('bearer', { session: false })
@@ -25,7 +26,41 @@ router.get('/admin/users/:id', requireToken, async (req, res, next) => {
   res.json({ user })
 })
 
-// get all orders 
+// get all orders of a single user
+router.get('/admin/orders/:id', requireToken, async (req, res, next) => {
+  let customerID = req.params.id
+
+  if (req.user.isAdmin) {
+    try {
+      let orders = await Order.find({ user: customerID })
+      
+      if (orders.length >= 1) {
+        res.json({ orders })
+      } else {
+        res.json({ message: 'you have no orders' })
+      }
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+  else res.json({ message: "not admin" })
+})
+
+// get all orders of all users
+router.get('/admin/orders', requireToken, async (req, res, next) => {
+  try {
+    let orders = await Order.find()
+
+    if (orders.length >= 1) {
+      res.json({ orders })
+    } else {
+      res.json({ message: 'you have no orders' })
+    }
+  } catch (e) {
+    console.log(e)
+  }
+})
 
 // create a product 
 router.post("/admin/product", requireToken, async (req, res, next) => {
