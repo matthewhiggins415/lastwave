@@ -1,7 +1,10 @@
 import React, { useState } from 'react'
 import { Container, Form, Input, Button } from '../styles/ShippingConfirmationScreen.styles'
+import { editUserShippingAddress } from '../api/auth'
+import { Navigate } from 'react-router-dom'
 
-const ShippingConfirmationScreen = ({ user, notify }) => {
+const ShippingConfirmationScreen = ({ user, notify, setUser }) => {
+  const [navigate, setNavigate] = useState(false)
   const [formData, setFormData] = useState({
     address: '', 
     unit: '',
@@ -15,13 +18,9 @@ const ShippingConfirmationScreen = ({ user, notify }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    // make asynchronous api call
-    // changeAddress()
-    // fire notify
-    // notify('shipping address updated')
-    //reset the parent component
-    // setShippingAddress(false)
-    console.log('submit')
+    changeAddress()
+    notify('shipping address updated')
+    setNavigate(true)
   }
 
 
@@ -30,6 +29,20 @@ const ShippingConfirmationScreen = ({ user, notify }) => {
       ...prevState,
       [e.target.name]: e.target.value
     }))
+  }
+
+  const changeAddress = async () => {
+    try {
+      let res = await editUserShippingAddress(user, formData)
+      console.log(res)
+      setUser(res.data.updatedRecord)
+    } catch (err) {
+      notify('something went wrong', 'danger')
+    }
+  }
+
+  if (navigate) {
+    return <Navigate to="/checkout"/>
   }
  
   return (

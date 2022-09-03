@@ -4,6 +4,10 @@ const colors = require('colors')
 // const cors = require('cors') - no need for cors here. 
 require("dotenv").config()
 
+const User = require('./models/userModel')
+const Cart = require('./models/cartModal')
+const Order = require('./models/orderModel')
+
 //require routes files
 const productRoutes = require('./routes/productRoutes.js')
 const userRoutes = require('./routes/userRoutes')
@@ -23,6 +27,8 @@ const auth = require('./lib/auth.js')
 
 // require database configuration logic
 const db = require('./config/db')
+
+const stripeAPI = require('./utils/stripe')
 
 // establish database connection
 // use new version of URL parser
@@ -50,6 +56,89 @@ connectDB()
 
 const app = express()
 
+const endpointSecret = 'whsec_6ff242a04c62d65b6428b10aa37a91d15ad63e64110179f7d3279762006f842f'
+
+app.post('/webhook', express.raw({type: 'application/json'}), (req, res) => {
+  let event = req.body;
+  // // Only verify the event if you have an endpoint secret defined.
+  // // Otherwise use the basic event deserialized with JSON.parse
+
+  if (endpointSecret) {
+    // Get the signature sent by Stripe
+    const signature = req.headers['stripe-signature'];
+    try {
+      event = stripeAPI.webhooks.constructEvent(
+        req.body,
+        signature,
+        endpointSecret
+      );
+      console.log(event)
+    } catch (err) {
+      console.log(`⚠️  Webhook signature verification failed.`, err.message);
+      return res.sendStatus(400);
+    }
+  }
+
+  // // Handle the event
+  async function trySwitch(status) {
+    switch (event.type) {
+    case 'payment_intent.created':
+      const paymentIntent = event.data.object;
+      console.log(`PaymentIntent for ${paymentIntent.amount} was successful!`);
+      // Then define and call a method to handle the successful payment intent.
+      // handlePaymentIntentSucceeded(paymentIntent);
+      break;
+    case 'payment_intent.succeeded':
+      const paymentMethod = event.data.object;
+      console.log("payment method", paymentMethod)
+      // Then define and call a method to handle the successful attachment of a PaymentMethod.
+      // handlePaymentMethodAttached(paymentMethod);
+      break;
+
+    case 'charge.succeeded':
+      const objectThing = event.data.object.receipt_email;
+      let user = await User.findOne({ email: event.data.object.receipt_email })
+      let userID = user._id.toString()
+      let cart = await Cart.findOne({ user: userID })
+      console.log(cart)
+      let today = new Date().toISOString().slice(0, 10)
+
+      const order = new Order({
+        user: userID, 
+        orderItems: cart.items,
+        shippingAddress: user.shippingAddress,
+        paymentMethod: 'Stripe', 
+        taxPrice: cart.tax,
+        shippingPrice: cart.shippingCost, 
+        totalPrice: cart.total,
+        isPaid: true,
+        paidAt: today,
+        isDelivered: false
+      })
+    
+      const createdOrder = await order.save()
+
+      cart.items.length = 0 
+      cart.subTotal = 0
+      cart.total = 0
+      cart.markModified("items");
+
+      const updatedCart = await cart.save()
+      
+      res.status(201)
+      break;
+    default:
+      // Unexpected event type
+      console.log(`Unhandled event type ${event.type}.`);
+    }
+  }
+  
+  trySwitch('charge.succeeded')
+  // Return a 200 response to acknowledge receipt of the event
+  res.status(200);
+  console.log("hello")
+})
+
 app.use(express.json({
   verify: (req, res, buffer) => req['rawBody'] = buffer, 
 }))
@@ -71,8 +160,6 @@ app.use(adminRoutes)
 app.use(orderRoutes)
 app.use(stripeRoutes)
 app.use(uploadRoutes)
-
-
 
 let port = process.env.PORT || 5000
 

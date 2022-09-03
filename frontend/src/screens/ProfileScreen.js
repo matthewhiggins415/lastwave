@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Navigate } from 'react-router-dom'
-import { Container, ProfileDivContainer, ProfileHeader, H1, P, H4, Button, Form, Input} from '../styles/ProfileScreen.styles'
+import { Container, ProfileDivContainer, ProfileHeader, H1, P, H4, Button, Form, Input, DivContainer} from '../styles/ProfileScreen.styles'
 import ShippingAddressForm from '../components/ShippingAddressForm'
 import { getOrders } from '../api/order'
 import OrderItem from '../components/OrderItem'
@@ -74,12 +74,12 @@ const ProfileScreen = ({ user, notify, setUser }) => {
         { shippingAddress ? <ShippingAddressForm user={user} setShippingAddress={setShippingAddress} setUser={setUser} notify={notify}/> : userShippingAddress() }
       </ProfileDivContainer> 
      
-      <ProfileDivContainer>
+      <DivContainer>
         <H4>Orders</H4>
         {
           orders ? orders.map((item, index) => <OrderItem item={item} key={index}/>) : <p>No orders</p>
         }
-      </ProfileDivContainer>
+      </DivContainer>
     </Container>
   )
 }

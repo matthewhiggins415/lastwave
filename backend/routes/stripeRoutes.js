@@ -42,6 +42,4 @@ router.post('/create-payment-intent', requireToken, async (req, res) => {
   }
 })
 
-// router.post('/webhook', webhook)
-
 module.exports = router

@@ -15,7 +15,6 @@ export const H1 = styled.h1`
 `
 
 export const ProfileDivContainer = styled.div`
-  min-height: 10vh;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
   height: auto;
   width: 90%;
@@ -25,6 +24,17 @@ export const ProfileDivContainer = styled.div`
   justify-content: space-evenly;
   align-items: start;
   padding: 10px;
+`
+
+export const DivContainer = styled.div`
+  min-height: 10vh;
+  height: auto;
+  width: 90%;
+  margin: 25px auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: start;
 `
 
 export const ProfileHeader = styled.div`

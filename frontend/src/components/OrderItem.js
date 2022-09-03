@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Button } from '../styles/OrderItem.styles.js'
+import { Container, OrderLink } from '../styles/OrderItem.styles.js'
 
 const OrderItem = ({ item }) => {
   console.log(item)
@@ -8,7 +8,7 @@ const OrderItem = ({ item }) => {
   return (
     <Container>
       <p>{updatedDate}</p>
-      <Button>details</Button>
+      <OrderLink to={`/order/${item._id}`}>details</OrderLink>
     </Container>
   )
 }

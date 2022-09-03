@@ -35,12 +35,9 @@ const ShippingAddressForm = ({ setShippingAddress, notify, setUser, user}) => {
   const changeAddress = async () => {
     try {
       let res = await editUserShippingAddress(user, formData)
-      console.log('res', res)
       setUser(res.data.updatedRecord)
-      // update parent component state? 
     } catch (err) {
       notify('something went wrong', 'danger')
-      console.log(err)
     }
   }
  
