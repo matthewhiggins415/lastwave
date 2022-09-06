@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { getCustomers } from '../api/admin/customers'
+import { getCustomers, deleteAUser } from '../api/admin/customers'
 import { Navigate } from 'react-router-dom'
 import { Container, H1, Header, H2, NumContainer, StatsSection } from '../styles/AdminCustomersScreen.styles'
 import AdminCustomer from '../components/AdminCustomer'
@@ -7,7 +7,7 @@ import AdminCustomer from '../components/AdminCustomer'
 const AdminCustomersScreen = ({ user, notify }) => {
   const [users, setUsers] = useState([])
   const [count, setCount] = useState(0)
-
+  
   useEffect(() => {
     const fetchUsers = async () => {
       try {
@@ -21,12 +21,20 @@ const AdminCustomersScreen = ({ user, notify }) => {
     }
     fetchUsers()
   }, [])
+  
+  const handleDeleteUser = async (id) => {
+    console.log(user)
+    let res = await deleteAUser(user, id)
+    setUsers(res.data.users)
+    setCount(res.data.users.length)
+    console.log(res)
+    notify('customer deleted')
+  }
 
   if (!user.isAdmin) {
     notify('not logged in', 'danger')
     return <Navigate to="/login"/>
   }
-
 
   return (
     <Container>
@@ -43,7 +51,7 @@ const AdminCustomersScreen = ({ user, notify }) => {
 
       <H1>Users</H1>
         {users.map((user, index) => (
-          <AdminCustomer user={user} key={index + 1} index={index} />
+          <AdminCustomer user={user} key={index + 1} index={index} handleDeleteUser={handleDeleteUser}/>
         ))}
       
     </Container>

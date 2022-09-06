@@ -26,6 +26,26 @@ router.get('/admin/users/:id', requireToken, async (req, res, next) => {
   res.json({ user })
 })
 
+// Delete a user 
+router.delete("/admin/users/:id", requireToken, async (req, res, next) => {
+  let userID = req.user.id
+  let admin = await User.findById(userID)
+
+  let ID = req.params.id
+  let user = await User.findById(ID)
+
+  if (admin.isAdmin && user) {
+    await user.remove()
+    let users = await User.find()
+    res.json({ users })
+  } else if (user.isAdmin && !user) {
+    throw new Error("Product is not found")
+  } else {
+    throw new Error("User is not admin")
+  }
+})
+
+
 // get all orders of a single user
 router.get('/admin/orders/:id', requireToken, async (req, res, next) => {
   let customerID = req.params.id

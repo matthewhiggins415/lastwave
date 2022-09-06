@@ -19,6 +19,19 @@ export const getAUser = (user, id) => {
   }
 }
 
+// delete a user 
+export const deleteAUser = (user, id) => {
+  if (user.isAdmin) {
+    return axios.delete(apiUrl + `/admin/users/${id}`, {
+      headers: { 
+        Authorization: `Bearer ${user.token}`
+      }
+    })
+  } else {
+    console.log("user is not an admin")
+  }
+}
+
 // make a user an admin 
 
 // get products 

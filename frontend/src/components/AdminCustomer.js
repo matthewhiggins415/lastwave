@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import { Container, Button } from '../styles/AdminCustomer.styles'
+import { Container, Button, DeleteButton } from '../styles/AdminCustomer.styles'
 import { useNavigate } from 'react-router-dom'
 
-
-const AdminCustomer = ({ user, index }) => {
+const AdminCustomer = ({ user, index, handleDeleteUser }) => {
   const [date, setDate] = useState('')
 
   let navigate = useNavigate()
@@ -27,11 +26,6 @@ const AdminCustomer = ({ user, index }) => {
     navigate(`/admin/customers/${user._id}`)
   }
 
-  const handleDelete = () => {
-    console.log('delete')
-  }
-
-
   return (
     <Container>
         <p>{index + 1 + "."}</p>
@@ -40,7 +34,7 @@ const AdminCustomer = ({ user, index }) => {
         <p>{user.email}</p>
         <p>{String(user.isAdmin)}</p>
         <Button onClick={navigateToEdit}>edit</Button>
-        <Button onClick={handleDelete}>delete</Button>
+        <DeleteButton onClick={() => { handleDeleteUser(user._id) }}>delete</DeleteButton>
     </Container>
   )
 }
