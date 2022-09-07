@@ -7,6 +7,7 @@ import AdminCustomer from '../components/AdminCustomer'
 const AdminCustomersScreen = ({ user, notify }) => {
   const [users, setUsers] = useState([])
   const [count, setCount] = useState(0)
+  const [adminCount, setAdminCount] = useState(0)
   
   useEffect(() => {
     const fetchUsers = async () => {
@@ -15,6 +16,14 @@ const AdminCustomersScreen = ({ user, notify }) => {
         console.log(res)
         setUsers(res.data.users)
         setCount(res.data.users.length)
+
+        let admins = res.data.users.filter(customer => {
+          return customer.isAdmin === true
+        })
+
+        if (admins) {
+          setAdminCount(admins.length)
+        }
       } catch(error) {
         console.log(error)
       }
@@ -44,12 +53,10 @@ const AdminCustomersScreen = ({ user, notify }) => {
           <h2>{count}</h2>
         </NumContainer>
         <NumContainer>
-          <h2>Regular Users</h2>
-          <h2></h2>
+          <h2>Admins</h2>
+          <h2>{adminCount}</h2>
         </NumContainer>
       </StatsSection>
-
-      <H1>Users</H1>
         {users.map((user, index) => (
           <AdminCustomer user={user} key={index + 1} index={index} handleDeleteUser={handleDeleteUser}/>
         ))}

@@ -1,16 +1,25 @@
 import React from 'react'
-import { Container } from '../styles/AdminOrderItem.styles'
+import { Container, OrderItemsContainer, OrderItem, Image } from '../styles/AdminOrderItem.styles'
 
 const AdminOrderItem = ({ item }) => {
 
     console.log(item)
   return (
     <Container>
-      <p>Order item</p>
-      <p>{item.createdAt.substring(0, 10)}</p>
+      <h3>Order item: {item._id}</h3>
+      <p>Order date: {item.createdAt.substring(0, 10)}</p>
       <p>{`Paid: ${item.isPaid.toString()}`}</p>
       <p>{`Delivered: ${item.isDelivered.toString()}`}</p>
-      <p></p>
+      <OrderItemsContainer>
+        <h4>Orders:</h4>
+        {item.orderItems.map((order) => (
+          <OrderItem>
+            <Image src={"/" + order.image} />
+            <p>{order.name}</p>
+            <p>{"$" + order.price}</p>
+          </OrderItem>
+        ))}
+      </OrderItemsContainer>
     </Container>
   )
 }

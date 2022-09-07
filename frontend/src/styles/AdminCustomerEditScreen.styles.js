@@ -10,7 +10,7 @@ export const Container = styled.div`
 `
 
 export const InfoContainer = styled.div`
-  border: 1px solid black;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
   padding: 20px;
   display: flex;
   flex-direction: column;

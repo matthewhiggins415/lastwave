@@ -8,7 +8,7 @@ export const Container = styled.div`
   justify-content: space-between;
   margin: 5px auto;
   padding: 10px;
-  box-shadow: 0px 4px 5.5px 0px rgba(0, 0, 0, 0.07);
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
   /* background-color: #F5F5F5; */
 `
 

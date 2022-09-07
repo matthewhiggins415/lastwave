@@ -19,8 +19,9 @@ export const NumContainer = styled.div`
   display: flex;
   flex-direction: column;
   padding: 20px;
-  border: 1px solid black;
-  margin: 10px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  margin: 5px;
+  margin-bottom: 10px;
 `
 
 export const StatsSection = styled.div`

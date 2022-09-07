@@ -94,13 +94,12 @@ app.post('/webhook', express.raw({type: 'application/json'}), (req, res) => {
       // Then define and call a method to handle the successful attachment of a PaymentMethod.
       // handlePaymentMethodAttached(paymentMethod);
       break;
-
     case 'charge.succeeded':
       const objectThing = event.data.object.receipt_email;
       let user = await User.findOne({ email: event.data.object.receipt_email })
       let userID = user._id.toString()
       let cart = await Cart.findOne({ user: userID })
-      console.log(cart)
+      console.log('charge succeed webhook fired!!')
       let today = new Date().toISOString().slice(0, 10)
 
       const order = new Order({
