@@ -45,7 +45,7 @@ const AdminProductsScreen = ({ user, notify }) => {
   return (
     <Container>
       <AdminProductScreenHeader>
-        <H1>Admin Products</H1>
+        <H1>Products</H1>
         <Button onClick={handleClick}>Add Product</Button>
       </AdminProductScreenHeader>
       {products.map((item, index) => {
