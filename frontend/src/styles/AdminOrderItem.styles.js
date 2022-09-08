@@ -15,14 +15,15 @@ export const OrderItemsContainer = styled.div`
 `
 
 export const OrderItem = styled.div`
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
   border: 1px solid rgba(0, 0, 0, 0.16);
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-  padding: 10px;
+  padding: 10px 15px 10px 10px;
   border-radius: 8px;
-  margin: 5px 0px;
+  margin: 5px auto;
   height: auto;
 `
 

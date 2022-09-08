@@ -5,6 +5,7 @@ import { AddressH4, Container, H1, H4, CheckoutContainer, OrderSummaryDiv, Check
 import CheckoutItem from '../components/CheckoutItem'
 import CustomCheckout from '../components/CustomCheckout'
 import { getItemsInCart } from '../api/cart'
+import { getUser } from '../api/auth'
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from '../components/CustomCheckout'
@@ -12,6 +13,7 @@ import apiUrl from '../apiConfig'
 
 const CheckoutScreen = ({ user,  notify }) => {
   const [cartTotal, setCartTotal] = useState(0.0)
+  const [activeUser, setActiveUser] = useState({})
   const [tax, setTax] = useState(0)
   const [shipping, setShipping] = useState(0)
   const [cart, setCart] = useState([])
@@ -22,9 +24,12 @@ const CheckoutScreen = ({ user,  notify }) => {
   let navigate = useNavigate()
 
   useEffect(() => {
-    console.log("user is:", user)
-    const isAddressComplete = () => {
-      let currentAddress = user.shippingAddress
+    const fetchUser = async () => {
+      let res = await getUser(user)
+      console.log("user:", res)
+      setActiveUser(res.data.user)
+
+      let currentAddress = res.data.user.shippingAddress
       console.log(currentAddress)
       const { address, city, country, state, zip } = currentAddress
       console.log(address, city, country, state, zip)
@@ -32,12 +37,11 @@ const CheckoutScreen = ({ user,  notify }) => {
       if (address !== 'address' && city !== "city" && country !== "country" && state !== "state" && zip !== "zip") {
         setAddressValid(true)
       }
-    }
+    } 
 
     const fetchCart = async () => {
       try {
         let res = await getItemsInCart(user)
-        // setCartTotal(res.data.cart.subTotal)
         setCart(res.data.cart.items)
         setCartTotal(res.data.cart.subTotal)
         setTax(res.data.cart.tax)
@@ -47,7 +51,7 @@ const CheckoutScreen = ({ user,  notify }) => {
       }
     }
 
-    isAddressComplete()
+    fetchUser()
     fetchCart()
   }, [])
 
