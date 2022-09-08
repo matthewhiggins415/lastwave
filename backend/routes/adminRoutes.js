@@ -26,6 +26,20 @@ router.get('/admin/users/:id', requireToken, async (req, res, next) => {
   res.json({ user })
 })
 
+// Update a single user to make admin 
+router.patch('/admin/user/:id', requireToken, async (req, res, next) => {
+  let userId = req.params.id
+  let user = await User.findById(userId)
+
+  let adminValue = user.isAdmin
+  
+  user.isAdmin = !adminValue
+
+  let updatedUser = await user.save()
+  res.json({ updatedUser })
+
+})
+
 // Delete a user 
 router.delete("/admin/users/:id", requireToken, async (req, res, next) => {
   let userID = req.user.id

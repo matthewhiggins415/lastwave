@@ -33,6 +33,18 @@ export const deleteAUser = (user, id) => {
 }
 
 // make a user an admin 
+export const makeAdmin = (user, id) => {
+  if (user.isAdmin) {
+    let data 
+    return axios.patch(apiUrl + `/admin/user/${id}`, data, {
+      headers: { 
+        Authorization: `Bearer ${user.token}`
+      }
+    })
+  } else {
+    console.log("user is not an admin")
+  }
+}
 
 // get products 
 
