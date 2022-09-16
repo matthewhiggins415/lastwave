@@ -2,7 +2,8 @@ const express = require('express')
 const mongoose = require('mongoose')
 const colors = require('colors')
 // const cors = require('cors') - no need for cors here. 
-require("dotenv").config()
+const dotenv = require("dotenv");
+dotenv.config();
 
 const User = require('./models/userModel')
 const Cart = require('./models/cartModal')
@@ -40,11 +41,9 @@ const stripeAPI = require('./utils/stripe')
 
 const connectDB = async () => {
   try {
-    const conn = await mongoose.connect(process.env.MONGO_URI, {
-      useUnifiedTopology: true,
+    const conn = await mongoose.connect('mongodb+srv://matt:admin@lastwave.lahfdi2.mongodb.net/?retryWrites=true&w=majority', {
       useNewUrlParser: true
     })
-
     console.log(`MongoDB Connected: ${conn.connection.host}`.cyan.underline)
   } catch(error) {
     console.error(`Error: ${error.message}`.red.underline.bold)
@@ -143,11 +142,11 @@ app.use(express.json({
 }))
 
 app.get('/', (req, res) => {
-  res.send('API is up and running.')
+  res.send('API is up.')
 })
 
 app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
-console.log(__dirname)
+console.log("__dirname", __dirname)
 
 // register passport authentication middleware
 app.use(auth)
