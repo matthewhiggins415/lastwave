@@ -10,10 +10,8 @@ const ProductsScreen = ({ user, notify, setUser }) => {
   
   useEffect(() => {
     const fetchProducts = async() => {
-      let { data } = await axios.get('/products')
+      let { data } = await axios.get('https://lastwave-ecommerce.herokuapp.com/products')
       setProducts(data.products)
-
-
     }
     fetchProducts()
   }, [])
