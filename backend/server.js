@@ -5,6 +5,8 @@ const colors = require('colors')
 const dotenv = require("dotenv");
 dotenv.config();
 
+const cors = require('cors');
+
 const User = require('./models/userModel')
 const Cart = require('./models/cartModal')
 const Order = require('./models/orderModel')
@@ -54,6 +56,10 @@ const connectDB = async () => {
 connectDB()
 
 const app = express()
+
+app.use(cors({
+  origin: 'https://main--sparkling-genie-820de8.netlify.app'
+}));
 
 const endpointSecret = 'whsec_6ff242a04c62d65b6428b10aa37a91d15ad63e64110179f7d3279762006f842f'
 
