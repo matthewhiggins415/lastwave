@@ -57,8 +57,20 @@ connectDB()
 
 const app = express()
 
+var allowedOrigins = ['https://main--sparkling-genie-820de8.netlify.app', 'https://sparkling-genie-820de8.netlify.app'];
+
 app.use(cors({
-  origin: 'https://main--sparkling-genie-820de8.netlify.app'
+  origin: function(origin, callback){
+    // allow requests with no origin 
+    // (like mobile apps or curl requests)
+    if(!origin) return callback(null, true);
+    if(allowedOrigins.indexOf(origin) === -1){
+      const msg = 'The CORS policy for this site does not ' +
+                'allow access from the specified Origin.';
+      return callback(new Error(msg), false);
+    }
+    return callback(null, true);
+  }
 }));
 
 const endpointSecret = 'whsec_6ff242a04c62d65b6428b10aa37a91d15ad63e64110179f7d3279762006f842f'

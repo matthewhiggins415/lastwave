@@ -32,7 +32,7 @@ const Product = ({ product, user, notify, id, setUser }) => {
   
   return (
     <Container>
-      <Image src={"/" + product.imageOne} alt={product.name} />
+      <Image src={"../" + product.imageOne} alt={product.name} />
       <ProductLink to={`/product/${id}`}>
         <h2>{product.name}</h2>
       </ProductLink>
