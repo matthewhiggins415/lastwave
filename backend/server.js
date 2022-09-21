@@ -43,7 +43,7 @@ const stripeAPI = require('./utils/stripe')
 
 const connectDB = async () => {
   try {
-    const conn = await mongoose.connect('mongodb+srv://matt:admin@lastwave.lahfdi2.mongodb.net/?retryWrites=true&w=majority', {
+    const conn = await mongoose.connect(process.env.MONGO_URI, {
       useNewUrlParser: true
     })
     console.log(`MongoDB Connected: ${conn.connection.host}`.cyan.underline)
@@ -160,13 +160,13 @@ app.use(express.json({
 }))
 
 app.get('/', (req, res) => {
-  res.send('API is up.')
+  let thing = process.env.NODE_ENV
+  res.json({ message: thing })
 })
 
-app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
-console.log("__dirname", __dirname)
+app.use('/uploads', express.static(path.join(__dirname, './uploads')));
 
-// register passport authentication middleware
+// register passport authentication middlewar
 app.use(auth)
 
 app.use(productRoutes)
