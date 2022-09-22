@@ -3,6 +3,7 @@ import Product from '../components/Product'
 import axios from 'axios'
 import { Container, H1, ProductsContainer } from '../styles/ProductsScreen.styles'
 import { createCart } from '../api/cart'
+import apiUrl from '../apiConfig'
 // import { v4 as uuidv4 } from 'uuid';
 
 const ProductsScreen = ({ user, notify, setUser }) => {
@@ -10,7 +11,7 @@ const ProductsScreen = ({ user, notify, setUser }) => {
   
   useEffect(() => {
     const fetchProducts = async() => {
-      let { data } = await axios.get('https://lastwave-ecommerce.herokuapp.com/products')
+      let { data } = await axios.get(`${apiUrl}/products`)
       setProducts(data.products)
     }
     fetchProducts()
