@@ -7,11 +7,16 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
+  @media (max-width: 500px) {
+    width: 80%;
+    max-width: 350px;
+    margin: 25px auto;
+  }
 `
 
 export const Form = styled.form`
-  max-width: 450px;
-  min-width: 420px;
+  width: 100%;
   margin: 10px;
   display: flex;
   flex-direction: column;
@@ -28,6 +33,7 @@ export const Input = styled.input`
 export const Button = styled.button`
   padding: 15px;
   margin: 5px;
+  border-radius: 4px;
   background-color: black;
   color: white;
   border: none;
