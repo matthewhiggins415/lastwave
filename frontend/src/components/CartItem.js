@@ -51,7 +51,7 @@ const CartItem = ({ cartItem, id, user, setUser, setCartItems, setCartTotal, not
 
   return (
     <Container>
-      <CartImage src={cartItem.image}/>
+      <CartImage src={"https://lastwave-ecommerce.herokuapp.com/" + product.imageOne}/>
       <CartItemInfo>
         <RemoveButton onClick={handleClick}>remove</RemoveButton>
         <h2>{cartItem.name}</h2>
