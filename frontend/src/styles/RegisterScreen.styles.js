@@ -13,6 +13,11 @@ export const Container = styled.div`
     max-width: 350px;
     margin: 25px auto;
   }
+
+  @media only screen and (min-width: 500px) {
+    max-width: 500px;
+    margin: 0 auto;
+  }
 `
 
 export const Form = styled.form`

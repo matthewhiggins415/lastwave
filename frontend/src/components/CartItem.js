@@ -53,15 +53,15 @@ const CartItem = ({ cartItem, id, user, setUser, setCartItems, setCartTotal, not
     <Container>
       <CartImage src={cartItem.image}/>
       <CartItemInfo>
+        <RemoveButton onClick={handleClick}>remove</RemoveButton>
         <h2>{cartItem.name}</h2>
         <p>{"$" + cartItem.price + " " + "(" + "x" + quantity + ")"}</p>
-        <RemoveButton onClick={handleClick}>remove</RemoveButton>
-     </CartItemInfo>
      <QuantityContainer>
        <QuantityBtn onClick={() => increaseQty(cartItem.product)}>+</QuantityBtn>
        <QuantityH2>{quantity}</QuantityH2>
        <QuantityBtn onClick={() => decreaseQty(cartItem.product)}>-</QuantityBtn>
      </QuantityContainer>
+     </CartItemInfo>
     </Container>
   )
 }
