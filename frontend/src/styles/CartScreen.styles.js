@@ -29,6 +29,7 @@ export const CheckoutButton = styled.button`
   width: 100%;
   margin: 15px auto;
   cursor: pointer;
+  color: black;
 
   @media (min-width: 700px) {
     width: 40%;

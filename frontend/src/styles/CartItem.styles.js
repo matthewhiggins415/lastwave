@@ -31,6 +31,7 @@ export const RemoveButton = styled.button`
   margin-bottom: 10px;
   background-color: white;
   cursor: pointer;
+  color: black;
 `
 
 export const QuantityContainer = styled.div`
@@ -50,6 +51,7 @@ export const QuantityBtn = styled.button`
   outline: none; 
   font-size: 30px;
   border-radius: 5%;
+  color: black;
 `
 
 export const QuantityH2 = styled.h2`
