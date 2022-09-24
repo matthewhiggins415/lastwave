@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { Container, Form, Input, Button } from '../styles/ShippingConfirmationScreen.styles'
 import { editUserShippingAddress } from '../api/auth'
 import { Navigate } from 'react-router-dom'
-import apiUrl from '../apiConfig'
 
 const ShippingConfirmationScreen = ({ user, notify, setUser }) => {
   const [navigate, setNavigate] = useState(false)
@@ -43,7 +42,7 @@ const ShippingConfirmationScreen = ({ user, notify, setUser }) => {
   }
 
   if (navigate) {
-    return <Navigate to={apiUrl + "/checkout"}/>
+    return <Navigate to="/checkout"/>
   }
  
   return (
