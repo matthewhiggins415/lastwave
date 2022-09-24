@@ -3,7 +3,7 @@ import styled from 'styled-components'
 export const Container = styled.div`
   position: relative;
   width: 100%;
-  height: auto;
+  height: 150px;
   margin-top: 10px;
   display: flex;
   align-items: center;
@@ -11,8 +11,8 @@ export const Container = styled.div`
 `
 
 export const CartImage = styled.img`
-  max-width: 100px;
-  min-height: 100px;
+  width: 120px;
+  height: 150px;
   border-radius: 4px;
 `
 
