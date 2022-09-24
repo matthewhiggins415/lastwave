@@ -45,3 +45,9 @@ export const Button = styled.button`
   text-decoration: none;
   cursor: pointer;
 `
+
+export const Link = styled.a`
+  color: black;
+  text-decoration: none;
+  border: none;
+`

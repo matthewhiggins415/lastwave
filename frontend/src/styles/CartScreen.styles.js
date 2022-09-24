@@ -50,3 +50,9 @@ export const CartItemsContainer = styled.div`
     margin: 15px auto;
   }
 `
+
+export const EmptyCart = styled.p`
+  margin: 15px auto;
+  padding: 15px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+`

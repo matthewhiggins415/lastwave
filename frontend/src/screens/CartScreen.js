@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Navigate } from 'react-router-dom'
-import { Container, SubtotalContainer, CheckoutButton, H1, CartItemsContainer } from '../styles/CartScreen.styles'
+import { Container, SubtotalContainer, CheckoutButton, H1, CartItemsContainer, EmptyCart } from '../styles/CartScreen.styles'
 import CartItem from '../components/CartItem'
 import { getItemsInCart } from '../api/cart'
 import { getUser } from '../api/auth'
@@ -53,7 +53,7 @@ const CartScreen = ({ user, notify, setUser }) => {
         {cartItems.map((cartItem, index) => (
           <CartItem key={index + 1} cartItem={cartItem} id={cartItem.product} setCartTotal={setCartTotal} setCartItems={setCartItems} user={user} setUser={setUser} notify={notify}/>
         ))}
-        {cartItems.length > 0 ? '' : <p>Nothing in cart</p>}
+        {cartItems.length > 0 ? '' : <EmptyCart>Nothing in cart</EmptyCart>}
       </CartItemsContainer>
     </Container>
   )
