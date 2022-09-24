@@ -42,7 +42,7 @@ const ShippingConfirmationScreen = ({ user, notify, setUser }) => {
   }
 
   if (navigate) {
-    return <Navigate to="/checkout"/>
+    return <Navigate to={apiUrl + "/checkout"}/>
   }
  
   return (
