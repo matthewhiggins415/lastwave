@@ -1,6 +1,6 @@
 import { Navigate } from 'react-router-dom'
 import { useState } from 'react'
-import { Container, Form, Input, Button, Link } from '../styles/RegisterScreen.styles'
+import { Container, Form, Input, Button, RedirectLink } from '../styles/RegisterScreen.styles'
 import { signIn } from '../api/auth'
 
 const LoginScreen = ({ notify, setUser }) => {
@@ -52,7 +52,7 @@ const LoginScreen = ({ notify, setUser }) => {
           <Input type="password" name="password" value={password} placeholder="enter pw" onChange={onChange}/>
           <Button type="submit">Submit</Button>
         </Form>
-        <Link href={'http://localhost:3000/register'}>Register</Link>
+        <RedirectLink to='/register'>Register</RedirectLink>
     </Container>
   )
 }

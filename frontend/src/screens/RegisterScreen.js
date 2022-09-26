@@ -1,7 +1,7 @@
 import { Navigate } from 'react-router-dom'
 import { useState } from 'react'
 // import Spinner from '../components/Spinner'
-import { Container, Form, Input, Button, Link } from '../styles/RegisterScreen.styles'
+import { Container, Form, Input, Button, RedirectLink } from '../styles/RegisterScreen.styles'
 import { signUp } from '../api/auth'
 import { createCart } from '../api/cart'
 import apiUrl from '../apiConfig'
@@ -77,7 +77,7 @@ const RegisterScreen = ({ notify, setUser }) => {
           <Input type="password" name="passwordConfirmation" value={passwordConfirmation} placeholder="Confirm Password" onChange={onChange}/>
           <Button type="submit">Submit</Button>
         </Form>
-        <Link href={'https://lastwave-ecommerce.herokuapp.com/login'}>Login</Link>
+        <RedirectLink to='/login'>Login</RedirectLink>
     </Container>
     </>
   )

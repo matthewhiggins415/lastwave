@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 
 export const Container = styled.div`
   width: 100%;
@@ -46,8 +47,7 @@ export const Button = styled.button`
   cursor: pointer;
 `
 
-export const Link = styled.a`
+export const RedirectLink = styled(Link)`
   color: black;
   text-decoration: none;
-  border: none;
 `
