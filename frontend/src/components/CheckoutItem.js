@@ -1,6 +1,6 @@
 import React from 'react'
 import { Container, Img } from '../styles/CheckoutItem.styles'
-import { apiUrl } from '../apiConfig'
+import apiUrl from '../apiConfig'
 
 const CheckoutItem = ({ checkoutItem }) => {
   console.log("this be the checkout item, arg..", checkoutItem)
