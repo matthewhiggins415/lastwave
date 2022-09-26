@@ -19,6 +19,7 @@ import CheckoutScreen from './screens/CheckoutScreen';
 import PaymentCompleteScreen from './screens/PaymentCompleteScreen'
 import ShippingConfirmationScreen from './screens/ShippingConfirmationScreen'
 import OrderItemScreen from './screens/OrderItemScreen'
+import PageNotFoundScreen from './screens/PageNotFoundScreen'
 
 //Admin Screens
 import AdminCustomersScreen from './screens/AdminCustomersScreen'
@@ -52,6 +53,7 @@ const App = () => {
       <Navbar user={user} />
       <ToastContainer theme="light" position="top-right" autoClose={1500}/>
       <Routes>
+        <Route path="*" element={<PageNotFoundScreen />} />
         <Route path="/" element={<ProductsScreen user={user} notify={notify}  setUser={setUser}/>} exact/>
         <Route path="/products" element={<ProductsScreen user={user} notify={notify}  setUser={setUser}/>} exact/>
         <Route path="/product/:id" element={<ProductScreen user={user} notify={notify} setUser={setUser} />} exact/>
