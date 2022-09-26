@@ -77,7 +77,7 @@ const RegisterScreen = ({ notify, setUser }) => {
           <Input type="password" name="passwordConfirmation" value={passwordConfirmation} placeholder="Confirm Password" onChange={onChange}/>
           <Button type="submit">Submit</Button>
         </Form>
-        <Link href={'http://localhost:3000/login'}>Login</Link>
+        <Link href={'https://lastwave-ecommerce.herokuapp.com/login'}>Login</Link>
     </Container>
     </>
   )
