@@ -57,7 +57,7 @@ connectDB()
 
 const app = express()
 
-var allowedOrigins = ['https://main--sparkling-genie-820de8.netlify.app', 'https://sparkling-genie-820de8.netlify.app', 'http://localhost:3000'];
+var allowedOrigins = ['https://main--sparkling-genie-820de8.netlify.app', 'https://sparkling-genie-820de8.netlify.app', 'http://localhost:3000', 'https://www.thesimplecat.com'];
 
 app.use(cors({
   origin: function(origin, callback){
