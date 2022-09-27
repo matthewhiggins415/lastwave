@@ -53,7 +53,6 @@ const App = () => {
       <Navbar user={user} />
       <ToastContainer theme="light" position="top-right" autoClose={1500}/>
       <Routes>
-        <Route path="*" element={<PageNotFoundScreen />} />
         <Route path="/" element={<ProductsScreen user={user} notify={notify}  setUser={setUser}/>} exact/>
         <Route path="/products" element={<ProductsScreen user={user} notify={notify}  setUser={setUser}/>} exact/>
         <Route path="/product/:id" element={<ProductScreen user={user} notify={notify} setUser={setUser} />} exact/>
@@ -74,6 +73,8 @@ const App = () => {
         <Route path="/admin/products" element={<AdminProductsScreen user={user} notify={notify}/>} exact/>
         <Route path="/admin/orders" element={<AdminOrdersScreen user={user} notify={notify}/>} exact/>
         <Route path="/admin/edit-product/:id" element={<AdminProductEdit user={user} notify={notify}/>} exact/>
+
+        <Route path="*" element={<PageNotFoundScreen />} />
       </Routes>   
       <Footer />   
     </Router>
