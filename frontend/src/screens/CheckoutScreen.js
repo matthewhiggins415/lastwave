@@ -70,6 +70,7 @@ const CheckoutScreen = ({ user,  notify }) => {
   return (
     <Container>
       <H1>Checkout</H1>
+      <H2>{process.env.REACT_APP_STRIPE_LIVE_KEY}</H2>
       <CheckoutContainer>
         <H4>Order Summary</H4>
         <OrderSummaryDiv>
