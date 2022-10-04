@@ -16,7 +16,7 @@ const stripeAPI = require('../utils/stripe')
 
 // const webhook = require('../utils/webhook')
 
-router.post('/create-payment-intent', requireToken, async (req, res) => {
+router.post('/createintent', async (req, res, next) => {
   let userId = req.user.id
 
   let cart = await Cart.findOne({user: userId})
@@ -30,15 +30,15 @@ router.post('/create-payment-intent', requireToken, async (req, res) => {
     paymentIntent = await stripeAPI.paymentIntents.create({
       amount: total, 
       currency: 'usd', 
-      payment_method_types: ['card'],
-      receipt_email, 
+      payment_method_types: ['card'], 
+      receipt_email,  
       shipping
     });
 
     res.status(200).json({ clientSecret: paymentIntent.client_secret })
   } catch(error) {
     console.log(error)
-    res.status(400).json({ message: "an error occured, unable to create payment intent."})
+    res.status(400).json({ message: error})
   }
 })
 

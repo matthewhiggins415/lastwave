@@ -11,6 +11,7 @@ export const addItemToCart = (user, id) => {
  
 // retrieve a users cart items 
 export const getItemsInCart = (user) => {
+  console.log("this is the url for cart stuff: ", apiUrl + '/cart')
   return axios.get(
     apiUrl + '/cart', 
     { headers: { Authorization: `Bearer ${user.token}`} }
