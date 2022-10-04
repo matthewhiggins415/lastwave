@@ -16,7 +16,7 @@ const stripeAPI = require('../utils/stripe')
 
 // const webhook = require('../utils/webhook')
 
-router.post('/createintent', async (req, res, next) => {
+router.get('/createintent', async (req, res, next) => {
   let userId = req.user.id
 
   let cart = await Cart.findOne({user: userId})
