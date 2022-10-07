@@ -8,7 +8,7 @@ import { Container, H4 } from '../styles/CustomCheckout.styles'
 
 // Make sure to call `loadStripe` outside of a component’s render to avoid
 // recreating the `Stripe` object on every render.
-const stripePromise = loadStripe(`${process.env.REACT_APP_STRIPE_LIVE_KEY}`);
+const stripePromise = loadStripe(`${process.env.REACT_APP_STRIPE_LIVE_PUBLISHABLE_KEY}`);
 
 const CustomCheckout = ({ user, notify }) => {
   const [clientSecret, setClientSecret] = useState("");

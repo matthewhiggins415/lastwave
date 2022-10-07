@@ -57,20 +57,25 @@ connectDB()
 
 const app = express()
 
-var allowedOrigins = ['https://main--sparkling-genie-820de8.netlify.app', 'https://sparkling-genie-820de8.netlify.app', 'http://localhost:3000', 'https://www.thesimplecat.com', 'http://localhost:3000'];
+// var allowedOrigins = ['https://main--sparkling-genie-820de8.netlify.app', 'https://sparkling-genie-820de8.netlify.app', 'http://localhost:3000', 'https://www.thesimplecat.com', 'http://localhost:3000'];
+
+// app.use(cors({
+//   origin: function(origin, callback){
+//     // allow requests with no origin 
+//     // (like mobile apps or curl requests)
+//     if(!origin) return callback(null, true);
+//     if(allowedOrigins.indexOf(origin) === -1){
+//       const msg = 'The CORS policy for this site does not ' +
+//                 'allow access from the specified Origin.';
+//       return callback(new Error(msg), false);
+//     }
+//     return callback(null, true);
+//   }
+// }));
 
 app.use(cors({
-  origin: function(origin, callback){
-    // allow requests with no origin 
-    // (like mobile apps or curl requests)
-    if(!origin) return callback(null, true);
-    if(allowedOrigins.indexOf(origin) === -1){
-      const msg = 'The CORS policy for this site does not ' +
-                'allow access from the specified Origin.';
-      return callback(new Error(msg), false);
-    }
-    return callback(null, true);
-  }
+  origin: ['*', 'https://www.thesimplecat.com', 'http://localhost:3000'], 
+  methods: ['GET','POST','DELETE','UPDATE','PUT','PATCH']
 }));
 
 const endpointSecret = 'whsec_6ff242a04c62d65b6428b10aa37a91d15ad63e64110179f7d3279762006f842f'
@@ -160,8 +165,7 @@ app.use(express.json({
 }))
 
 app.get('/', (req, res) => {
-  let thing = process.env.NODE_ENV
-  res.json({ message: thing })
+  res.json({ message: `here's process.env.NODE_ENV: ${process.env.NODE_ENV}` })
 })
 
 app.use('/uploads', express.static(path.join(__dirname, './uploads')));
