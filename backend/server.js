@@ -74,9 +74,18 @@ const app = express()
 // }));
 
 app.use(cors({
-  origin: ['*', 'https://www.thesimplecat.com', 'http://localhost:3000'], 
-  methods: ['GET','POST','DELETE','UPDATE','PUT','PATCH']
+  origin: 'https://www.thesimplecat.com'
 }));
+
+// Add Access Control Allow Origin headers
+// app.use((req, res, next) => {
+//   res.setHeader("Access-Control-Allow-Origin", "https://www.thesimplecat.com");
+//   res.header(
+//     "Access-Control-Allow-Headers",
+//     "Origin, X-Requested-With, Content-Type, Accept"
+//   );
+//   next();
+// });
 
 const endpointSecret = 'whsec_6ff242a04c62d65b6428b10aa37a91d15ad63e64110179f7d3279762006f842f'
 
