@@ -74,8 +74,22 @@ const app = express()
 // }));
 
 app.use(cors({
-  origin: 'https://www.thesimplecat.com'
+  origin: ['https://www.thesimplecat.com', "https://m.stripe.com/6", "www.stripe.com", "https://m.stripe.network"]
 }));
+
+// let cors = {
+//   origin: ["http://localhost:3000","www.thesimplecat.com","www.stripe.com"],
+//   default: "www.thesimplecat.com"
+// }
+
+// app.all('*', function(req, res, next) {
+//   const origin = cors.origin.contains(req.header('origin').toLowerCase()) ? req.headers.origin : cors.default;
+//   res.header("Access-Control-Allow-Origin", origin);
+//   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+//   next();
+// });
+
+// app.use(cors())
 
 // Add Access Control Allow Origin headers
 // app.use((req, res, next) => {
