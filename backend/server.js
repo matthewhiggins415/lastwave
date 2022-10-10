@@ -74,7 +74,7 @@ const app = express()
 // }));
 
 app.use(cors({
-  origin: ['https://www.thesimplecat.com', "https://m.stripe.com/6", "www.stripe.com", "https://m.stripe.network"]
+  origin: 'https://www.thesimplecat.com'
 }));
 
 // let cors = {
