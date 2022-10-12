@@ -52,9 +52,9 @@ const ProductScreen = ({ user, notify, setUser }) => {
       <ProductDetailsContainer>
         <Image src={apiUrl + "/" + product.imageOne}/>
         <ImgContainer>
-          <ImgBtn>img 1</ImgBtn>
           <ImgBtn>img 2</ImgBtn>
           <ImgBtn>img 3</ImgBtn>
+          <ImgBtn>img 4</ImgBtn>
         </ImgContainer>
         <ProductDetails>
           <DetailContainer>

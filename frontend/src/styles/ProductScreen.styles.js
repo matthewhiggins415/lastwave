@@ -24,12 +24,14 @@ export const BackBtn = styled(Link)`
 export const Image = styled.img`
   border-radius: 10px;
   width: 100%;
+  background-color: red;
   max-width: 350px;
 `
 
 export const ProductDetailsContainer = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: space-evenly;
   margin: 30px auto;
   max-width: 80%;
@@ -38,6 +40,7 @@ export const ProductDetailsContainer = styled.div`
 
 export const ImgContainer = styled.div`
   display: flex;
+  width: 200px;
   align-items: center;
   justify-content: space-between;
   padding: 10px 0px;
@@ -45,8 +48,8 @@ export const ImgContainer = styled.div`
 
 export const ImgBtn = styled.button`
   cursor: pointer;
-  height: 80px;
-  width: 80px;
+  height: 50px;
+  width: 50px;
   border: none;
   outline: none;
   border-radius: 5px;
