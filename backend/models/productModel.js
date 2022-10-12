@@ -19,6 +19,14 @@ const productSchema = new Schema({
       type: String, 
       required: true
     }, 
+    imageThree: {
+      type: String, 
+      required: true
+    }, 
+    imageFour: {
+      type: String, 
+      required: true
+    }, 
     description: {
       type: String, 
       required: true
@@ -36,6 +44,14 @@ const productSchema = new Schema({
       type: Number, 
       required: true, 
       default: 0
+    }, 
+    numOfOrders: {
+      type: Number, 
+      default: 57
+    },
+    numOfReviews: {
+      type: Number, 
+      default: 13
     }
 }, {
   timestamps: true

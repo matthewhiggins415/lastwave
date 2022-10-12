@@ -51,6 +51,11 @@ const ProductScreen = ({ user, notify, setUser }) => {
       <BackBtn to="/products">Go Back</BackBtn>
       <ProductDetailsContainer>
         <Image src={apiUrl + "/" + product.imageOne}/>
+        <div>
+          <button>img 1</button>
+          <button>img 2</button>
+          <button>img 3</button>
+        </div>
         <ProductDetails>
           <DetailContainer>
             <h1>{product.name}</h1>
