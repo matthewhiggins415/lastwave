@@ -1,12 +1,16 @@
 import styled from "styled-components";
 import { Link } from 'react-router-dom'
 
+export const ContainerLink = styled(Link)`
+  color: none;
+  text-decoration: none;
+`
+
 export const Container = styled.div`
-  /* border: 1px solid black; */
   border-radius: 10px;
-  max-width: 350px;
-  min-height: 400px;
-  padding: 15px;
+  width: 220px;
+  height: auto;
+  padding: 0px;
   margin: 20px;
   display: flex;
   flex-direction: column;
@@ -21,8 +25,8 @@ export const ProductLink = styled(Link)`
   margin: 5px auto;
 `
 export const Image = styled.img`
-  width: 300px;
-  height: 400px;
+  width: 200px;
+  height: 200px;
   margin: 0 auto;
   border-radius: 10px;
 `
