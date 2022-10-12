@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Container, ProductLink, Image, ProductAddContainer, AddToCart } from '../styles/Product.styles'
 import { addItemToCart } from '../api/cart'
+import apiUrl from '../apiConfig'
 
 const Product = ({ product, user, notify, id, setUser }) => {
   let navigate = useNavigate()
@@ -32,7 +33,7 @@ const Product = ({ product, user, notify, id, setUser }) => {
   
   return (
     <Container>
-      <Image src={"https://lastwave-ecommerce.herokuapp.com/" + product.imageOne} alt={product.name} />
+      <Image src={apiUrl + "/" + product.imageOne} alt={product.name} />
       <ProductLink to={`/product/${id}`}>
         <h2>{product.name}</h2>
       </ProductLink>

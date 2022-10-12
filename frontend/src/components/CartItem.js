@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { removeItemFromCart, updateQtyItemFromCart} from '../api/cart'
 import { Container, CartImage, CartItemInfo, RemoveButton, QuantityContainer, QuantityBtn, QuantityH2 } from '../styles/CartItem.styles' 
+import apiUrl from '../apiConfig'
 
 const CartItem = ({ cartItem, id, user, setUser, setCartItems, setCartTotal, notify }) => {
   const [quantity, setQuantity] = useState(cartItem.quantity)
@@ -51,7 +52,7 @@ const CartItem = ({ cartItem, id, user, setUser, setCartItems, setCartTotal, not
 
   return (
     <Container>
-      <CartImage src={"https://lastwave-ecommerce.herokuapp.com/" + cartItem.image}/>
+      <CartImage src={apiUrl + "/" + cartItem.image}/>
       <CartItemInfo>
         <RemoveButton onClick={handleClick}>remove</RemoveButton>
         <h2>{cartItem.name}</h2>
