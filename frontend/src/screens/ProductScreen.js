@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
-import { Container, ProductDetailsContainer, ProductDetails, DetailContainer, Image, BackBtn, CheckoutBtn } from '../styles/ProductScreen.styles'
+import { Container, ProductDetailsContainer, ProductDetails, DetailContainer, Image, BackBtn, CheckoutBtn, ImgContainer, ImgBtn } from '../styles/ProductScreen.styles'
 import { addItemToCart } from '../api/cart'
 import apiUrl from '../apiConfig'
 
@@ -48,14 +48,14 @@ const ProductScreen = ({ user, notify, setUser }) => {
 
   return (
     <Container>
-      <BackBtn to="/products">Go Back</BackBtn>
+      <BackBtn to="/products">Back</BackBtn>
       <ProductDetailsContainer>
         <Image src={apiUrl + "/" + product.imageOne}/>
-        <div>
-          <button>img 1</button>
-          <button>img 2</button>
-          <button>img 3</button>
-        </div>
+        <ImgContainer>
+          <ImgBtn>img 1</ImgBtn>
+          <ImgBtn>img 2</ImgBtn>
+          <ImgBtn>img 3</ImgBtn>
+        </ImgContainer>
         <ProductDetails>
           <DetailContainer>
             <h1>{product.name}</h1>

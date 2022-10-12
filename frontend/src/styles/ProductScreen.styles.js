@@ -15,6 +15,7 @@ export const BackBtn = styled(Link)`
   color: white;
   border: 1px solid black;
   padding: 15px;
+  border-radius: 5px;
   background-color: black;
   width: 100px;
   text-align: center;
@@ -23,15 +24,32 @@ export const BackBtn = styled(Link)`
 export const Image = styled.img`
   border-radius: 10px;
   width: 100%;
-  max-width: 400px;
+  max-width: 350px;
 `
 
 export const ProductDetailsContainer = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: space-evenly;
   margin: 30px auto;
   max-width: 80%;
   flex-wrap: wrap;
+`
+
+export const ImgContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0px;
+`
+
+export const ImgBtn = styled.button`
+  cursor: pointer;
+  height: 80px;
+  width: 80px;
+  border: none;
+  outline: none;
+  border-radius: 5px;
 `
 
 export const ProductDetails = styled.div`
@@ -48,10 +66,11 @@ export const DetailContainer = styled.div`
 `
 
 export const CheckoutBtn = styled.button`
-  background-color: black;
-  color: white;
+  background-color: gold;
+  color: black;
   padding: 15px;
   margin-top: 15px;
   border: none;
+  border-radius: 5px;
   cursor: pointer;
 `
