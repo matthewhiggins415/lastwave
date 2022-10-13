@@ -108,6 +108,8 @@ router.post("/admin/product", requireToken, async (req, res, next) => {
     name: "sample", 
     imageOne: "/images/sample1.jpg", 
     imageTwo: "/images/sample2.jpg",
+    imageThree: "/images/sample3.jpg",
+    imageFour: "/images/sample4.jpg",
     description: "sample description", 
     category: 'none', 
     price: 10,
@@ -138,6 +140,8 @@ router.patch("/admin/product/:id", requireToken, async (req, res, next) => {
     product.name = reqProduct.name
     product.imageOne = reqProduct.imageOne
     product.imageTwo = reqProduct.imageTwo
+    product.imageThree = reqProduct.imageThree
+    product.imageFour = reqProduct.imageFour
     product.description = reqProduct.description
     product.category = reqProduct.category
     product.price = reqProduct.price

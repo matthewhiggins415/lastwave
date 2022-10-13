@@ -14,6 +14,8 @@ const AdminProductEdit = ({ notify, user }) => {
   const [name, setName] = useState('')
   const [imageOne, setImageOne] = useState('')
   const [imageTwo, setImageTwo] = useState('')
+  const [imageThree, setImageThree] = useState('')
+  const [imageFour, setImageFour] = useState('')
   const [description, setDescription] = useState('')
   const [category, setCategory] = useState('0')
   const [price, setPrice] = useState(0)
@@ -51,6 +53,8 @@ const AdminProductEdit = ({ notify, user }) => {
       description: description,
       imageOne: imageOne, 
       imageTwo: imageTwo, 
+      imageThree: imageThree, 
+      imageFour: imageFour,
       category: category
     }
 
@@ -118,6 +122,56 @@ const AdminProductEdit = ({ notify, user }) => {
     }
   }
 
+  const uploadSelectedHandlerImageThree = (e) => {
+    console.log(e.target.files[0])
+    setImageThree(e.target.files[0])
+   }
+
+  const fileUploadHandlerImageThree = async () => {
+    const fd = new FormData()
+    fd.append('image', imageThree, imageThree.name)
+
+    try {
+      const config = {
+        headers: {'Content-Type': 'multipart/form-data'}
+      }
+      let res = await axios.post(apiUrl + '/api/upload', fd, {
+        onUploadProgress: progressEvent => {
+          console.log("Upload progress: " + Math.round(progressEvent.loaded / progressEvent.total * 100) + "%")
+        }
+      }, config)
+      console.log(res)
+      setImageThree(res.data)
+    } catch(err) {
+      console.error(err)
+    }
+  }
+
+  const uploadSelectedHandlerImageFour = (e) => {
+    console.log(e.target.files[0])
+    setImageFour(e.target.files[0])
+   }
+
+  const fileUploadHandlerImageFour = async () => {
+    const fd = new FormData()
+    fd.append('image', imageFour, imageFour.name)
+
+    try {
+      const config = {
+        headers: {'Content-Type': 'multipart/form-data'}
+      }
+      let res = await axios.post(apiUrl + '/api/upload', fd, {
+        onUploadProgress: progressEvent => {
+          console.log("Upload progress: " + Math.round(progressEvent.loaded / progressEvent.total * 100) + "%")
+        }
+      }, config)
+      console.log(res)
+      setImageFour(res.data)
+    } catch(err) {
+      console.error(err)
+    }
+  }
+
   return (
     <Container>
       <AdminProductCreateScreenHeader>
@@ -135,6 +189,16 @@ const AdminProductEdit = ({ notify, user }) => {
           <Image style={{height: "60px", }} src={apiUrl + "/" + imageTwo}/>
           <ImageInput name="imageTwo" type="file" onChange={uploadSelectedHandlerImageTwo} accept="image/*, .pdf, .png, .jpg" required/>
           <ImageButton onClick={fileUploadHandlerImageTwo}>Upload</ImageButton>
+        </ImageUploadContainer>
+        <ImageUploadContainer>
+          <Image style={{height: "60px", }} src={apiUrl + "/" + imageThree}/>
+          <ImageInput name="imageThree" type="file" onChange={uploadSelectedHandlerImageThree} accept="image/*, .pdf, .png, .jpg" required/>
+          <ImageButton onClick={fileUploadHandlerImageThree}>Upload</ImageButton>
+        </ImageUploadContainer>
+        <ImageUploadContainer>
+          <Image style={{height: "60px", }} src={apiUrl + "/" + imageFour}/>
+          <ImageInput name="imageFour" type="file" onChange={uploadSelectedHandlerImageFour} accept="image/*, .pdf, .png, .jpg" required/>
+          <ImageButton onClick={fileUploadHandlerImageFour}>Upload</ImageButton>
         </ImageUploadContainer>
       <Form>
         <label>Name of product</label>

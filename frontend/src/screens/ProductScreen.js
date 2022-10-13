@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
-import { Container, ProductDetailsContainer, ProductDetails, DetailContainer, Image, BackBtn, CheckoutBtn, ImgContainer, ImgBtn } from '../styles/ProductScreen.styles'
+import { Container, ProductDetailsContainer, ProductDetails, DetailContainer, Image, BackBtn, CheckoutBtn, ImgContainer } from '../styles/ProductScreen.styles'
 import { addItemToCart } from '../api/cart'
 import apiUrl from '../apiConfig'
 
@@ -12,11 +12,13 @@ const ProductScreen = ({ user, notify, setUser }) => {
   let navigate = useNavigate()
 
   const [product, setProduct] = useState({})
+  const [imgSrc, setImgSrc] = useState('')
 
   useEffect(() => {
     const fetchProduct = async () => {
       let res = await axios.get(`${apiUrl}/products/${id}`)
       setProduct(res.data.product)
+      setImgSrc(`${apiUrl}/${res.data.product.imageOne}`)
       console.log(res.data.product)
     }
 
@@ -46,15 +48,82 @@ const ProductScreen = ({ user, notify, setUser }) => {
     }
   }
 
+  const handleImageClick = (img) => {
+    let imgSrc = apiUrl + "/" + img
+    setImgSrc(imgSrc)
+  }
+
+  const styleOne = {
+    backgroundImage: `url(${apiUrl}/${product.imageOne})`, 
+    backgroundPosition: 'center',
+    backgroundSize: 'cover',
+    backgroundRepeat: 'no-repeat',
+    height: '50px', 
+    width: '50px',
+    cursor: 'pointer',
+    height: '50px',
+    width: '50px',
+    border: 'none',
+    outline: 'none',
+    'border-radius': '5px'
+  }
+
+  const styleTwo = {
+    backgroundImage: `url(${apiUrl}/${product.imageTwo})`, 
+    backgroundPosition: 'center',
+    backgroundSize: 'cover',
+    backgroundRepeat: 'no-repeat',
+    height: '50px', 
+    width: '50px',
+    cursor: 'pointer',
+    height: '50px',
+    width: '50px',
+    border: 'none',
+    outline: 'none',
+    'border-radius': '5px'
+  }
+
+  const styleThree = {
+    backgroundImage: `url(${apiUrl}/${product.imageThree})`, 
+    backgroundPosition: 'center',
+    backgroundSize: 'cover',
+    backgroundRepeat: 'no-repeat',
+    height: '50px', 
+    width: '50px',
+    cursor: 'pointer',
+    height: '50px',
+    width: '50px',
+    border: 'none',
+    outline: 'none',
+    'border-radius': '5px'
+  }
+
+  const styleFour = {
+    backgroundImage: `url(${apiUrl}/${product.imageFour})`, 
+    backgroundPosition: 'center',
+    backgroundSize: 'cover',
+    backgroundRepeat: 'no-repeat',
+    height: '50px', 
+    width: '50px',
+    cursor: 'pointer',
+    height: '50px',
+    width: '50px',
+    border: 'none',
+    outline: 'none',
+    'border-radius': '5px'
+  }
+
+
   return (
     <Container>
       <BackBtn to="/products">Back</BackBtn>
       <ProductDetailsContainer>
-        <Image src={apiUrl + "/" + product.imageOne}/>
+        <Image src={imgSrc}/>
         <ImgContainer>
-          <ImgBtn>img 2</ImgBtn>
-          <ImgBtn>img 3</ImgBtn>
-          <ImgBtn>img 4</ImgBtn>
+          <button onClick={() => handleImageClick(product.imageOne)} style={styleOne}></button>
+          <button onClick={() => handleImageClick(product.imageTwo)} style={styleTwo}></button>
+          <button onClick={() => handleImageClick(product.imageThree)} style={styleThree}></button>
+          <button onClick={() => handleImageClick(product.imageFour)} style={styleFour}></button>
         </ImgContainer>
         <ProductDetails>
           <DetailContainer>
