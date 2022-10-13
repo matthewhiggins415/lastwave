@@ -23,7 +23,8 @@ export const BackBtn = styled(Link)`
 
 export const Image = styled.img`
   border-radius: 10px;
-  width: 100%;
+  width: 250px;
+  height: 275px;
   background-color: gray;
   max-width: 350px;
 `
@@ -62,7 +63,7 @@ export const DetailContainer = styled.div`
 export const CheckoutBtn = styled.button`
   background-color: gold;
   color: black;
-  padding: 15px;
+  padding: 20px;
   margin-top: 15px;
   border: none;
   border-radius: 5px;
