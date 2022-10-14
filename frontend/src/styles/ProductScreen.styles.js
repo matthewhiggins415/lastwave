@@ -23,10 +23,9 @@ export const BackBtn = styled(Link)`
 
 export const Image = styled.img`
   border-radius: 10px;
-  width: 250px;
-  height: 275px;
+  width: 300px;
+  height: 315px;
   background-color: gray;
-  max-width: 350px;
 `
 
 export const ProductDetailsContainer = styled.div`
@@ -41,7 +40,7 @@ export const ProductDetailsContainer = styled.div`
 
 export const ImgContainer = styled.div`
   display: flex;
-  width: 300px;
+  width: 280px;
   align-items: center;
   justify-content: space-between;
   padding: 10px 0px;

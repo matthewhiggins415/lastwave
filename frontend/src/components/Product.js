@@ -40,11 +40,11 @@ const Product = ({ product, user, notify, id, setUser }) => {
           {product.name.length > 16 ? product.name.substring(0, 14) + '...': product.name}
         </h2>
       </ProductLink>
+      <p>4.9 &#x2605; &#x2605; &#x2605; &#x2605; &#x2605;</p>
       <ProductLink to={`/product/${id}`}>
         <h2>{`$${product.price}`}</h2>
       </ProductLink>
       <div>
-        <p>4.9 &#x2605; &#x2605; &#x2605; &#x2605; &#x2605;</p>
         <p>24 sold</p>
       </div>
       {/* <AddToCart onClick={handleClick}>Add to cart</AddToCart> */}

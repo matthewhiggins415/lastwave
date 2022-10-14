@@ -40,7 +40,6 @@ const ProductScreen = ({ user, notify, setUser }) => {
     try {
       let res = await addItemToCart(user, id)
       console.log("res", res)
-      // setUser(res.data.user)
       notify('item added to cart')
       navigate("/cart")
     } catch(error) {

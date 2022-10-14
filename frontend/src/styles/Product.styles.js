@@ -2,8 +2,9 @@ import styled from "styled-components";
 import { Link } from 'react-router-dom'
 
 export const ContainerLink = styled(Link)`
-  color: none;
+  color: black;
   text-decoration: none;
+
 `
 
 export const Container = styled.div`
