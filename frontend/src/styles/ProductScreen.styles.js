@@ -33,8 +33,8 @@ export const ProductDetailsContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
-  margin: 30px auto;
-  max-width: 80%;
+  margin: 0 auto;
+  width: 80%;
   flex-wrap: wrap;
 `
 
