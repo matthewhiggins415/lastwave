@@ -115,8 +115,9 @@ const ProductScreen = ({ user, notify, setUser }) => {
 
 
   return (
+    <>
+    <BackBtn to="/products">Back</BackBtn>
     <Container>
-      <BackBtn to="/products">Back</BackBtn>
       <ProductDetailsContainer>
         <Image src={imgSrc}/>
         <ImgContainer>
@@ -143,6 +144,7 @@ const ProductScreen = ({ user, notify, setUser }) => {
         </ProductDetails>
       </ProductDetailsContainer>
     </Container>
+    </>
   )
 }
 
