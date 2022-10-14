@@ -39,7 +39,8 @@ const ProductScreen = ({ user, notify, setUser }) => {
   const addToCart = async () => {
     try {
       let res = await addItemToCart(user, id)
-      setUser(res.data.user)
+      console.log("res", res)
+      // setUser(res.data.user)
       notify('item added to cart')
       navigate("/cart")
     } catch(error) {
@@ -135,7 +136,11 @@ const ProductScreen = ({ user, notify, setUser }) => {
           <DetailContainer>
             <h2>{`Price: $${product.price}`}</h2>
           </DetailContainer>
-          <CheckoutBtn onClick={() => {handleClick(user, id)}}>Add to Cart</CheckoutBtn>
+          <DetailContainer>  
+            <p>24 sold</p>
+            <p>4.9 &#x2605; &#x2605; &#x2605; &#x2605; &#x2605;</p>
+          </DetailContainer>
+          <CheckoutBtn onClick={() => {handleClick()}}>Add to Cart</CheckoutBtn>
         </ProductDetails>
       </ProductDetailsContainer>
     </Container>

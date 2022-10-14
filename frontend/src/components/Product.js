@@ -22,9 +22,9 @@ const Product = ({ product, user, notify, id, setUser }) => {
   //   try {
   //     let res = await addItemToCart(user, id)
   //     console.log("added to cart:", res)
-  //     // setUser(res.data.user)
+  //     setUser(res.data.user)
   //     notify('item added to cart')
-  //     // navigate("/cart")
+  //     navigate("/cart")
   //   } catch(error) {
   //     console.log(error)
   //     notify('something went wrong', 'danger')
@@ -43,6 +43,10 @@ const Product = ({ product, user, notify, id, setUser }) => {
       <ProductLink to={`/product/${id}`}>
         <h2>{`$${product.price}`}</h2>
       </ProductLink>
+      <div>
+        <p>4.9 &#x2605; &#x2605; &#x2605; &#x2605; &#x2605;</p>
+        <p>24 sold</p>
+      </div>
       {/* <AddToCart onClick={handleClick}>Add to cart</AddToCart> */}
     </Container>
     </ContainerLink>

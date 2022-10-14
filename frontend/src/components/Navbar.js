@@ -23,7 +23,7 @@ const Navbar = ({ user }) => {
     } else if (user) {
       return (
       <div>
-        <NavbarLink to="/products">Boards</NavbarLink>
+        <NavbarLink to="/products">Products</NavbarLink>
         <NavbarLink to="/cart">Cart</NavbarLink>
         <NavbarLink to="/profile">Profile</NavbarLink>
         <NavbarLink to="/sign-out">Logout</NavbarLink>
@@ -31,7 +31,7 @@ const Navbar = ({ user }) => {
     } else {
       return (
       <div>
-        <NavbarLink to="/products">Boards</NavbarLink>
+        <NavbarLink to="/products">Products</NavbarLink>
         <NavbarLink to="/cart">Cart</NavbarLink>
         <NavbarLink to="/register">Register</NavbarLink>
         <NavbarLink to="/login">Login</NavbarLink>
@@ -52,7 +52,7 @@ const Navbar = ({ user }) => {
     } else if (extendNavbar && user) {
       return (
         <NavbarExtendedContainer>
-        <NavbarLinkExtended onClick={closeExtendedNav} to="/products">Boards</NavbarLinkExtended>
+        <NavbarLinkExtended onClick={closeExtendedNav} to="/products">Products</NavbarLinkExtended>
         <NavbarLinkExtended onClick={closeExtendedNav} to="/cart">Cart</NavbarLinkExtended>
         <NavbarLinkExtended onClick={closeExtendedNav} to="/profile">Profile</NavbarLinkExtended>
         <NavbarLinkExtended onClick={closeExtendedNav} to="/sign-out">Logout</NavbarLinkExtended>
@@ -61,7 +61,7 @@ const Navbar = ({ user }) => {
     } else {
       return (
         <NavbarExtendedContainer>
-        <NavbarLinkExtended onClick={closeExtendedNav} to="/products">Boards</NavbarLinkExtended>
+        <NavbarLinkExtended onClick={closeExtendedNav} to="/products">Products</NavbarLinkExtended>
         <NavbarLinkExtended onClick={closeExtendedNav} to="/cart">Cart</NavbarLinkExtended>
         <NavbarLinkExtended onClick={closeExtendedNav} to="/register">Register</NavbarLinkExtended>
         <NavbarLinkExtended onClick={closeExtendedNav} to="/login">Login</NavbarLinkExtended>
@@ -84,7 +84,7 @@ const Navbar = ({ user }) => {
         </LeftContainer>
         <RightContainer>
           <NavbarLinkContainer>
-            <NavbarLink to="/">lastWave</NavbarLink>
+            <NavbarLink to="/">Simple Cat</NavbarLink>
           </NavbarLinkContainer>
         </RightContainer>
       </NavbarInnerContainer>
