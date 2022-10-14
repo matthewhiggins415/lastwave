@@ -8,6 +8,7 @@ export const Container = styled.div`
   display: flex;
   min-height: 90vh;
   flex-direction: column;
+  align-items: center;
 `
 
 export const BackBtn = styled(Link)`
@@ -33,7 +34,7 @@ export const ProductDetailsContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
-  margin: 0 auto;
+  margin: 30px auto;
   width: 80%;
   flex-wrap: wrap;
 `
