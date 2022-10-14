@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom'
 
 export const Container = styled.div`
   width: 100%;
-  margin: 0 auto;
+  margin: 0px auto;
+  padding-top: 50px;
   margin-top: 30px;
   display: flex;
   min-height: 90vh;
@@ -13,10 +14,13 @@ export const Container = styled.div`
 `
 
 export const BackBtn = styled(Link)`
+  position: absolute;
   text-decoration: none;
   color: white;
   border: 1px solid black;
   padding: 15px;
+  margin-top: 20px;
+  margin-left: 20px;
   border-radius: 5px;
   background-color: black;
   width: 100px;
