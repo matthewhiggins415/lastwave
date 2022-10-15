@@ -68,8 +68,8 @@ router.post('/sign-up', (req, res, next) => {
         user: userId, 
         items: [],
         subTotal: 0,
-        shippingCost: 10,
-        tax: 5,
+        shippingCost: 1,
+        tax: 1,
         total: 0
       })
 

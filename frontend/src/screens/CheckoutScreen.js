@@ -20,7 +20,6 @@ const CheckoutScreen = ({ user,  notify }) => {
   const [clientSecret, setClientSecret] = useState("");
   const [addressValid, setAddressValid] = useState(false)
 
-  let total = cartTotal + 10 + 5
   let navigate = useNavigate()
 
   useEffect(() => {
@@ -43,7 +42,10 @@ const CheckoutScreen = ({ user,  notify }) => {
       try {
         let res = await getItemsInCart(user)
         setCart(res.data.cart.items)
+
         setCartTotal(res.data.cart.subTotal)
+        console.log("cart", res.data.cart)
+        setCartTotal(res.data.cart.total)
         setTax(res.data.cart.tax)
         setShipping(res.data.cart.shippingCost)
       } catch(err) {
@@ -86,7 +88,7 @@ const CheckoutScreen = ({ user,  notify }) => {
         </OrderSummaryDiv>
         <OrderSummaryDiv>
           <h4>Total</h4>
-          <h4>{"$" + total}</h4>
+          <h4>{"$" + cartTotal}</h4>
         </OrderSummaryDiv>
       </CheckoutContainer>
       <CheckoutContainer>

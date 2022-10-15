@@ -41,10 +41,12 @@ const calculateCart = (cart) => {
 
 // calculate cart total 
 const calculateCartTotal = (cart) => {
+  console.log("cart", cart)
   let shippingCost = cart.shippingCost
   let taxCost = cart.tax
   let subtotal = cart.subTotal
-
+  console.log("tax", taxCost)
+  console.log("subtotal", subtotal)
   let total = shippingCost + taxCost + subtotal
   return total 
 }

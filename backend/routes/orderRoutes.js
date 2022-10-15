@@ -16,8 +16,6 @@ const Cart = require('../models/cartModal')
 // create new order as a user
 // POST /api/orders
 // protected 
-
-// * THIS STILL NEEDS FRONT END CALL THAT NEEDS TO BE PUT IN THE ORDER COMPLETE BUTTON * 
 router.post('/order', requireToken, async (req, res, next) => {
   let userID = req.user.id
   console.log(userID)

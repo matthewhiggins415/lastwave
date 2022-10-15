@@ -5,6 +5,8 @@ import {
   useElements
 } from "@stripe/react-stripe-js";
 
+import apiUrl from '../apiConfig'
+
 import { Button, Message } from '../styles/CustomCheckout.styles'
 
 export default function CheckoutForm() {

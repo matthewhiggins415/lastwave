@@ -57,56 +57,17 @@ connectDB()
 
 const app = express()
 
-// var allowedOrigins = ['https://main--sparkling-genie-820de8.netlify.app', 'https://sparkling-genie-820de8.netlify.app', 'http://localhost:3000', 'https://www.thesimplecat.com', 'http://localhost:3000'];
-
-// app.use(cors({
-//   origin: function(origin, callback){
-//     // allow requests with no origin 
-//     // (like mobile apps or curl requests)
-//     if(!origin) return callback(null, true);
-//     if(allowedOrigins.indexOf(origin) === -1){
-//       const msg = 'The CORS policy for this site does not ' +
-//                 'allow access from the specified Origin.';
-//       return callback(new Error(msg), false);
-//     }
-//     return callback(null, true);
-//   }
-// }));
-
 app.use(cors({
   origin: 'https://www.thesimplecat.com'
 }));
 
-// let cors = {
-//   origin: ["http://localhost:3000","www.thesimplecat.com","www.stripe.com"],
-//   default: "www.thesimplecat.com"
-// }
-
-// app.all('*', function(req, res, next) {
-//   const origin = cors.origin.contains(req.header('origin').toLowerCase()) ? req.headers.origin : cors.default;
-//   res.header("Access-Control-Allow-Origin", origin);
-//   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-//   next();
-// });
-
-// app.use(cors())
-
-// Add Access Control Allow Origin headers
-// app.use((req, res, next) => {
-//   res.setHeader("Access-Control-Allow-Origin", "https://www.thesimplecat.com");
-//   res.header(
-//     "Access-Control-Allow-Headers",
-//     "Origin, X-Requested-With, Content-Type, Accept"
-//   );
-//   next();
-// });
-
-const endpointSecret = 'whsec_6ff242a04c62d65b6428b10aa37a91d15ad63e64110179f7d3279762006f842f'
+// const endpointSecret = 'whsec_6ff242a04c62d65b6428b10aa37a91d15ad63e64110179f7d3279762006f842f'
+const endpointSecret = 'whsec_A056lEY8NhVavdONtxjxC6YbiVqR2zsI'
 
 app.post('/webhook', express.raw({type: 'application/json'}), (req, res) => {
   let event = req.body;
-  // // Only verify the event if you have an endpoint secret defined.
-  // // Otherwise use the basic event deserialized with JSON.parse
+  // Only verify the event if you have an endpoint secret defined.
+  // Otherwise use the basic event deserialized with JSON.parse
 
   if (endpointSecret) {
     // Get the signature sent by Stripe
@@ -124,7 +85,7 @@ app.post('/webhook', express.raw({type: 'application/json'}), (req, res) => {
     }
   }
 
-  // // Handle the event
+  // Handle the event
   async function trySwitch(status) {
     switch (event.type) {
     case 'payment_intent.created':
