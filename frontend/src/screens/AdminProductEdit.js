@@ -13,9 +13,9 @@ const AdminProductEdit = ({ notify, user }) => {
 
   const [name, setName] = useState('')
   const [imageOne, setImageOne] = useState('')
-  const [imageTwo, setImageTwo] = useState('')
-  const [imageThree, setImageThree] = useState('')
-  const [imageFour, setImageFour] = useState('')
+  // const [imageTwo, setImageTwo] = useState('')
+  // const [imageThree, setImageThree] = useState('')
+  // const [imageFour, setImageFour] = useState('')
   const [description, setDescription] = useState('')
   const [category, setCategory] = useState('0')
   const [price, setPrice] = useState(0)
@@ -52,9 +52,9 @@ const AdminProductEdit = ({ notify, user }) => {
       countInStock: countInStock, 
       description: description,
       imageOne: imageOne, 
-      imageTwo: imageTwo, 
-      imageThree: imageThree, 
-      imageFour: imageFour,
+      // imageTwo: imageTwo, 
+      // imageThree: imageThree, 
+      // imageFour: imageFour,
       category: category
     }
 
@@ -85,7 +85,7 @@ const AdminProductEdit = ({ notify, user }) => {
       const config = {
         headers: {'Content-Type': 'multipart/form-data'}
       }
-      let res = await axios.post(apiUrl + '/api/upload', fd, {
+      let res = await axios.post(`${apiUrl}/api/upload`, fd, {
         onUploadProgress: progressEvent => {
           console.log("Upload progress: " + Math.round(progressEvent.loaded / progressEvent.total * 100) + "%")
         }
@@ -97,80 +97,80 @@ const AdminProductEdit = ({ notify, user }) => {
     }
   }
 
-  const uploadSelectedHandlerImageTwo = (e) => {
-    console.log(e.target.files[0])
-    setImageTwo(e.target.files[0])
-   }
+  // const uploadSelectedHandlerImageTwo = (e) => {
+  //   console.log(e.target.files[0])
+  //   setImageTwo(e.target.files[0])
+  //  }
 
-  const fileUploadHandlerImageTwo = async () => {
-    const fd = new FormData()
-    fd.append('image', imageTwo, imageTwo.name)
+  // const fileUploadHandlerImageTwo = async () => {
+  //   const fd = new FormData()
+  //   fd.append('image', imageTwo, imageTwo.name)
 
-    try {
-      const config = {
-        headers: {'Content-Type': 'multipart/form-data'}
-      }
-      let res = await axios.post(apiUrl + '/api/upload', fd, {
-        onUploadProgress: progressEvent => {
-          console.log("Upload progress: " + Math.round(progressEvent.loaded / progressEvent.total * 100) + "%")
-        }
-      }, config)
-      console.log(res)
-      setImageTwo(res.data)
-    } catch(err) {
-      console.error(err)
-    }
-  }
+  //   try {
+  //     const config = {
+  //       headers: {'Content-Type': 'multipart/form-data'}
+  //     }
+  //     let res = await axios.post(`${apiUrl}/api/upload`, fd, {
+  //       onUploadProgress: progressEvent => {
+  //         console.log("Upload progress: " + Math.round(progressEvent.loaded / progressEvent.total * 100) + "%")
+  //       }
+  //     }, config)
+  //     console.log(res)
+  //     setImageTwo(res.data)
+  //   } catch(err) {
+  //     console.error(err)
+  //   }
+  // }
 
-  const uploadSelectedHandlerImageThree = (e) => {
-    console.log(e.target.files[0])
-    setImageThree(e.target.files[0])
-   }
+  // const uploadSelectedHandlerImageThree = (e) => {
+  //   console.log(e.target.files[0])
+  //   setImageThree(e.target.files[0])
+  //  }
 
-  const fileUploadHandlerImageThree = async () => {
-    const fd = new FormData()
-    fd.append('image', imageThree, imageThree.name)
+  // const fileUploadHandlerImageThree = async () => {
+  //   const fd = new FormData()
+  //   fd.append('image', imageThree, imageThree.name)
 
-    try {
-      const config = {
-        headers: {'Content-Type': 'multipart/form-data'}
-      }
-      let res = await axios.post(apiUrl + '/api/upload', fd, {
-        onUploadProgress: progressEvent => {
-          console.log("Upload progress: " + Math.round(progressEvent.loaded / progressEvent.total * 100) + "%")
-        }
-      }, config)
-      console.log(res)
-      setImageThree(res.data)
-    } catch(err) {
-      console.error(err)
-    }
-  }
+  //   try {
+  //     const config = {
+  //       headers: {'Content-Type': 'multipart/form-data'}
+  //     }
+  //     let res = await axios.post(`${apiUrl}/api/upload`, fd, {
+  //       onUploadProgress: progressEvent => {
+  //         console.log("Upload progress: " + Math.round(progressEvent.loaded / progressEvent.total * 100) + "%")
+  //       }
+  //     }, config)
+  //     console.log(res)
+  //     setImageThree(res.data)
+  //   } catch(err) {
+  //     console.error(err)
+  //   }
+  // }
 
-  const uploadSelectedHandlerImageFour = (e) => {
-    console.log(e.target.files[0])
-    setImageFour(e.target.files[0])
-   }
+  // const uploadSelectedHandlerImageFour = (e) => {
+  //   console.log(e.target.files[0])
+  //   setImageFour(e.target.files[0])
+  //  }
 
-  const fileUploadHandlerImageFour = async () => {
-    const fd = new FormData()
-    fd.append('image', imageFour, imageFour.name)
+  // const fileUploadHandlerImageFour = async () => {
+  //   const fd = new FormData()
+  //   fd.append('image', imageFour, imageFour.name)
 
-    try {
-      const config = {
-        headers: {'Content-Type': 'multipart/form-data'}
-      }
-      let res = await axios.post(apiUrl + '/api/upload', fd, {
-        onUploadProgress: progressEvent => {
-          console.log("Upload progress: " + Math.round(progressEvent.loaded / progressEvent.total * 100) + "%")
-        }
-      }, config)
-      console.log(res)
-      setImageFour(res.data)
-    } catch(err) {
-      console.error(err)
-    }
-  }
+  //   try {
+  //     const config = {
+  //       headers: {'Content-Type': 'multipart/form-data'}
+  //     }
+  //     let res = await axios.post(`${apiUrl}/api/upload`, fd, {
+  //       onUploadProgress: progressEvent => {
+  //         console.log("Upload progress: " + Math.round(progressEvent.loaded / progressEvent.total * 100) + "%")
+  //       }
+  //     }, config)
+  //     console.log(res)
+  //     setImageFour(res.data)
+  //   } catch(err) {
+  //     console.error(err)
+  //   }
+  // }
 
   return (
     <Container>
@@ -184,7 +184,7 @@ const AdminProductEdit = ({ notify, user }) => {
           <ImageInput name="imageOne" type="file" onChange={uploadSelectedHandlerImageOne} accept="image/*, .pdf, .png, .jpg" required/>
           <ImageButton onClick={fileUploadHandlerImageOne}>Upload</ImageButton>
         </ImageUploadContainer>
-        <label>Required you add another image</label>
+        {/* <label>Required you add another image</label>
         <ImageUploadContainer>
           <Image style={{height: "60px", }} src={apiUrl + "/" + imageTwo}/>
           <ImageInput name="imageTwo" type="file" onChange={uploadSelectedHandlerImageTwo} accept="image/*, .pdf, .png, .jpg" required/>
@@ -199,7 +199,7 @@ const AdminProductEdit = ({ notify, user }) => {
           <Image style={{height: "60px", }} src={apiUrl + "/" + imageFour}/>
           <ImageInput name="imageFour" type="file" onChange={uploadSelectedHandlerImageFour} accept="image/*, .pdf, .png, .jpg" required/>
           <ImageButton onClick={fileUploadHandlerImageFour}>Upload</ImageButton>
-        </ImageUploadContainer>
+        </ImageUploadContainer> */}
       <Form>
         <label>Name of product</label>
         <Input value={name} name="name" type="text" onChange={(e) => {setName(e.target.value)}} required/>
