@@ -16,7 +16,7 @@ const AdminOrderItem = ({ item }) => {
         <h4>Items:</h4>
         {item.orderItems.map((order) => (
           <OrderItem>
-            <Image src={"/" + order.image} />
+            <Image src={apiUrl + "/" + order.image} />
             <p>{order.name}</p>
             <p>{"qty: " + order.quantity}</p>
             <h4>{"$" + order.price}</h4>

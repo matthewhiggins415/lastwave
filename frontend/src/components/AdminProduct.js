@@ -14,7 +14,7 @@ const AdminProduct = ({ notify, item, index, id, user, deleteProduct}) => {
   return (
     <Container>
       <p>{index + 1 + "."}</p>
-      <Img src={"http://localhost:5000/" + item.imageOne} />
+      <Img src={apiUrl + item.imageOne} />
       <p>{item.name}</p>
       <p>{"$" + item.price}</p>
       <Button onClick={navigateToEdit}>edit</Button>
