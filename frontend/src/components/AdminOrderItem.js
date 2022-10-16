@@ -1,5 +1,6 @@
 import React from 'react'
 import { Container, OrderItemsContainer, OrderItem, Image } from '../styles/AdminOrderItem.styles'
+import apiUrl from '../apiConfig'
 
 const AdminOrderItem = ({ item }) => {
   return (
