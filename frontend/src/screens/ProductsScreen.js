@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import Product from '../components/Product'
 import axios from 'axios'
 import { Container, H1, ProductsContainer } from '../styles/ProductsScreen.styles'
-import { createCart } from '../api/cart'
 import apiUrl from '../apiConfig'
 // import { v4 as uuidv4 } from 'uuid';
 
@@ -12,16 +11,12 @@ const ProductsScreen = ({ user, notify, setUser }) => {
   useEffect(() => {
     const fetchProducts = async() => {
       let { data } = await axios.get(`${apiUrl}/products`)
+      console.log('fetch product url:', `${apiUrl}/products`)
       setProducts(data.products)
     }
     fetchProducts()
   }, [])
 
-
-  // The dependencies parameter is reserved for any value that you wish to fire off the useEffect
-
-
-  // eaxch item needs a unique key value in order to be removed properly. 
   return (
     <Container>
       <H1>Products</H1>
