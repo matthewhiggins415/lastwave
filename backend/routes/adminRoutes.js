@@ -106,10 +106,10 @@ router.post("/admin/product", requireToken, async (req, res, next) => {
   const product = new Product({
     user: req.user.id,
     name: "sample", 
-    imageOne: "/images/sample1.jpg", 
-    imageTwo: "/images/sample2.jpg",
-    imageThree: "/images/sample3.jpg",
-    imageFour: "/images/sample4.jpg",
+    imageOne: "uploads/sample1.jpg", 
+    imageTwo: "images/sample2.jpg",
+    imageThree: "images/sample3.jpg",
+    imageFour: "images/sample4.jpg",
     description: "sample description", 
     category: 'none', 
     price: 10,
@@ -118,7 +118,8 @@ router.post("/admin/product", requireToken, async (req, res, next) => {
   })
 
   const createdProduct = await product.save()
-  res.status(201).json({ createdProduct })
+  let products = await Product.find()
+  res.status(201).json({ products })
 })
 
 // update a product 
@@ -139,9 +140,9 @@ router.patch("/admin/product/:id", requireToken, async (req, res, next) => {
     product.user = req.params.id
     product.name = reqProduct.name
     product.imageOne = reqProduct.imageOne
-    product.imageTwo = reqProduct.imageTwo
-    product.imageThree = reqProduct.imageThree
-    product.imageFour = reqProduct.imageFour
+    // product.imageTwo = reqProduct.imageTwo
+    // product.imageThree = reqProduct.imageThree
+    // product.imageFour = reqProduct.imageFour
     product.description = reqProduct.description
     product.category = reqProduct.category
     product.price = reqProduct.price

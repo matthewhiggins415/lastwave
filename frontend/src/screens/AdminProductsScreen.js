@@ -8,6 +8,16 @@ const AdminProductsScreen = ({ user, notify }) => {
   const [products, setProducts] = useState([])
 
   let navigate = useNavigate()
+
+  const createProduct = async (user) => {
+    let res = await createAProduct(user)
+
+    // let newProduct = res.data.createdProduct
+    // let id = newProduct._id
+    setProducts(res.data.products)
+    // navigate(`/admin/edit-product/${id}`)
+    notify("new product created")
+  }
   
   useEffect(() => {
     const fetchProducts = async () => {
@@ -21,15 +31,6 @@ const AdminProductsScreen = ({ user, notify }) => {
   if (!user) {
     notify('not logged in', 'danger')
     navigate('/login')
-  }
-  
-  const createProduct = async (user) => {
-    let res = await createAProduct(user)
-
-    let newProduct = res.data.createdProduct
-    let id = newProduct._id
-    navigate(`/admin/edit-product/${id}`)
-    notify("new product created")
   }
 
   const deleteProduct = async (id) =>{

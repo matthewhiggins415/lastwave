@@ -9,15 +9,16 @@ import apiUrl from '../apiConfig'
 const AdminProductEdit = ({ notify, user }) => {
   let { id } = useParams()
 
-  const [product, setProduct] = useState({})
 
+  const [product, setProduct] = useState({})
+  
   const [name, setName] = useState('')
   const [imageOne, setImageOne] = useState('')
   // const [imageTwo, setImageTwo] = useState('')
   // const [imageThree, setImageThree] = useState('')
   // const [imageFour, setImageFour] = useState('')
   const [description, setDescription] = useState('')
-  const [category, setCategory] = useState('0')
+  const [category, setCategory] = useState('category')
   const [price, setPrice] = useState(0)
   const [countInStock, setCountInStock] = useState(0)
 
@@ -26,6 +27,7 @@ const AdminProductEdit = ({ notify, user }) => {
       console.log(apiUrl)
       let res = await axios.get(`/products/${id}`)
       console.log("product useEffect", res.data.product)
+      setImageOne(res.data.product.imageOne)
       setProduct(res.data.product)
       setName(res.data.product.name)
       setDescription(res.data.product.description)
@@ -33,19 +35,19 @@ const AdminProductEdit = ({ notify, user }) => {
       setPrice(res.data.product.price)
       setCountInStock(res.data.product.countInStock)
     }
-
+    
     fetchProduct()
   }, [])
-
+  
   const navigate = useNavigate()
-
+  
   const handleClick = () => {
     navigate("/admin/products")
   }
-
+  
   const handleSubmit = async (e) => {
     e.preventDefault()
-
+    
     let newProduct = {
       name: name,
       price: price, 
@@ -57,10 +59,10 @@ const AdminProductEdit = ({ notify, user }) => {
       // imageFour: imageFour,
       category: category
     }
-
+    
     try {
       let res = await editAProduct(user, id, newProduct)
-
+      
       if (res.data.updatedProduct) {
         navigate("/admin/products")
         notify("product updated")
@@ -71,16 +73,16 @@ const AdminProductEdit = ({ notify, user }) => {
       console.log(err)
     }
   }
-
+  
   const uploadSelectedHandlerImageOne = (e) => {
-   console.log(e.target.files[0])
-   setImageOne(e.target.files[0])
+    console.log("upload selected handler image", e.target.files)
+    setImageOne(e.target.files[0])
   }
   
   const fileUploadHandlerImageOne = async () => {
     const fd = new FormData()
     fd.append('image', imageOne, imageOne.name)
-
+    
     try {
       const config = {
         headers: {'Content-Type': 'multipart/form-data'}
@@ -97,8 +99,10 @@ const AdminProductEdit = ({ notify, user }) => {
     }
   }
 
+  console.log("imageurl", `${apiUrl} + "/" + ${imageOne}`)
+  
   // const uploadSelectedHandlerImageTwo = (e) => {
-  //   console.log(e.target.files[0])
+    //   console.log(e.target.files[0])
   //   setImageTwo(e.target.files[0])
   //  }
 
@@ -111,7 +115,7 @@ const AdminProductEdit = ({ notify, user }) => {
   //       headers: {'Content-Type': 'multipart/form-data'}
   //     }
   //     let res = await axios.post(`${apiUrl}/api/upload`, fd, {
-  //       onUploadProgress: progressEvent => {
+  //       onUploadProgress: `progressEvent => {
   //         console.log("Upload progress: " + Math.round(progressEvent.loaded / progressEvent.total * 100) + "%")
   //       }
   //     }, config)
