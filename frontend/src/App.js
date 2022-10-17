@@ -65,7 +65,7 @@ const App = () => {
         <Route path="/profile" element={<ProfileScreen user={user} notify={notify} setUser={setUser}/>}  exact/>
         <Route path="/checkout" element={<CheckoutScreen user={user} notify={notify}/>} exact/>
         <Route path="/shipping" element={<ShippingConfirmationScreen user={user} notify={notify} setUser={setUser}/>} exact/>
-        <Route path="/payment-complete/*" element={<PaymentCompleteScreen user={user} notify={notify}/>} exact/>
+        <Route path="/payment-complete" element={<PaymentCompleteScreen user={user} notify={notify}/>}/>
         <Route path="/order/:id" element={<OrderItemScreen user={user} notify={notify}/>} exact/>
 
         <Route path="/admin/customers" element={<AdminCustomersScreen user={user} notify={notify}/>} exact/>
