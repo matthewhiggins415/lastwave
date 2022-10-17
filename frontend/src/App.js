@@ -65,14 +65,14 @@ const App = () => {
         <Route path="/profile" element={<ProfileScreen user={user} notify={notify} setUser={setUser}/>}  exact/>
         <Route path="/checkout" element={<CheckoutScreen user={user} notify={notify}/>} exact/>
         <Route path="/shipping" element={<ShippingConfirmationScreen user={user} notify={notify} setUser={setUser}/>} exact/>
-        <Route path="/payment-complete/:stripe" element={<PaymentCompleteScreen user={user} notify={notify}/>} exact/>
+        <Route path="/payment-complete/:payment_intent/:payment_intent_client_secret/:redirect_status" element={<PaymentCompleteScreen user={user} notify={notify}/>} exact/>
         <Route path="/order/:id" element={<OrderItemScreen user={user} notify={notify}/>} exact/>
 
         <Route path="/admin/customers" element={<AdminCustomersScreen user={user} notify={notify}/>} exact/>
         <Route path="/admin/customers/:id" element={<AdminCustomerEditScreen user={user}/>} exact/>
         <Route path="/admin/products" element={<AdminProductsScreen user={user} notify={notify}/>} exact/>
         <Route path="/admin/orders" element={<AdminOrdersScreen user={user} notify={notify}/>} exact/>
-        <Route path="/admin/edit-product/:payment_intent/:payment_intent_client_secret/:redirect_status" element={<AdminProductEdit user={user} notify={notify}/>} exact/>
+        <Route path="/admin/edit-product/:id" element={<AdminProductEdit user={user} notify={notify}/>} exact/>
 
         <Route path="*" element={<PageNotFoundScreen />} />
       </Routes>   
