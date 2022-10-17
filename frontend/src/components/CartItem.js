@@ -13,7 +13,7 @@ const CartItem = ({ cartItem, id, user, setUser, setCartItems, setCartTotal, not
   const removeItem = async () => {
     try {
       console.log("user", user)
-      console.log("id", id)
+      console.log("image for cart", cartItem.image)
       let res = await removeItemFromCart(user, id)
       console.log("res from remove:", res)
       // setUser(res.data.user)

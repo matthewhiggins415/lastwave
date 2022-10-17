@@ -61,8 +61,8 @@ app.use(cors({
   origin: 'https://www.thesimplecat.com'
 }));
 
-// const endpointSecret = 'whsec_6ff242a04c62d65b6428b10aa37a91d15ad63e64110179f7d3279762006f842f'
-const endpointSecret = 'whsec_A056lEY8NhVavdONtxjxC6YbiVqR2zsI'
+const endpointSecret = 'whsec_6ff242a04c62d65b6428b10aa37a91d15ad63e64110179f7d3279762006f842f'
+// const endpointSecret = 'whsec_A056lEY8NhVavdONtxjxC6YbiVqR2zsI'
 
 app.post('/webhook', express.raw({type: 'application/json'}), (req, res) => {
   let event = req.body;
@@ -96,7 +96,7 @@ app.post('/webhook', express.raw({type: 'application/json'}), (req, res) => {
       break;
     case 'payment_intent.succeeded':
       const paymentMethod = event.data.object;
-      console.log("payment method", paymentMethod)
+      console.log("payment method!! It fuckin works", paymentMethod)
       // Then define and call a method to handle the successful attachment of a PaymentMethod.
       // handlePaymentMethodAttached(paymentMethod);
       break;
