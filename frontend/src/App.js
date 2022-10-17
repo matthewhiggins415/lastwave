@@ -72,7 +72,7 @@ const App = () => {
         <Route path="/admin/customers/:id" element={<AdminCustomerEditScreen user={user}/>} exact/>
         <Route path="/admin/products" element={<AdminProductsScreen user={user} notify={notify}/>} exact/>
         <Route path="/admin/orders" element={<AdminOrdersScreen user={user} notify={notify}/>} exact/>
-        <Route path="/admin/edit-product/:id" element={<AdminProductEdit user={user} notify={notify}/>} exact/>
+        <Route path="/admin/edit-product/:payment_intent/:payment_intent_client_secret/:redirect_status" element={<AdminProductEdit user={user} notify={notify}/>} exact/>
 
         <Route path="*" element={<PageNotFoundScreen />} />
       </Routes>   
