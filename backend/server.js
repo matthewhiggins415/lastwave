@@ -61,7 +61,7 @@ app.use(cors({
   origin: 'https://www.thesimplecat.com'
 }));
 
-const endpointSecret = 'whsec_6ff242a04c62d65b6428b10aa37a91d15ad63e64110179f7d3279762006f842f'
+const endpointSecret = 'whsec_daa3072ade6130032c202634cc1be9440fa5a45b1b9b2e13bd2166c97660f583'
 // const endpointSecret = 'whsec_A056lEY8NhVavdONtxjxC6YbiVqR2zsI'
 
 app.post('/webhook', express.raw({type: 'application/json'}), (req, res) => {
