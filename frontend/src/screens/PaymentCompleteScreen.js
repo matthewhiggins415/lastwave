@@ -2,8 +2,7 @@ import React from 'react'
 import Confetti from 'react-confetti'
 import { Container, H2 } from '../styles/PaymentComplete.styles'
 
-const PaymentCompleteScreen = ({ location }) => {
-  console.log("location:", location)
+const PaymentCompleteScreen = () => {
   return (
     <Container>
       <Confetti recycle={false} numberOfPieces={100}/>
