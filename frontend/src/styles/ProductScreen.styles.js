@@ -31,7 +31,7 @@ export const Image = styled.img`
   border-radius: 10px;
   width: 300px;
   height: 315px;
-  background-color: transparent;
+  background-color: white;
 `
 
 export const ProductDetailsContainer = styled.div`

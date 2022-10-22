@@ -4,9 +4,7 @@ import { Link } from 'react-router-dom'
 export const ContainerLink = styled(Link)`
   color: black;
   text-decoration: none;
-
 `
-
 export const Container = styled.div`
   border-radius: 10px;
   width: 220px;
@@ -19,7 +17,6 @@ export const Container = styled.div`
   align-items: center;
   text-align: center;
 `
-
 export const ProductLink = styled(Link)`
   color: black;
   text-decoration: none;
