@@ -40,10 +40,15 @@ const productSchema = new Schema({
       required: true, 
       default: 0
     }, 
-    countInStock: {
+    numOfReviews: {
       type: Number, 
       required: true, 
-      default: 0
+      default: 4
+    },
+    reviewRating: {
+      type: Number, 
+      required: true, 
+      default: 5
     }
 }, {
   timestamps: true

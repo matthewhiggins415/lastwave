@@ -137,8 +137,8 @@ const ProductScreen = ({ user, notify, setUser }) => {
             <h2>{`Price: $${product.price}`}</h2>
           </DetailContainer>
           <DetailContainer>  
-            <p>24 sold</p>
-            <p>4.9 &#x2605; &#x2605; &#x2605; &#x2605; &#x2605;</p>
+            <p>{`${product.numOfReviews} sold`}</p>
+            <p>{product.reviewRating} reviews &#x2605; &#x2605; &#x2605; &#x2605; &#x2605;</p>
           </DetailContainer>
           <CheckoutBtn onClick={() => {handleClick()}}>Add to Cart</CheckoutBtn>
         </ProductDetails>
