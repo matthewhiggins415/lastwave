@@ -20,7 +20,8 @@ const AdminProductEdit = ({ notify, user }) => {
   const [description, setDescription] = useState('')
   const [category, setCategory] = useState('category')
   const [price, setPrice] = useState(0)
-  const [countInStock, setCountInStock] = useState(0)
+  const [numOfReviews, setNumOfReviews] = useState(0)
+  const [reviewRating, setReviewRating] = useState(0)
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -33,7 +34,8 @@ const AdminProductEdit = ({ notify, user }) => {
       setDescription(res.data.product.description)
       setCategory(res.data.product.category)
       setPrice(res.data.product.price)
-      setCountInStock(res.data.product.countInStock)
+      setNumOfReviews(res.data.product.numOfReviews)
+      setReviewRating(res.data.product.reviewRating)
     }
     
     fetchProduct()
@@ -51,13 +53,14 @@ const AdminProductEdit = ({ notify, user }) => {
     let newProduct = {
       name: name,
       price: price, 
-      countInStock: countInStock, 
       description: description,
       imageOne: imageOne, 
       // imageTwo: imageTwo, 
       // imageThree: imageThree, 
       // imageFour: imageFour,
-      category: category
+      category: category,
+      reviewRating: reviewRating,
+      numOfReviews: numOfReviews
     }
     
     try {
@@ -185,7 +188,7 @@ const AdminProductEdit = ({ notify, user }) => {
         <label>Required you add an image</label>
         <ImageUploadContainer>
           <Image style={{height: "60px", }} src={apiUrl + "/" + imageOne}/>
-          <ImageInput name="imageOne" type="file" onChange={uploadSelectedHandlerImageOne} accept="image/*, .pdf, .png, .jpg" required/>
+          <ImageInput name="imageOne" type="file" onChange={uploadSelectedHandlerImageOne} accept="image/*, .pdf, .png, .jpg"/>
           <ImageButton onClick={fileUploadHandlerImageOne}>Upload</ImageButton>
         </ImageUploadContainer>
         {/* <label>Required you add another image</label>
@@ -206,18 +209,19 @@ const AdminProductEdit = ({ notify, user }) => {
         </ImageUploadContainer> */}
       <Form>
         <label>Name of product</label>
-        <Input value={name} name="name" type="text" onChange={(e) => {setName(e.target.value)}} required/>
+        <Input value={name} name="name" type="text" onChange={(e) => {setName(e.target.value)}}/>
         <label>Description of product</label>
-        <Input value={description} name="description" type="text-area" placeholder="description" onChange={(e) => {setDescription(e.target.value)}} required/> 
+        <Input value={description} name="description" type="text-area" placeholder="description" onChange={(e) => {setDescription(e.target.value)}}/> 
         <label>Category of product</label>  
         <Input value={category} name="category" type="text" placeholder="category" onChange={(e) => {setCategory(e.target.value)}}/>
         <label>Price of product, number no decimals ($)</label>  
-        <Input value={price} name="price" type="number"  placeholder="price" onChange={(e) => {setPrice(e.target.value)}} required/>
-        <label>Count in stock of product, number</label>  
-        <Input value={countInStock} name="countInStock" type="number"  placeholder="count in stock" onChange={(e) => {setCountInStock(e.target.value)}} required/>
+        <Input value={price} name="price" type="number"  placeholder="price" onChange={(e) => {setPrice(e.target.value)}}/>
+        <label>Number of Reviews</label>  
+        <Input value={numOfReviews} name="numOfReviews" type="number"  placeholder="number of reviews" onChange={(e) => {setNumOfReviews(e.target.value)}}/>
+        <label>Average review rating</label>  
+        <Input value={reviewRating} name="reviewRating" type="number"  placeholder="average rating of reviews" onChange={(e) => {setReviewRating(e.target.value)}}/>
         <Button onClick={handleSubmit}>Submit</Button>
       </Form>
-
     </Container>
   )
 }
