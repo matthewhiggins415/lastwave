@@ -57,6 +57,16 @@ connectDB()
 
 const app = express()
 
+
+// app.use((req, res, next) => {
+//   const allowedOrigins = ['www.example1.com', 'www.example2.com', 'www.example3.com'];
+//   const origin = req.headers.origin;
+//   if (allowedOrigins.includes(origin)) {
+//     res.setHeader('Access-Control-Allow-Origin', origin);
+//   }
+//   return next();
+// });
+
 app.use(cors({
   origin: 'https://www.thesimplecat.com'
 }));

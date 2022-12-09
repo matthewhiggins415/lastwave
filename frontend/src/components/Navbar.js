@@ -77,10 +77,9 @@ const Navbar = ({ user }) => {
           <NavbarLinkContainer>
             {renderNav()}
             <OpenLinksButton onClick={closeExtendedNav}>
-              {extendNavbar ? <>&#10005;</> : <>&#8801;</>}
+              { extendNavbar ? <> &#10005; </> : <> &#8801; </> }
             </OpenLinksButton>
           </NavbarLinkContainer>
-
         </LeftContainer>
         <RightContainer>
           <NavbarLinkContainer>
@@ -88,6 +87,7 @@ const Navbar = ({ user }) => {
           </NavbarLinkContainer>
         </RightContainer>
       </NavbarInnerContainer>
+      
       {extendNavbar && (
       <NavbarExtendedContainer>
        {renderExtended()}
